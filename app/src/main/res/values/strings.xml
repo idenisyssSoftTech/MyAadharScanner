@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyAadharScanner</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scan">Scan QR</string>
+    <string name="update">Update</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+</resources>
