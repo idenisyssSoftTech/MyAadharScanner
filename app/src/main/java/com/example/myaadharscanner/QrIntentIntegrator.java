@@ -26,9 +26,9 @@ public class QrIntentIntegrator extends  Object{
     private static final String TAG = IntentIntegrator.class.getSimpleName();
 
 
-    // supported barcode formats
 
-    // Product Codes
+
+
     public static final String UPC_A = "UPC_A";
     public static final String UPC_E = "UPC_E";
     public static final String EAN_8 = "EAN_8";
