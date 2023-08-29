@@ -25,7 +25,7 @@ public class QrIntentIntegrator extends  Object{
 
     private static final String TAG = IntentIntegrator.class.getSimpleName();
 
-// hi welcome 
+
 
 
 
