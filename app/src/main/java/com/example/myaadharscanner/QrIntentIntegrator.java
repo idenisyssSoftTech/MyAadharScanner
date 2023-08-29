@@ -27,7 +27,7 @@ public class QrIntentIntegrator extends  Object{
 
 
 
-
+// hi welcome testing mode 1
 
     public static final String UPC_A = "UPC_A";
     public static final String UPC_E = "UPC_E";
