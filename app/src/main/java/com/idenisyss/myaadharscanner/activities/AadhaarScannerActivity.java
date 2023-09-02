@@ -54,8 +54,8 @@ public class AadhaarScannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aadhaar_scanner);
 
-
-       /* AadhaarParser aadhaarParser=AadhaarParser.getInstance(this);
+/*
+        AadhaarParser aadhaarParser=AadhaarParser.getInstance(this);
 
         aadhaarParser.parse("YOUR_AADHAAR_CARD_SCAN_STRING", new OnAadhaarResponse() {
             @Override
@@ -84,7 +84,7 @@ public class AadhaarScannerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 IntentIntegrator integrator = new IntentIntegrator(AadhaarScannerActivity.this);
                 integrator.setPrompt("Place the code in the center of the square.\n         It will be scanned automatically.");
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
                 integrator.setPrompt("Scan Any Qr Code");
                 integrator.setBeepEnabled(true);
                 integrator.setCameraId(0);  // Use the rear camera
@@ -96,7 +96,6 @@ public class AadhaarScannerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://uidai.gov.in/en/my-aadhaar/update-aadhaar.html#:~:text=You%20can%20update%20your%20Address%20online%20in%20Self%20Service%20Update,to%20visit%20Permanent%20Enrolment%20Center"));
-
                 startActivity(browserIntent);
             }
         });
@@ -173,8 +172,9 @@ public class AadhaarScannerActivity extends AppCompatActivity {
                         }
                     }
                     else {
-                        Toast.makeText(getApplicationContext(), "Qrcode data is Not in XML -UTF-8", Toast.LENGTH_SHORT).show();
-                        BigInteger bigInt = new BigInteger(scannedData);
+                        textview.setText(scannedData);
+                       // Toast.makeText(getApplicationContext(), "Qrcode data is Not in XML -UTF-8", Toast.LENGTH_SHORT).show();
+                       /* BigInteger bigInt = new BigInteger(scannedData);
                         Log.d("AadharScannerActivity", "Scanned: " + bigInt);
                         byte[] compressedData = bigInt.toByteArray();
                         byte delimiter = (byte) 255;
@@ -186,72 +186,9 @@ public class AadhaarScannerActivity extends AppCompatActivity {
                         while (currentIndex < decompressedData.length && decompressedData[currentIndex] != delimiter) {
                             System.out.println("Value: " + decompressedData[currentIndex]);
                             currentIndex++;
-                        }
-
-
-                       /* XmlPullParserFactory pullParserFactory;
-
-                        try {
-                            // init the parserfactory
-                            pullParserFactory = XmlPullParserFactory.newInstance();
-                            // get the parser
-                            XmlPullParser parser = pullParserFactory.newPullParser();
-
-                            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-                            parser.setInput(new StringReader(scannedData));
-                            aadharData = new AadharCard();
-
-                            // parse the XML
-                            int eventType = parser.getEventType();
-                            while (eventType != XmlPullParser.END_DOCUMENT) {
-                                if(eventType == XmlPullParser.START_DOCUMENT) {
-                                    Log.d("Rajdeol","Start document");
-                                } else if(eventType == XmlPullParser.START_TAG && DataAttributes.AADHAAR_DATA_TAG.equals(parser.getName())) {
-                                    // extract data from tag
-                                    //uid
-                                    aadharData.setUuid(parser.getAttributeValue(null,DataAttributes.AADHAR_UID_ATTR));
-                                    //name
-                                    aadharData.setName(parser.getAttributeValue(null,DataAttributes.AADHAR_NAME_ATTR));
-                                    //gender
-                                    aadharData.setGender(parser.getAttributeValue(null,DataAttributes.AADHAR_GENDER_ATTR));
-                                    // year of birth
-                                    aadharData.setDateOfBirth(parser.getAttributeValue(null,DataAttributes.AADHAR_DOB_ATTR));
-                                    // care of
-                                    aadharData.setCareOf(parser.getAttributeValue(null,DataAttributes.AADHAR_CO_ATTR));
-                                    // village Tehsil
-                                    aadharData.setVtc(parser.getAttributeValue(null,DataAttributes.AADHAR_VTC_ATTR));
-                                    // Post Office
-                                    aadharData.setPostOffice(parser.getAttributeValue(null,DataAttributes.AADHAR_PO_ATTR));
-                                    // district
-                                    aadharData.setDistrict(parser.getAttributeValue(null,DataAttributes.AADHAR_DIST_ATTR));
-                                    // state
-                                    aadharData.setState(parser.getAttributeValue(null,DataAttributes.AADHAR_STATE_ATTR));
-                                    // Post Code
-                                    aadharData.setPinCode(parser.getAttributeValue(null,DataAttributes.AADHAR_PC_ATTR));
-
-                                } else if(eventType == XmlPullParser.END_TAG) {
-                                    Log.d("Rajdeol","End tag "+parser.getName());
-
-                                } else if(eventType == XmlPullParser.TEXT) {
-                                    Log.d("Rajdeol","Text "+parser.getText());
-
-                                }
-                                // update eventType
-                                eventType = parser.next();
-                            }
-
-                            // display the data on screen
-                            textview.setText(aadharData.getUuid());
-                            return;
-                        } catch (XmlPullParserException e) {
-                            showErrorPrompt("Error in processing QRcode XML");
-                            e.printStackTrace();
-                            return;
-                        } catch (IOException e) {
-                            showErrorPrompt(e.toString());
-                            e.printStackTrace();
-                            return;
                         }*/
+
+
                     }
 
                     }

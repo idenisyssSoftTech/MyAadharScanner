@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent j = new Intent(getApplicationContext(), ScannerActivityOrientation.class);
+                Intent j = new Intent(getApplicationContext(), AadhaarScannerActivity.class);
                 startActivity(j);
             }
         });
