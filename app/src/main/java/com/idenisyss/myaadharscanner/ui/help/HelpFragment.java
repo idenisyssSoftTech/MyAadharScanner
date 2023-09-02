@@ -1,4 +1,4 @@
-package com.idenisyss.myaadharscanner.ui.gallery;
+package com.idenisyss.myaadharscanner.ui.help;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,24 +8,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.idenisyss.myaadharscanner.databinding.FragmentSlideshowBinding;
 
-import com.idenisyss.myaadharscanner.R;
+public class HelpFragment extends Fragment {
 
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class GalleryFragment extends Fragment {
-
-
+    private FragmentSlideshowBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
-        View root  = inflater.inflate(R.layout.fragment_gallery, container, false);
-
-
+        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
         return root;
     }
@@ -33,5 +26,6 @@ public class GalleryFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        binding = null;
     }
 }

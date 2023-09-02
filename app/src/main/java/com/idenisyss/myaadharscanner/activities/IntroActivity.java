@@ -46,7 +46,7 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Move to the main activity or next screen
-                startActivity(new Intent(IntroActivity.this, MainActivity.class));
+                startActivity(new Intent(IntroActivity.this, SettingActivity.class));
                 finish();
             }
         });

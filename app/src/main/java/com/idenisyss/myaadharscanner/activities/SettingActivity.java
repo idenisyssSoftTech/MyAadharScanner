@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.idenisyss.myaadharscanner.R;
 
-public class MainActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
