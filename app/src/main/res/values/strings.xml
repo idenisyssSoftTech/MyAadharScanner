@@ -1,9 +1,24 @@
 <resources>
-    <string name="app_name">MyAadharScanner</string>
+    <string name="app_name">MyAadhariDscan</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="scan">Scan QR</string>
     <string name="update">Update</string>
     <string name="next">Next</string>
     <string name="skip">Skip</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">History</string>
+    <string name="menu_slideshow">Help</string>
+    <string name="menu_contact_us">Contact Us</string>
+    <string name="menu_about_us">About Us</string>
+    <string name="menu_message">Message</string>
+
 </resources>
