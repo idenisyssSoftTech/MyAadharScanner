@@ -1,4 +1,4 @@
-package com.idenisyss.myaadharscanner;
+package com.idenisyss.myaadharscanner.utilities;
 
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -10,8 +10,6 @@ import org.xml.sax.InputSource;
 import java.io.StringReader;
 
 public class XMLValidation {
-
-
 
     public static boolean isStringValidBitmap(String base64EncodedBitmap) {
         try {

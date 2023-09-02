@@ -32,10 +32,10 @@ public class HomeFragment extends Fragment {
         View root  = inflater.inflate(R.layout.fragment_home, container, false);
 
         list = new ArrayList<>();
-        list.add("Aadhar"+"\nQr Scan");
-        list.add("History");
+        list.add("BarCode \n Data");
+        list.add("QR code \n Data");
         list.add("Call");
-        list.add("Settings");
+        list.add("Message");
 
         home_recycler_view = root.findViewById(R.id.home_recycler_view);
 

@@ -1,10 +1,13 @@
-package com.idenisyss.myaadharscanner;
+package com.idenisyss.myaadharscanner.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.idenisyss.myaadharscanner.HomeActivity;
+import com.idenisyss.myaadharscanner.R;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashActivity.this,HomeActivity.class);
+                Intent i = new Intent(SplashActivity.this, HomeActivity.class);
                 startActivity(i);
                 finish();
                 /*

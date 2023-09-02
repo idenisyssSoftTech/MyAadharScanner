@@ -19,12 +19,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.idenisyss.myaadharscanner.R;
-import com.idenisyss.myaadharscanner.XMLValidation;
+import com.idenisyss.myaadharscanner.utilities.XMLValidation;
 
 
 import org.w3c.dom.Document;
@@ -33,7 +32,6 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
 import java.io.StringReader;
-import java.math.BigInteger;
 
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
@@ -53,20 +51,6 @@ public class AadhaarScannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aadhaar_scanner);
-
-/*
-        AadhaarParser aadhaarParser=AadhaarParser.getInstance(this);
-
-        aadhaarParser.parse("YOUR_AADHAAR_CARD_SCAN_STRING", new OnAadhaarResponse() {
-            @Override
-            public void onAadhaarResponse(AadhaarUser aadhaarCard) {
-
-                // aadhaarCard is your user model object
-                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                intent.putExtra("card", aadhaarCard);
-                startActivity(intent);
-            }
-        });*/
 
         boolean isInternetAvailable = isInternetAvailable(this);
         if (isInternetAvailable) {
