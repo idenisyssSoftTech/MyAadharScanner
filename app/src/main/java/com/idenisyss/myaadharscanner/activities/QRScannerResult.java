@@ -21,9 +21,9 @@ import com.idenisyss.myaadharscanner.databases.livedatamodel.ScannedLivedData;
 
 import java.util.Objects;
 
-public class QRScanSuccessResult extends AppCompatActivity {
+public class QRScannerResult extends AppCompatActivity {
 
-    private static final String TAG_NAME = QRScanSuccessResult.class.getName();
+    private static final String TAG_NAME = QRScannerResult.class.getName();
 
     private TextView QRResult;
     private Button BtnSave, BtnCancel;
@@ -45,7 +45,6 @@ public class QRScanSuccessResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_detail_screen);
-        // Initialize the database
 
         QRResult = (TextView) findViewById(R.id.QrResult);
         BtnSave = (Button) findViewById(R.id.SaveBtn);
@@ -78,7 +77,7 @@ public class QRScanSuccessResult extends AppCompatActivity {
                     QRResult.setText("");
                     finish();
                 } else {
-                    Toast.makeText(QRScanSuccessResult.this, "No Data from QR code", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QRScannerResult.this, "No Data from QR code", Toast.LENGTH_SHORT).show();
 
                 }
 

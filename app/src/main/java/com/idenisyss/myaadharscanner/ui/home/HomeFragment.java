@@ -1,21 +1,31 @@
 package com.idenisyss.myaadharscanner.ui.home;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.idenisyss.myaadharscanner.BuildConfig;
 import com.idenisyss.myaadharscanner.QRCodeScanner;
 import com.idenisyss.myaadharscanner.R;
 import com.idenisyss.myaadharscanner.adapters.HomeviewsAdapter;
+import com.idenisyss.myaadharscanner.utilities.PermissionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +40,20 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root  = inflater.inflate(R.layout.fragment_home, container, false);
-        FloatingActionButton fab = root.findViewById(R.id.fab);
+
+        //Check Camera Permissions
+        checkPermissionMethod();
+
+        ExtendedFloatingActionButton fab = root.findViewById(R.id.fab);
               fab.setOnClickListener(view -> {
 //                Intent j = new Intent(getApplicationContext(), AadhaarScannerActivity.class);
 //                startActivity(j);
-
-                  Intent i = new Intent(requireContext(),QRCodeScanner.class);
-                  startActivity(i);
+                  if(checkPermissionMethod()){
+                      Intent i = new Intent(requireContext(),QRCodeScanner.class);
+                      startActivity(i);
+                  }
               });
+
         list = new ArrayList<>();
         list.add("BarCode \n Data");
         list.add("QR code \n Data");
@@ -55,6 +71,64 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    private boolean checkPermissionMethod() {
+        boolean isGranted = false;
+        if(PermissionUtils.hasCameraPermission(getContext())){
+            isGranted = true;
+        }else {
+            if(shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)){
+                showPermissionRationaleDialog();
+            }else{
+                requestPermissionLauncher.launch(Manifest.permission.CAMERA);
+            }
+        }
+        return isGranted;
+    }
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean isGranted) {
+                    if(isGranted){
+                        Log.d("Camera Permissions ","onActivityResult : granted");
+                    }else{
+                        if(!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)){
+                            showPermissionSettingsDialog();
+                        }
+                        Log.d("camera permissions ","showRequestPermission Launcher : "+shouldShowRequestPermissionRationale(Manifest.permission.CAMERA));
+                        Log.d("Camera Permissions ","onActivityResult : notGranted");
+                    }
+
+                }
+            });
+
+
+
+    private void showPermissionRationaleDialog() {
+        PermissionUtils.showCustomDialog(getContext(), "Camera Permission",
+                "This app needs the camera permission. Please allow the permission.",
+                "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestPermissionLauncher.launch(Manifest.permission.CAMERA);
+                    }
+                }, "Cancel",null);
+    }
+
+
+    private void showPermissionSettingsDialog() {
+        PermissionUtils.showCustomDialog(getContext(), "Camera Permission!..",
+                "The app needs camera permission to function. Please allow this permission in the app settings. ",
+                "Go To Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.parse("package:"+ BuildConfig.APPLICATION_ID));
+                        startActivity(intent);
+                    }
+                },
+                "Cancel",null);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

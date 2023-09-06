@@ -19,7 +19,7 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.android.material.button.MaterialButton;
 import com.google.zxing.Result;
-import com.idenisyss.myaadharscanner.activities.QRScanSuccessResult;
+import com.idenisyss.myaadharscanner.activities.QRScannerResult;
 
 import java.util.Objects;
 
@@ -66,7 +66,7 @@ public class QRCodeScanner extends AppCompatActivity {
                     // Handle the scanned QR code data here
                     String scannedData = result.getText();
 
-                    Intent i = new Intent(QRCodeScanner.this, QRScanSuccessResult.class);
+                    Intent i = new Intent(QRCodeScanner.this, QRScannerResult.class);
                     i.putExtra("result",scannedData);
                     startActivity(i);
                     finish();
