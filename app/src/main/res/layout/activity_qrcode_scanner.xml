@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QRCodeScanner"
+    tools:ignore="MissingClass">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.budiyev.android.codescanner.CodeScannerView
+            android:id="@+id/scanner_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:autoFocusButtonPaddingHorizontal="80dp"
+            app:autoFocusButtonPaddingVertical="30dp"
+            app:autoFocusButtonPosition="topEnd"
+            app:flashButtonPaddingHorizontal="30dp"
+            app:flashButtonPaddingVertical="30dp"
+            app:frameCornersCapRounded="true"
+            app:frameColor="#FF5722"
+            app:frameCornersRadius="10dp"
+            app:frameCornersSize="30dp"
+            app:frameSize="0.65"
+            app:frameThickness="4dp"
+            app:frameVerticalBias="0.3"
+            app:maskColor="#77000000"/>
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/chooseQR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="@string/gallery"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:cornerRadius="20dp"
+            android:visibility="gone"
+            app:icon="@drawable/gallery"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/scanner_view"
+            app:layout_constraintVertical_bias="0.614" />
+
+        <ImageButton
+            android:id="@+id/cancelQR"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@android:color/transparent"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

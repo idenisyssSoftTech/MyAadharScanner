@@ -7,6 +7,9 @@ public class HistoryModel {
     private  String date_time;
     private  String data_content;
 
+    public HistoryModel() {
+    }
+
     public HistoryModel(String id, String code_type, String date_time, String data_content) {
         this.id = id;
         this.code_type = code_type;

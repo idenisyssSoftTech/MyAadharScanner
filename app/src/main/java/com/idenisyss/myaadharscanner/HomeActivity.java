@@ -1,8 +1,6 @@
 package com.idenisyss.myaadharscanner;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
 
 import com.google.android.material.navigation.NavigationView;
@@ -14,9 +12,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.idenisyss.myaadharscanner.activities.AadhaarScannerActivity;
-import com.idenisyss.myaadharscanner.activities.ScannerActivityOrientation;
 import com.idenisyss.myaadharscanner.databinding.ActivityHomeBinding;
 
 public class HomeActivity extends AppCompatActivity {
@@ -33,13 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarHome.toolbar);
-        binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent j = new Intent(getApplicationContext(), AadhaarScannerActivity.class);
-                startActivity(j);
-            }
-        });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each

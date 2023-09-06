@@ -1,21 +1,21 @@
 package com.idenisyss.myaadharscanner.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.idenisyss.myaadharscanner.QRCodeScanner;
 import com.idenisyss.myaadharscanner.R;
 import com.idenisyss.myaadharscanner.adapters.HomeviewsAdapter;
-import com.idenisyss.myaadharscanner.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,14 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root  = inflater.inflate(R.layout.fragment_home, container, false);
+        FloatingActionButton fab = root.findViewById(R.id.fab);
+              fab.setOnClickListener(view -> {
+//                Intent j = new Intent(getApplicationContext(), AadhaarScannerActivity.class);
+//                startActivity(j);
 
+                  Intent i = new Intent(requireContext(),QRCodeScanner.class);
+                  startActivity(i);
+              });
         list = new ArrayList<>();
         list.add("BarCode \n Data");
         list.add("QR code \n Data");

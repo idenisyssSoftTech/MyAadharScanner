@@ -21,4 +21,13 @@
     <string name="menu_about_us">About Us</string>
     <string name="menu_message">Message</string>
 
+    <string name="save">Save</string>
+    <string name="Cancel">Cancel</string>
+    <string name="gallery">Upload from gallery</string>
+    <string name="todo">TODO</string>
+    <string name="resultTitle">Result</string>
+
+    <!-- QrScan Result Strings  -->
+    <string name="QrScanTitle">QRScan Result</string>
+
 </resources>

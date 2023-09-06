@@ -32,8 +32,9 @@ public class HistoryFragment extends Fragment {
 
 
         View root  = inflater.inflate(R.layout.fragment_gallery, container, false);
+        HistoryModel hm = new HistoryModel();
         historyModelLists = new ArrayList<>();
-        HistoryModel h1 = new HistoryModel("1","QR code","02-09-2023","Hello");
+        HistoryModel h1 = new HistoryModel("1","QR code","02-09-2023",hm.getData_content());
         HistoryModel h2 = new HistoryModel("2","Bar code","03-08-2023","Hello djkdvjkndjsbdkkvjhofdivhd dvudfhvnjdfnvfdvj");
         HistoryModel h3 = new HistoryModel("3","code","02-08-2023","jfdbshjvjfdbvnmc vmcx");
         HistoryModel h4 = new HistoryModel("4","Bar code","22-07-2023","jfkdsnvkjfdnvlkdmvdzkvm kxz");
