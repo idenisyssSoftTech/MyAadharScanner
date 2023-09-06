@@ -16,8 +16,6 @@ public class IntroActivity extends AppCompatActivity {
     private int currentPage = 0;
    // private int[] introLayouts = { R.layout.activity_intro,R.layout.fragment_intro1, R.layout.fragment_intro2, /* Add more layouts */ };
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

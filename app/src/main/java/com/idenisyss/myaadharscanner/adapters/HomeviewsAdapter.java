@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.idenisyss.myaadharscanner.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeviewsAdapter extends RecyclerView.Adapter<HomeviewsAdapter.MyViewHolder> {
 
     Context context;
-    List<String>  list ;
+    List<String> list;
 
     public HomeviewsAdapter(Context context, List<String> list) {
 
@@ -28,7 +27,7 @@ public class HomeviewsAdapter extends RecyclerView.Adapter<HomeviewsAdapter.MyVi
     @NonNull
     @Override
     public HomeviewsAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View root = LayoutInflater.from(context).inflate(R.layout.home_views_list,parent,false);
+        View root = LayoutInflater.from(context).inflate(R.layout.home_views_list, parent, false);
 
         return new MyViewHolder(root);
     }
@@ -44,8 +43,9 @@ public class HomeviewsAdapter extends RecyclerView.Adapter<HomeviewsAdapter.MyVi
         return list.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView list_tv1;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             list_tv1 = itemView.findViewById(R.id.list_tv1);
@@ -53,4 +53,5 @@ public class HomeviewsAdapter extends RecyclerView.Adapter<HomeviewsAdapter.MyVi
 
         }
     }
+
 }

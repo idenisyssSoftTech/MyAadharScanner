@@ -1,5 +1,6 @@
 package com.idenisyss.myaadharscanner.databases.daos;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Dao
 public interface ScanHistoryDAO {
+
     @Insert
     void insert(ScannedHistory contact);
 
@@ -22,6 +24,6 @@ public interface ScanHistoryDAO {
     void delete(ScannedHistory contact);
 
     @Query("SELECT * FROM sanneddata")
-    List<ScannedHistory> getAllContacts();
-}
+    LiveData<List<ScannedHistory>> getAllScannedHistory();
 
+}

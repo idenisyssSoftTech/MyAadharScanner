@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "sanneddata")
 public class ScannedHistory {
+
     @PrimaryKey(autoGenerate = true)
     public int id;
 
@@ -17,5 +18,37 @@ public class ScannedHistory {
 
     @ColumnInfo(name = "data")
     public String data;
-}
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCodetype() {
+        return codetype;
+    }
+
+    public void setCodetype(String codetype) {
+        this.codetype = codetype;
+    }
+
+    public String getTimedate() {
+        return timedate;
+    }
+
+    public void setTimedate(String timedate) {
+        this.timedate = timedate;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+}

@@ -1,7 +1,7 @@
 package com.idenisyss.myaadharscanner.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,24 +13,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.idenisyss.myaadharscanner.R;
-import com.idenisyss.myaadharscanner.ui.history.HistoryModel;
+import com.idenisyss.myaadharscanner.databases.dbtables.ScannedHistory;
+import com.idenisyss.myaadharscanner.databases.livedatamodel.ScannedLivedData;
 
 import java.util.Objects;
 
 public class QRScanSuccessResult extends AppCompatActivity {
 
-    TextView QRResult ;
-    Button BtnSave, BtnCancel;
-    ImageView QRCodeImage;
-    String result;
-    Bitmap qrCodeImageBit;
+    private static final String TAG_NAME = QRScanSuccessResult.class.getName();
+
+    private TextView QRResult;
+    private Button BtnSave, BtnCancel;
+    private ImageView QRCodeImage;
+    private String result;
+    private Bitmap qrCodeImageBit;
+    private ScannedLivedData scannedLivedData;
 
 
     @Override
     protected void onStart() {
-        Log.d("DisplayAadarDetailsActivity","onstart");
+        Log.d(TAG_NAME, "onstart");
         super.onStart();
     }
 
@@ -40,11 +45,13 @@ public class QRScanSuccessResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_detail_screen);
+        // Initialize the database
 
         QRResult = (TextView) findViewById(R.id.QrResult);
         BtnSave = (Button) findViewById(R.id.SaveBtn);
         BtnCancel = (Button) findViewById(R.id.cancelBtn);
         QRCodeImage = (ImageView) findViewById(R.id.QRCodeImg);
+        scannedLivedData = new ViewModelProvider(this).get(ScannedLivedData.class);
 
         // toolbar Title
         Objects.requireNonNull(getSupportActionBar()).setTitle("Add New");
@@ -61,10 +68,18 @@ public class QRScanSuccessResult extends AppCompatActivity {
         BtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(result != null){
-                    HistoryModel hm = new HistoryModel();
-                    hm.setData_content(QRResult.getText().toString());
+                if (result != null) {
+                    Log.d(TAG_NAME, "start");
+                    ScannedHistory hm = new ScannedHistory();
+                    hm.codetype = "QR";
+                    hm.data = QRResult.getText().toString();
+                    scannedLivedData.insert(hm);
+                    Log.d(TAG_NAME, "completed");
                     QRResult.setText("");
+                    finish();
+                } else {
+                    Toast.makeText(QRScanSuccessResult.this, "No Data from QR code", Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -89,10 +104,5 @@ public class QRScanSuccessResult extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
 
 }
