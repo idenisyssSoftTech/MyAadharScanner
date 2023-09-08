@@ -21,36 +21,106 @@
             app:flashButtonPaddingHorizontal="30dp"
             app:flashButtonPaddingVertical="30dp"
             app:frameCornersCapRounded="true"
-            app:frameColor="#FF5722"
-            app:frameCornersRadius="10dp"
-            app:frameCornersSize="30dp"
-            app:frameSize="0.65"
-            app:frameThickness="4dp"
-            app:frameVerticalBias="0.3"
-            app:maskColor="#77000000"/>
+            app:maskColor="#77000000" />
 
 
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/chooseQR"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:text="@string/gallery"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:cornerRadius="20dp"
-            android:visibility="gone"
-            app:icon="@drawable/gallery"
-            app:iconTint="@color/black"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/scanner_view"
-            app:layout_constraintVertical_bias="0.614" />
+            android:baselineAligned="false">
+
+
+            <LinearLayout
+                android:id="@+id/BarcodeLinear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="visible"
+                android:orientation="vertical">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/barcodeBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/barcode_"
+                    app:backgroundTint="@color/cardview_dark_background"
+                    app:maxImageSize="30dp"
+                    app:tint="@color/white"
+                    android:contentDescription="@string/todo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/barcodeBtn"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/QRcodeLinear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/QRScannerBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/qr"
+                    app:backgroundTint="@color/cardview_dark_background"
+                    app:maxImageSize="30dp"
+                    app:tint="@color/white"
+                    android:contentDescription="@string/todo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/qrBtn"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/GalleryLinear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:visibility="visible"
+                android:orientation="vertical">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/BtnchooseQR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/gallery"
+                    app:backgroundTint="@color/cardview_dark_background"
+                    app:maxImageSize="30dp"
+                    app:tint="@color/white"
+                    android:contentDescription="@string/todo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/galleryBtn"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <ImageButton
-            android:id="@+id/cancelQR"
+            android:id="@+id/cancelScanner"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"

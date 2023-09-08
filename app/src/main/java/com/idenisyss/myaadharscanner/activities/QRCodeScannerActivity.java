@@ -2,34 +2,36 @@ package com.idenisyss.myaadharscanner.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.idenisyss.myaadharscanner.R;
 
+import java.util.Arrays;
 import java.util.Objects;
 
-public class QRCodeScannerActivity extends AppCompatActivity {
+public class QRCodeScannerActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG_NAME = QRCodeScannerActivity.class.getName();
-    private final int REQUEST_CAMERA_PERMISSION = 123;
     private CodeScanner mCodeScanner;
+
+    CodeScannerView scannerView;
     ImageButton cancelBtn;
-    MaterialButton SelectGallery;
+    FloatingActionButton Barcode, QRCode,gallery;
+
+    LinearLayout QrLinear, BarcodeLinear, galleryLinear;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,23 +46,78 @@ public class QRCodeScannerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_qrcode_scanner);
 
-        SelectGallery = (MaterialButton) findViewById(R.id.chooseQR);
+        scannerView = findViewById(R.id.scanner_view);
+        mCodeScanner = new CodeScanner(this, scannerView);
 
-        cancelBtn = (ImageButton) findViewById(R.id.cancelQR);
-        cancelBtn.setOnClickListener(view -> finish());
+        QrLinear = findViewById(R.id.QRcodeLinear);
+        QrLinear.setVisibility(View.GONE);
 
-        if (ContextCompat.checkSelfPermission(QRCodeScannerActivity.this, android.Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(QRCodeScannerActivity.this, new String[] {Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
-        } else {
+        BarcodeLinear = findViewById(R.id.BarcodeLinear);
+        BarcodeLinear.setVisibility(View.VISIBLE);
+
+        galleryLinear = findViewById(R.id.GalleryLinear);
+        galleryLinear.setVisibility(View.VISIBLE);
+
+        QRCode = findViewById(R.id.QRScannerBtn);
+        QRCode.setOnClickListener(this);
+
+        Barcode  = findViewById(R.id.barcodeBtn);
+        Barcode.setOnClickListener(this);
+
+        gallery = findViewById(R.id.BtnchooseQR);
+        gallery.setOnClickListener(this);
+
+        cancelBtn =  findViewById(R.id.cancelScanner);
+        cancelBtn.setOnClickListener(this);
+
+
             startScanning();
+
+    }
+
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.cancelScanner:
+                finish();
+                break;
+            case R.id.barcodeBtn:
+                galleryLinear.setVisibility(View.GONE);
+                BarcodeLinear.setVisibility(View.GONE);
+                QrLinear.setVisibility(View.VISIBLE);
+                startBarcodeScanning();
+                break;
+            case R.id.QRScannerBtn:
+                startScanning();
+                break;
         }
     }
 
-    private void startScanning() {
-        CodeScannerView scannerView = findViewById(R.id.scanner_view);
-        mCodeScanner = new CodeScanner(this, scannerView);
 
+    private void startScanning() {
+        BarcodeLinear.setVisibility(View.VISIBLE);
+        QrLinear.setVisibility(View.GONE);
+        galleryLinear.setVisibility(View.VISIBLE);
+        BarcodeFormat[] QRformats = new BarcodeFormat[]{
+                BarcodeFormat.QR_CODE,
+                BarcodeFormat.DATA_MATRIX,
+                BarcodeFormat.AZTEC,
+                BarcodeFormat.MAXICODE,
+                BarcodeFormat.PDF_417
+        };
+
+        // setUp QRScanner FrameStyle
+        scannerView.setFrameColor(getResources().getColor(R.color.orange));
+        scannerView.setFrameCornersSize(60);
+        scannerView.setFrameCornersRadius(20);
+        scannerView.setFrameSize(0.65f);
+        scannerView.setFrameAspectRatio(1f, 1f);
+        scannerView.setFrameVerticalBias(0.3f);
+        scannerView.setFrameThickness(8);
+
+        mCodeScanner.setFormats(Arrays.asList(QRformats));
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
@@ -79,19 +136,47 @@ public class QRCodeScannerActivity extends AppCompatActivity {
         scannerView.setOnClickListener(view -> mCodeScanner.startPreview());
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CAMERA_PERMISSION) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Camera permission granted", Toast.LENGTH_LONG).show();
-                startScanning();
-            } else {
-                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
+    private void startBarcodeScanning() {
+        BarcodeFormat[] Barcodeformats = new BarcodeFormat[]{
+                BarcodeFormat.CODE_128,
+                BarcodeFormat.CODE_93,
+                BarcodeFormat.CODE_39,
+                BarcodeFormat.CODABAR,
+                BarcodeFormat.EAN_8,
+                BarcodeFormat.EAN_13,
+                BarcodeFormat.ITF,
+                BarcodeFormat.UPC_A,
+                BarcodeFormat.UPC_E,
+                BarcodeFormat.UPC_EAN_EXTENSION};
+        //setUp BarcodeScanner FrameStyle
+        scannerView.setFrameColor(getResources().getColor(R.color.yellow));
+        scannerView.setFrameCornersSize(40);
+        scannerView.setFrameCornersRadius(10);
+        scannerView.setFrameSize(0.77f);
+        // Set frame aspect ratio width and height
+        scannerView.setFrameAspectRatio(1.6f, 1f);
+        scannerView.setFrameThickness(5);
+        scannerView.setFrameVerticalBias(0.4f);
 
+        mCodeScanner.setFormats(Arrays.asList(Barcodeformats));
+        mCodeScanner.setDecodeCallback(new DecodeCallback() {
+            @Override
+            public void onDecoded(@NonNull final Result result) {
+                runOnUiThread(() -> {
+                    // Handle the scanned QR code data here
+                    String scannedData = result.getText();
+
+                    Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
+                    i.putExtra("result",scannedData);
+                    startActivity(i);
+                    finish();
+
+                });
+            }
+        });
+
+
+    }
 
     @Override
     protected void onPause() {

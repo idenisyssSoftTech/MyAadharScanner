@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +18,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +40,6 @@ public class HomeFragment extends Fragment {
     HomeviewsAdapter homeviewsAdapter;
     List<HomeModel> list;
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -92,15 +91,34 @@ public class HomeFragment extends Fragment {
     private boolean checkPermissionMethod() {
         boolean isGranted = false;
         if(PermissionUtils.hasCameraPermission(getContext())){
-            isGranted = true;
+            // If you have access to the external storage, do whatever you need
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    // If you don't have access, launch a new activity to show the user the system's dialog
+                    // to allow access to the external storage
+                    isGranted = true;
+                } else {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    Uri uri = Uri.fromParts("package", requireContext().getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                }
+            }
+
         }else {
             if(shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) ||
                 shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
-                shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)){
+                shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) ||
+                shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_IMAGES)){
                 showPermissionRationaleDialog();
             }else{
-                multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                                            Manifest.permission.READ_EXTERNAL_STORAGE});
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES});
+                }else {
+                    multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE});
+                }
             }
         }
         return isGranted;
@@ -114,7 +132,7 @@ public class HomeFragment extends Fragment {
 
             boolean allGranted = true;
             for (String key : result.keySet()) {
-                allGranted = allGranted && result.get(key);
+                allGranted = allGranted && Boolean.TRUE.equals(result.get(key));
             }
             if (allGranted) {
             } else {
@@ -133,8 +151,12 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 //                        requestPermissionLauncher.launch(Manifest.permission.CAMERA);
-                        multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE});
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES});
+                        }else {
+                            multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE});
+                        }
                     }
                 }, "Cancel",null);
     }

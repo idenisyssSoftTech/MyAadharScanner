@@ -30,4 +30,9 @@
     <!-- QrScan Result Strings  -->
     <string name="QrScanTitle">QRScan Result</string>
 
+    <!-- QrCode Buttons -->
+    <string name="qrBtn">QRcode</string>
+    <string name="barcodeBtn">Barcode</string>
+    <string name="galleryBtn">Gallery</string>
+
 </resources>
