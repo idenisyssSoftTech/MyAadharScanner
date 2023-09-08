@@ -50,8 +50,8 @@ public class HomeviewsAdapter extends RecyclerView.Adapter<HomeviewsAdapter.MyVi
             public void onClick(View v) {
 
                 Intent j = new Intent(context, EnterDetailsactivity.class);
-                j.putExtra(AppConstants.HOMETITLE,home_selected_title);
-                j.putExtra(AppConstants.HOMEIMAGE,drawableResourceId );
+                j.putExtra(AppConstants.INTENT_KEY_HOME_TITLE,home_selected_title);
+                j.putExtra(AppConstants.INTENT_KEY_HOME_IMAGE,drawableResourceId );
                 context.startActivity(j);
 
             }

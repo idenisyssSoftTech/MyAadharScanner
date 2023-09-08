@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.idenisyss.myaadharscanner.R;
+import com.idenisyss.myaadharscanner.utilities.AppConstants;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -27,11 +28,11 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
     private static final String TAG_NAME = QRCodeScannerActivity.class.getName();
     private CodeScanner mCodeScanner;
 
-    CodeScannerView scannerView;
-    ImageButton cancelBtn;
-    FloatingActionButton Barcode, QRCode,gallery;
+    private CodeScannerView scannerView;
+    private ImageButton cancelBtn;
+    private FloatingActionButton Barcode, QRCode, gallery;
 
-    LinearLayout QrLinear, BarcodeLinear, galleryLinear;
+    private LinearLayout QrLinear, BarcodeLinear, galleryLinear;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -61,17 +62,17 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         QRCode = findViewById(R.id.QRScannerBtn);
         QRCode.setOnClickListener(this);
 
-        Barcode  = findViewById(R.id.barcodeBtn);
+        Barcode = findViewById(R.id.barcodeBtn);
         Barcode.setOnClickListener(this);
 
         gallery = findViewById(R.id.BtnchooseQR);
         gallery.setOnClickListener(this);
 
-        cancelBtn =  findViewById(R.id.cancelScanner);
+        cancelBtn = findViewById(R.id.cancelScanner);
         cancelBtn.setOnClickListener(this);
 
 
-            startScanning();
+        startScanning();
 
     }
 
@@ -79,7 +80,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.cancelScanner:
                 finish();
                 break;
@@ -126,7 +127,8 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                     String scannedData = result.getText();
 
                     Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
-                    i.putExtra("result",scannedData);
+                    i.putExtra("result", scannedData);
+                    i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.QR_CODE);
                     startActivity(i);
                     finish();
 
@@ -167,7 +169,8 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                     String scannedData = result.getText();
 
                     Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
-                    i.putExtra("result",scannedData);
+                    i.putExtra("result", scannedData);
+                    i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.BARCODE);
                     startActivity(i);
                     finish();
 
@@ -181,7 +184,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onPause() {
         super.onPause();
-        if(mCodeScanner != null) {
+        if (mCodeScanner != null) {
             mCodeScanner.releaseResources();
         }
 //        scannerView.stopCamera();
@@ -190,7 +193,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onResume() {
         super.onResume();
-        if(mCodeScanner != null) {
+        if (mCodeScanner != null) {
             mCodeScanner.startPreview();
         }
     }

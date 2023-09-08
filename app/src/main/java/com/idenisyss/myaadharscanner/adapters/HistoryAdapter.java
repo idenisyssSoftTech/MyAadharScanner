@@ -1,5 +1,7 @@
 package com.idenisyss.myaadharscanner.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,13 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.idenisyss.myaadharscanner.R;
 import com.idenisyss.myaadharscanner.activities.IntroActivity;
+import com.idenisyss.myaadharscanner.activities.QRCodeScannerActivity;
+import com.idenisyss.myaadharscanner.activities.QRScannerResult;
 import com.idenisyss.myaadharscanner.databases.dbtables.ScannedHistory;
+import com.idenisyss.myaadharscanner.utilities.AppConstants;
 
 import java.util.List;
 
@@ -36,6 +42,8 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
 
     };
 
+
+
     @NonNull
     @Override
     public HistoryAdapter.MyHistoryView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,6 +59,16 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
         holder.scanned_date_time.setText(getItem(position).timedate);
         holder.discription_tv.setText(getItem(position).data);
         holder.code_type.setText(getItem(position).codetype);
+        holder.next_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /* Intent i = new Intent(, QRScannerResult.class);
+                i.putExtra("result", scannedData);
+                i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.QR_CODE);
+                startActivity(i);
+                finish();*/
+            }
+        });
 
     }
 

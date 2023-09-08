@@ -1,18 +1,16 @@
 package com.idenisyss.myaadharscanner.activities;
 
-import static com.budiyev.android.codescanner.BarcodeUtils.createBitmap;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.common.BitMatrix;
@@ -25,17 +23,21 @@ public class EnterDetailsactivity extends AppCompatActivity {
     private ImageView home_imageView;
     EditText  data_content_tv;
     private Button create_qr_but,create_bar_code_but;
-    private int width = 300; // Width of the QR code image
-    private int height = 300; // Height of the QR code image
+    private final int width = 300; // Width of the QR code image
+    private final int height = 300; // Height of the QR code image
+    private final int width2 = 450; // Width of the QR and Bar code image
+    private final int height2 = 150; // Height of the Bar code image
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_views_qrgenerator);
-        String homeTitle = getIntent().getStringExtra(AppConstants.HOMETITLE);
-        int drawableResourceId  = getIntent().getIntExtra(AppConstants.HOMEIMAGE,0);
+        String homeTitle = getIntent().getStringExtra(AppConstants.INTENT_KEY_HOME_TITLE);
+        int drawableResourceId  = getIntent().getIntExtra(AppConstants.INTENT_KEY_HOME_IMAGE,0);
         getSupportActionBar().setTitle(homeTitle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         data_content_tv = findViewById(R.id.data_content_tv);
         home_imageView = findViewById(R.id.home_imageView);
@@ -57,22 +59,30 @@ public class EnterDetailsactivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String s = data_content_tv.getText().toString();
-                qrBarcodeString(s,AppConstants.Barcode);
+                qrBarcodeString(s,AppConstants.BARCODE);
 
             }
         });
     }
 
     private  void  qrBarcodeString(String data_string,String codetype){
-        if(data_string != null) {
+        Log.d(TAG_NAME,"method : qrBarcodeString");
+        BitMatrix bitMatrix;
+        if(data_string != null && !data_string.isEmpty()) {
             try {
-                BitMatrix bitMatrix = CodeGenerator.generateQRCode(data_string, width, height);
+                if(codetype.equals(AppConstants.QR_CODE)) {
+                    bitMatrix = CodeGenerator.generateQRCode(data_string, width, height);
+                }
+                else {
+                     bitMatrix = CodeGenerator.generateBarcode(data_string, width2, height2);
+                }
                 // Convert the BitMatrix to a Bitmap
                 Bitmap qrBitmap = createBitmap(bitMatrix);
 
                 Intent l = new Intent(getApplicationContext(),GenerateQRorBarActivity.class);
                 l.putExtra(AppConstants.GENERATE,qrBitmap);
                 l.putExtra(AppConstants.GENERATE_CODE_TYPE,codetype);
+                l.putExtra(AppConstants.GENERATE_STRING,data_string);
                 startActivity(l);
 
             } catch (Exception e) {
@@ -97,7 +107,12 @@ public class EnterDetailsactivity extends AppCompatActivity {
                 bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
             }
         }
-
         return bmp;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

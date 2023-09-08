@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModelProvider;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +20,7 @@ import com.idenisyss.myaadharscanner.databases.dbtables.ScannedHistory;
 import com.idenisyss.myaadharscanner.databases.livedatamodel.ScannedLivedData;
 import com.idenisyss.myaadharscanner.utilities.AppConstants;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class QRScannerResult extends AppCompatActivity {
@@ -28,8 +29,7 @@ public class QRScannerResult extends AppCompatActivity {
 
     private TextView QRResult;
     private Button BtnSave, BtnCancel;
-    private ImageView QRCodeImage;
-    private String result;
+    private String result,code_type;
     private ScannedLivedData scannedLivedData;
 
 
@@ -45,27 +45,31 @@ public class QRScannerResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_detail_screen);
+        code_type = getIntent().getStringExtra(AppConstants.GENERATE_CODE_TYPE);
+        result = getIntent().getStringExtra(AppConstants.RESULT);
 
-        QRResult = (TextView) findViewById(R.id.QrResult);
-        BtnSave = (Button) findViewById(R.id.SaveBtn);
-        BtnCancel = (Button) findViewById(R.id.cancelBtn);
-        QRCodeImage = (ImageView) findViewById(R.id.QRCodeImg);
+        QRResult =  findViewById(R.id.QrResult);
+        BtnSave =  findViewById(R.id.SaveBtn);
+        BtnCancel =  findViewById(R.id.cancelBtn);
         scannedLivedData = new ViewModelProvider(this).get(ScannedLivedData.class);
 
         // toolbar Title
         Objects.requireNonNull(getSupportActionBar()).setTitle("Add New");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent i = getIntent();
-        result = i.getStringExtra(AppConstants.RESULT);
         QRResult.setText(result);
 
         BtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (result != null) {
+                    Date currentDate = new Date();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                    // Format the current date and time as a string
+                    String formattedDate = dateFormat.format(currentDate);
                     ScannedHistory hm = new ScannedHistory();
-                    hm.codetype = AppConstants.QR_CODE;
+                    hm.codetype = code_type;
+                    hm.timedate = formattedDate;
                     hm.data = QRResult.getText().toString();
                     scannedLivedData.insert(hm);
                     QRResult.setText("");
