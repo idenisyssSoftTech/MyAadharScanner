@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 
+import com.idenisyss.myaadharscanner.activities.QRScannerResult;
+
 public class PermissionUtils {
 
-
+    private static final String TAG_NAME = PermissionUtils.class.getName();
     public static boolean hasCameraPermission(Context context){
         return (checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) &&
                 (checkSelfPermission(context,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&

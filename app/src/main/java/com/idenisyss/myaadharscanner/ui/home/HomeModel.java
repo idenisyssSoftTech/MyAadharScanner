@@ -5,12 +5,14 @@ public class HomeModel {
     private  String id;
     private  String title_name;
     private  int image_resurce_path;
+    private  int next_page_image;
 
 
-    public HomeModel(String id, String title_name, int image_resurce_path) {
+    public HomeModel(String id, String title_name, int image_resurce_path,int next_page_image) {
         this.id = id;
         this.title_name = title_name;
         this.image_resurce_path = image_resurce_path;
+        this.next_page_image = next_page_image;
 
     }
 
@@ -36,5 +38,13 @@ public class HomeModel {
 
     public void setImage_resurce_path(int image_resurce_path) {
         this.image_resurce_path = image_resurce_path;
+    }
+
+    public int getNext_page_image() {
+        return next_page_image;
+    }
+
+    public void setNext_page_image(int next_page_image) {
+        this.next_page_image = next_page_image;
     }
 }

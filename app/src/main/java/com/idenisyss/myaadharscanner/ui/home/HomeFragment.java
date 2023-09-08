@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,8 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.idenisyss.myaadharscanner.BuildConfig;
-import com.idenisyss.myaadharscanner.QRCodeScanner;
 import com.idenisyss.myaadharscanner.R;
+import com.idenisyss.myaadharscanner.activities.QRCodeScannerActivity;
 import com.idenisyss.myaadharscanner.adapters.HomeviewsAdapter;
 import com.idenisyss.myaadharscanner.utilities.PermissionUtils;
 
@@ -35,10 +34,11 @@ import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
+    private static final String TAG_NAME = HomeFragment.class.getName();
     RecyclerView  home_recycler_view;
     GridLayoutManager gridLayoutManager;
     HomeviewsAdapter homeviewsAdapter;
-    List<String> list;
+    List<HomeModel> list;
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -52,20 +52,35 @@ public class HomeFragment extends Fragment {
         ExtendedFloatingActionButton fab = root.findViewById(R.id.fab);
               fab.setOnClickListener(view -> {
                   if(checkPermissionMethod()){
-                      Intent i = new Intent(requireContext(),QRCodeScanner.class);
+                      Intent i = new Intent(requireContext(), QRCodeScannerActivity.class);
                       startActivity(i);
                   }
               });
 
         list = new ArrayList<>();
-        list.add("BarCode \n Data");
-        list.add("QR code \n Data");
-        list.add("Call");
-        list.add("Message");
+        HomeModel hm1 = new HomeModel("1","Clip Board",R.drawable.baseline_copy_all_24,R.drawable.checklist);
+        HomeModel hm2 = new HomeModel("2","Call",R.drawable.baseline_phone_enabled_24,R.drawable.telephone);
+        HomeModel hm3 = new HomeModel("3","Facebook",R.drawable.facebook_black,R.drawable.facebook);
+        HomeModel hm4 = new HomeModel("4","Message",R.drawable.baseline_chat_24,R.drawable.comments);
+        HomeModel hm5 = new HomeModel("5","Mycard",R.drawable.id_card_black,R.drawable.id_card);
+        HomeModel hm6 = new HomeModel("6","Email",R.drawable.baseline_mail_24,R.drawable.gmail);
+        HomeModel hm7 = new HomeModel("7","Whatsapp",R.drawable.phone,R.drawable.whatsapp);
+        HomeModel hm8 = new HomeModel("8","URL",R.drawable.link_black,R.drawable.link);
+        HomeModel hm9 = new HomeModel("9","My Location",R.drawable.baseline_my_location_24,R.drawable.map);
+        list.add(hm1);
+        list.add(hm2);
+        list.add(hm3);
+        list.add(hm4);
+        list.add(hm5);
+        list.add(hm6);
+        list.add(hm7);
+        list.add(hm8);
+        list.add(hm9);
+
 
         home_recycler_view = root.findViewById(R.id.home_recycler_view);
 
-        gridLayoutManager = new GridLayoutManager(getActivity(),2, RecyclerView.VERTICAL,false);
+        gridLayoutManager = new GridLayoutManager(getActivity(),3, RecyclerView.VERTICAL,false);
         homeviewsAdapter = new HomeviewsAdapter(getActivity(),list);
 
         home_recycler_view.setLayoutManager(gridLayoutManager);
@@ -143,27 +158,3 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
     }
 }
-
-
-
-
-
-  /** check only one custom permissison
-//    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
-//            new ActivityResultCallback<Boolean>() {
-//                @Override
-//                public void onActivityResult(Boolean isGranted) {
-//                    if(isGranted){
-//                        Log.d("Camera Permissions ","onActivityResult : granted");
-//                    }else{
-//                        if(!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)){
-//                            showPermissionSettingsDialog();
-//                        }
-//                        Log.d("camera permissions ","showRequestPermission Launcher : "+shouldShowRequestPermissionRationale(Manifest.permission.CAMERA));
-//                        Log.d("Camera Permissions ","onActivityResult : notGranted");
-//                    }
-//
-//                }
-//            });
-
-   **/

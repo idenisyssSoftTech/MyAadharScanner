@@ -11,6 +11,7 @@ import com.idenisyss.myaadharscanner.R;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private static final String TAG_NAME = SplashActivity.class.getName();
     private static final int SPLASH_DURATION = 5000;
 
     @Override

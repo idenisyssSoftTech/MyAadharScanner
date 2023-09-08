@@ -11,12 +11,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.idenisyss.myaadharscanner.databinding.ActivityHomeBinding;
+import com.idenisyss.myaadharscanner.utilities.Validation;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private static final String TAG_NAME = HomeActivity.class.getName();
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

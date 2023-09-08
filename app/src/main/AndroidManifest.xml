@@ -8,12 +8,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
@@ -29,9 +29,14 @@
         android:theme="@style/Theme.MyAadharScanner"
         tools:targetApi="31">
         <activity
-            android:name=".QRCodeScanner"
+            android:name=".activities.GenerateQRorBarActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".activities.EnterDetailsactivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.QRCodeScannerActivity"
+            android:exported="false" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"
@@ -47,7 +52,6 @@
         <activity
             android:name=".activities.SettingActivity"
             android:exported="false" />
-
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true"
@@ -58,12 +62,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.budiyev.android.codescanner.CodeScannerView"
             android:screenOrientation="portrait"
-            tools:replace="screenOrientation"
-            tools:ignore="Instantiatable,MissingClass" />
+            tools:ignore="Instantiatable,MissingClass"
+            tools:replace="screenOrientation" />
     </application>
 
 </manifest>

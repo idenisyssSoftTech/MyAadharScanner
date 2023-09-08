@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.idenisyss.myaadharscanner.R;
 import com.idenisyss.myaadharscanner.databases.dbtables.ScannedHistory;
 import com.idenisyss.myaadharscanner.databases.livedatamodel.ScannedLivedData;
+import com.idenisyss.myaadharscanner.utilities.AppConstants;
 
 import java.util.Objects;
 
@@ -29,13 +30,12 @@ public class QRScannerResult extends AppCompatActivity {
     private Button BtnSave, BtnCancel;
     private ImageView QRCodeImage;
     private String result;
-    private Bitmap qrCodeImageBit;
     private ScannedLivedData scannedLivedData;
 
 
     @Override
     protected void onStart() {
-        Log.d(TAG_NAME, "onstart");
+        Log.d(TAG_NAME, AppConstants.ON_START);
         super.onStart();
     }
 
@@ -57,28 +57,21 @@ public class QRScannerResult extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
-        result = i.getStringExtra("result");
-        qrCodeImageBit = i.getParcelableExtra("qrCodeImage");
+        result = i.getStringExtra(AppConstants.RESULT);
         QRResult.setText(result);
-        if (qrCodeImageBit != null) {
-            QRCodeImage.setImageBitmap(qrCodeImageBit);
-        }
 
         BtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (result != null) {
-                    Log.d(TAG_NAME, "start");
                     ScannedHistory hm = new ScannedHistory();
-                    hm.codetype = "QR";
+                    hm.codetype = AppConstants.QR_CODE;
                     hm.data = QRResult.getText().toString();
                     scannedLivedData.insert(hm);
-                    Log.d(TAG_NAME, "completed");
                     QRResult.setText("");
                     finish();
                 } else {
-                    Toast.makeText(QRScannerResult.this, "No Data from QR code", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(QRScannerResult.this, AppConstants.NO_DATA_FROM+AppConstants.QR_CODE, Toast.LENGTH_SHORT).show();
                 }
 
             }

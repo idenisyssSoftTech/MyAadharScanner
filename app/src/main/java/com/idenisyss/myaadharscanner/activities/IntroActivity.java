@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.idenisyss.myaadharscanner.R;
 
 public class IntroActivity extends AppCompatActivity {
+    private static final String TAG_NAME = IntroActivity.class.getName();
 
     private int currentPage = 0;
    // private int[] introLayouts = { R.layout.activity_intro,R.layout.fragment_intro1, R.layout.fragment_intro2, /* Add more layouts */ };

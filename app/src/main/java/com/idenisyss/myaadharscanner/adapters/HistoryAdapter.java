@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.idenisyss.myaadharscanner.R;
+import com.idenisyss.myaadharscanner.activities.IntroActivity;
 import com.idenisyss.myaadharscanner.databases.dbtables.ScannedHistory;
 
 import java.util.List;
 
 public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.MyHistoryView> {
-
+    private static final String TAG_NAME = HistoryAdapter.class.getName();
     public HistoryAdapter() {
         super(DIFF_CALLBACK);
     }
