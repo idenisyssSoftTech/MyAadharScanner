@@ -2,12 +2,15 @@ package com.idenisyss.myaadharscanner.utilities;
 
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Patterns;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Validation {
     private static final String TAG_NAME = Validation.class.getName();
@@ -35,6 +38,28 @@ public class Validation {
             return true; // Parsing succeeded, so it's valid XML
         } catch (Exception e) {
             return false; // Parsing failed, so it's not valid XML
+        }
+    }
+
+    //validate PhoneNumber
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        return Patterns.PHONE.matcher(phoneNumber).matches();
+    }
+
+    //Validate email address
+    public static boolean isValidEmail(String email) {
+        // Use Android's Patterns class to check if the email matches a valid pattern
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    // validate URL
+    public static boolean isValidURL(String urlString) {
+        try {
+            // Attempt to create a URL object from the input string
+            new URL(urlString);
+            return true; // URL is valid
+        } catch (MalformedURLException e) {
+            return false; // URL is not valid
         }
     }
 }

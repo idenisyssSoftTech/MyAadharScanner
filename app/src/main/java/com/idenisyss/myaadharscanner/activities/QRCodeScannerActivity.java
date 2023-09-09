@@ -19,15 +19,12 @@ import android.widget.Toast;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.budiyev.android.codescanner.ScanMode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Result;
-import com.google.zxing.common.HybridBinarizer;
 import com.idenisyss.myaadharscanner.R;
 import com.idenisyss.myaadharscanner.utilities.AppConstants;
+import com.idenisyss.myaadharscanner.utilities.CodeUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -43,7 +40,6 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
     private CodeScannerView scannerView;
     private ImageButton cancelBtn;
     private FloatingActionButton Barcode, QRCode, gallery;
-    private BarcodeFormat[] QRformats, Barcodeformats;
     private LinearLayout QrLinear, BarcodeLinear, galleryLinear;
 
     @SuppressLint("MissingInflatedId")
@@ -59,26 +55,6 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
 
         setContentView(R.layout.activity_qrcode_scanner);
 
-        QRformats = new BarcodeFormat[]{
-                BarcodeFormat.QR_CODE,
-                BarcodeFormat.DATA_MATRIX,
-                BarcodeFormat.AZTEC,
-                BarcodeFormat.MAXICODE,
-                BarcodeFormat.PDF_417
-        };
-
-        Barcodeformats = new BarcodeFormat[]{
-                BarcodeFormat.CODE_128,
-                BarcodeFormat.CODE_93,
-                BarcodeFormat.CODE_39,
-                BarcodeFormat.CODABAR,
-                BarcodeFormat.EAN_8,
-                BarcodeFormat.EAN_13,
-                BarcodeFormat.ITF,
-                BarcodeFormat.UPC_A,
-                BarcodeFormat.UPC_E,
-                BarcodeFormat.UPC_EAN_EXTENSION};
-
         initViews();
 
             startScanning();
@@ -88,6 +64,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
     private void initViews() {
         scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
+        mCodeScanner.setScanMode(ScanMode.SINGLE);
 
         QrLinear = findViewById(R.id.QRcodeLinear);
         QrLinear.setVisibility(View.GONE);
@@ -162,7 +139,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         scannerView.setFrameVerticalBias(0.3f);
         scannerView.setFrameThickness(8);
 
-        mCodeScanner.setFormats(Arrays.asList(QRformats));
+        mCodeScanner.setFormats(Arrays.asList(CodeUtils.QRformats));
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
@@ -170,7 +147,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                     // Handle the scanned QR code data here
                     String scannedData = result.getText();
                     Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
-                    i.putExtra("result", scannedData);
+                    i.putExtra(AppConstants.RESULT, scannedData);
                     i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.QR_CODE);
                     i.putExtra(AppConstants.HISTORY_PAGE,false);
                     startActivity(i);
@@ -205,7 +182,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         scannerView.setFrameThickness(5);
         scannerView.setFrameVerticalBias(0.4f);
 
-        mCodeScanner.setFormats(Arrays.asList(Barcodeformats));
+        mCodeScanner.setFormats(Arrays.asList(CodeUtils.Barcodeformats));
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
@@ -214,7 +191,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                     String scannedData = result.getText();
 
                         Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
-                        i.putExtra("result", scannedData);
+                        i.putExtra(AppConstants.RESULT, scannedData);
                         i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.BARCODE);
                         startActivity(i);
                         finish();
@@ -247,14 +224,14 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                 byte[] byteArray = stream.toByteArray();
 
                 // Attempt to decode the QR code
-                String qrCodeData = decodeQRCode(bitmap);
+                String qrCodeData = CodeUtils.decodeQRCode(bitmap);
                 // Attempt to decode the Barcode
-                String barcodeData = decodeBarcode(bitmap);
+                String barcodeData = CodeUtils.decodeBarcode(bitmap);
 
                 if (qrCodeData != null) {
                     // Handle QR code data
                     Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
-                    i.putExtra("result", qrCodeData);
+                    i.putExtra(AppConstants.RESULT, qrCodeData);
                     i.putExtra("image", byteArray);
                     i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.QR_CODE);
                     startActivity(i);
@@ -262,7 +239,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                 } else if (barcodeData != null) {
                     // Handle barcode data
                     Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
-                    i.putExtra("result", barcodeData);
+                    i.putExtra(AppConstants.RESULT, barcodeData);
                     i.putExtra("image", byteArray);
                     i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.BARCODE);
                     startActivity(i);
@@ -274,57 +251,6 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-
-    private String decodeQRCode(Bitmap bitmap) {
-        try {
-            int[] intArray = new int[bitmap.getWidth() * bitmap.getHeight()];
-            // Copy pixel data from the Bitmap into the intArray
-            bitmap.getPixels(intArray, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
-            RGBLuminanceSource source = new RGBLuminanceSource(bitmap.getWidth(), bitmap.getHeight(), intArray);
-            BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(source));
-
-            MultiFormatReader reader = new MultiFormatReader();
-            Result result = reader.decode(binaryBitmap);
-
-            for (BarcodeFormat format : QRformats) {
-                if (result.getBarcodeFormat() == format) {
-                    // Return the decoded QR code data
-                    return result.getText();
-                }
-            }
-                // The scanned code is not a QR code
-                return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private String decodeBarcode(Bitmap bitmap) {
-        try {
-            int[] intArray = new int[bitmap.getWidth() * bitmap.getHeight()];
-            // Copy pixel data from the Bitmap into the intArray
-            bitmap.getPixels(intArray, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
-            RGBLuminanceSource source = new RGBLuminanceSource(bitmap.getWidth(), bitmap.getHeight(), intArray);
-            BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(source));
-
-            MultiFormatReader reader = new MultiFormatReader();
-            Result result = reader.decode(binaryBitmap);
-
-            for (BarcodeFormat format : Barcodeformats) {
-                if (result.getBarcodeFormat() == format) {
-                    // Return the decoded barcode data
-                    return result.getText();
-                }
-            }
-            // The scanned code is not a barcode
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
     }
 

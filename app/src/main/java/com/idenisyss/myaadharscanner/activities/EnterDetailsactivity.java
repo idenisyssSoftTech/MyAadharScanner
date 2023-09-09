@@ -1,11 +1,10 @@
 package com.idenisyss.myaadharscanner.activities;
 
-import static com.idenisyss.myaadharscanner.utilities.CodeGenerator.qrBarcodeString;
+import static com.idenisyss.myaadharscanner.utilities.CodeUtils.qrBarcodeString;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,26 +37,39 @@ public class EnterDetailsactivity extends AppCompatActivity {
         create_bar_code_but = findViewById(R.id.create_bar_code_but);
 
         home_imageView.setImageResource(drawableResourceId);
-
         create_qr_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = data_content_tv.getText().toString();
-                qrBarcodeString(getApplicationContext(),s,AppConstants.QR_CODE);
+               String data = data_content_tv.getText().toString();
+                if(data.isEmpty()){
+                    data_content_tv.setError("please Enter a value!...");
+                    data_content_tv.requestFocus();
 
+                } else{
+                    qrBarcodeString(getApplicationContext(),data,AppConstants.QR_CODE);
+                }
             }
         });
 
         create_bar_code_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = data_content_tv.getText().toString();
-                qrBarcodeString(getApplicationContext(),s,AppConstants.BARCODE);
-
+                String data = data_content_tv.getText().toString();
+                if(!data.isEmpty()){
+                qrBarcodeString(getApplicationContext(),data,AppConstants.BARCODE);
+                }else{
+                    data_content_tv.setError("please Enter a value!...");
+                    data_content_tv.requestFocus();
+                }
             }
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        data_content_tv.setText("");
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
