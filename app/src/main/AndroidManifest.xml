@@ -20,13 +20,20 @@
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAadharScanner"
         tools:targetApi="31">
@@ -67,7 +74,7 @@
         </activity>
         <activity
             android:name="com.budiyev.android.codescanner.CodeScannerView"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             tools:ignore="Instantiatable,MissingClass"
             tools:replace="screenOrientation" />
     </application>

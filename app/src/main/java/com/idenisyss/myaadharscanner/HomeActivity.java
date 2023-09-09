@@ -3,6 +3,8 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -11,7 +13,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.idenisyss.myaadharscanner.databinding.ActivityHomeBinding;
-import com.idenisyss.myaadharscanner.utilities.Validation;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -25,6 +26,9 @@ public class HomeActivity extends AppCompatActivity {
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // NightMode off
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         setSupportActionBar(binding.appBarHome.toolbar);
 

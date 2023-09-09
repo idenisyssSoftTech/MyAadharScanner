@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
@@ -80,6 +82,16 @@ public class QRScannerResult extends AppCompatActivity {
             QRCodeImage.setImageResource(R.drawable.barcode);
             titleQRResult.setText(getString(R.string.code_type_string,code_type));
         }
+
+
+        // Retrieve the image byte array from the intent
+        byte[] imageByteArray =getIntent().getByteArrayExtra("image");
+        if (imageByteArray != null) {
+            // Convert the byte array back to a Bitmap and set it in the ImageView
+            Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
+            QRCodeImage.setImageBitmap(imageBitmap);
+        }
+
 
         BtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
