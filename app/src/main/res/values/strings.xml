@@ -19,6 +19,7 @@
     <string name="menu_slideshow">Help</string>
     <string name="menu_contact_us">Contact Us</string>
     <string name="menu_about_us">About Us</string>
+    <string name="menu_terms_condition">Terms &amp; Conditions</string>
     <string name="menu_message">Message</string>
 
     <string name="save">Save</string>
@@ -36,5 +37,11 @@
     <string name="barcodeBtn">Barcode</string>
     <string name="galleryBtn">Gallery</string>
     <string name="scan_below_code">Scan below Code</string>
+    <string name="description">Description</string>
+    <string name="aboutus_des"><![CDATA[QR & Barcode Scanner can scan and read all QR codes / barcode types including text, url, ISBN, product, contact, calendar, email, location, Wi-Fi and many more formats.\nThis can Generate QR and Bar codes for Text , links and for the current location.]]></string>
+    <string name="phone">Phone no:</string>
+    <string name="phone_num">000000000</string>
+    <string name="email">E-mail:</string>
+    <string name="email_id">about_qr_bar_scan@gmail.com</string>
 
 </resources>

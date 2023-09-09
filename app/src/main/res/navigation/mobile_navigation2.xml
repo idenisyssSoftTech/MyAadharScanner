@@ -22,4 +22,20 @@
         android:name="com.idenisyss.myaadharscanner.ui.help.HelpFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_terms_conditions"
+        android:name="com.idenisyss.myaadharscanner.ui.termscond.TermsConditionsFragment"
+        android:label="@string/menu_terms_condition"
+        tools:layout="@layout/fragment_terms_conditions" />
+    <fragment
+        android:id="@+id/nav_contact_us"
+        android:name="com.idenisyss.myaadharscanner.ui.contactus.ContactusFragment"
+        android:label="@string/menu_contact_us"
+        tools:layout="@layout/fragment_contactus" />
+    <fragment
+        android:id="@+id/nav_about_us"
+        android:name="com.idenisyss.myaadharscanner.ui.aboutus.AboutusFragment"
+        android:label="@string/menu_about_us"
+        tools:layout="@layout/fragment_aboutus" />
 </navigation>
