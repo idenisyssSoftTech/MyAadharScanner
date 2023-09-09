@@ -22,5 +22,7 @@ public class AppConstants {
     public static final String GENERATE = "Generate";
     public static final String GENERATE_CODE_TYPE = "Generate code type";
     public static final String GENERATE_STRING = "Generate string";
+    public static final String HISTORY_PAGE = "History page";
+    public static final String SCANNER = " Scanner";
     public static String BARCODE = "Bar Code";
 }

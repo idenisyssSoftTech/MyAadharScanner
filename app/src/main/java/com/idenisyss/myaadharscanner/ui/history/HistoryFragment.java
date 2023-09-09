@@ -55,6 +55,7 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onChanged(List<ScannedHistory> contacts) {
                 historyAdapter.submitList(contacts);
+                historyAdapter.getAppContext(getActivity());
             }
         });
 

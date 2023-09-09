@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.idenisyss.myaadharscanner.R;
-import com.idenisyss.myaadharscanner.activities.IntroActivity;
-import com.idenisyss.myaadharscanner.activities.QRCodeScannerActivity;
 import com.idenisyss.myaadharscanner.activities.QRScannerResult;
 import com.idenisyss.myaadharscanner.databases.dbtables.ScannedHistory;
 import com.idenisyss.myaadharscanner.utilities.AppConstants;
@@ -24,6 +22,7 @@ import com.idenisyss.myaadharscanner.utilities.AppConstants;
 import java.util.List;
 
 public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.MyHistoryView> {
+    Context context;
     private static final String TAG_NAME = HistoryAdapter.class.getName();
     public HistoryAdapter() {
         super(DIFF_CALLBACK);
@@ -55,25 +54,33 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.MyHistoryView holder, int position) {
+        String scannedData = getItem(position).data;
+        String codetype =  getItem(position).codetype;
 
         holder.scanned_date_time.setText(getItem(position).timedate);
-        holder.discription_tv.setText(getItem(position).data);
-        holder.code_type.setText(getItem(position).codetype);
+        holder.discription_tv.setText(scannedData);
+        holder.code_type.setText(codetype);
+        if(codetype.equals(AppConstants.QR_CODE)) {
+            holder.imageView.setImageResource(R.drawable.qr_black);
+        }
+        else {
+            holder.imageView.setImageResource(R.drawable.barcode);
+        }
         holder.next_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* Intent i = new Intent(, QRScannerResult.class);
+                Intent i = new Intent(context, QRScannerResult.class);
                 i.putExtra("result", scannedData);
-                i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.QR_CODE);
-                startActivity(i);
-                finish();*/
+                i.putExtra(AppConstants.GENERATE_CODE_TYPE,codetype);
+                i.putExtra(AppConstants.HISTORY_PAGE,true);
+                context.startActivity(i);
             }
         });
 
     }
 
-    public void setContacts(List<ScannedHistory> histories) {
-
+    public void getAppContext(FragmentActivity activity) {
+        this.context = activity;
     }
 
     public static class MyHistoryView extends RecyclerView.ViewHolder {

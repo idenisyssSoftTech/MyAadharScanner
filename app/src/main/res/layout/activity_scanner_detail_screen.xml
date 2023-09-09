@@ -27,7 +27,6 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/qr_black"
                 android:contentDescription="@string/todo" />
 
 
@@ -35,10 +34,10 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:layout_marginTop="45dp"
             android:elevation="4dp"
-            android:backgroundTint="@color/purple_500"
+            android:backgroundTint="@color/light_grey"
             app:cardCornerRadius="20dp"
             app:layout_constraintTop_toBottomOf="@+id/titleQRResult">
 
@@ -53,7 +52,7 @@
                     android:text="@string/resultTitle"
                     android:textSize="@dimen/font_sp"
                     android:textStyle="bold"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/QrResult"
@@ -61,8 +60,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_sp" />
+                    android:ellipsize="end"
+                    android:maxLines="5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sixteen_sp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -96,7 +97,7 @@
                 android:layout_gravity="center"
                 app:cornerRadius="20dp"
                 android:layout_marginTop="@dimen/margin_dp"
-                android:text="@string/Cancel"
+                android:text="@string/cancel"
                 android:backgroundTint="@color/orange"
                 android:textSize="@dimen/font_sp" />
         </LinearLayout>

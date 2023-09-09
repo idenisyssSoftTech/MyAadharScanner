@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Locale;
 
 public class GenerateQRorBarActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,13 +31,15 @@ public class GenerateQRorBarActivity extends AppCompatActivity implements View.O
     private Button save_but, share_but;
     private String received_bitmap_type, received_string;
     private ScannedLivedData scannedLivedData;
-    private static final String TAG_NAME = GenerateQRorBarActivity.class.getName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qror_bar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         received_bitmap = getIntent().getParcelableExtra(AppConstants.GENERATE);
         received_bitmap_type = getIntent().getStringExtra(AppConstants.GENERATE_CODE_TYPE);
         received_string = getIntent().getStringExtra(AppConstants.GENERATE_STRING);
@@ -77,7 +80,7 @@ public class GenerateQRorBarActivity extends AppCompatActivity implements View.O
             case R.id.save_but:
 
                 Date currentDate = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
                 // Format the current date and time as a string
                 String formattedDate = dateFormat.format(currentDate);
                 ScannedHistory hm = new ScannedHistory();
@@ -85,6 +88,7 @@ public class GenerateQRorBarActivity extends AppCompatActivity implements View.O
                 hm.timedate = formattedDate;
                 hm.data = received_string;
                 scannedLivedData.insert(hm);
+                finish();
                 break;
 
             case R.id.share_but:

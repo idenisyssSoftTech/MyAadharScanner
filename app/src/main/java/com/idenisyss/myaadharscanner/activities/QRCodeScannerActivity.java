@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -98,6 +99,17 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
 
 
     private void startScanning() {
+        int orangeResourceId = R.color.orange;
+        Resources.Theme theme = getTheme();
+        int color;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            color = getResources().getColor(orangeResourceId, theme);
+        } else {
+            // If your app targets versions earlier than Android 6.0, use the deprecated method
+            color = getResources().getColor(orangeResourceId);
+        }
+
+        scannerView.setFrameColor(color);
         BarcodeLinear.setVisibility(View.VISIBLE);
         QrLinear.setVisibility(View.GONE);
         galleryLinear.setVisibility(View.VISIBLE);
@@ -110,7 +122,6 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         };
 
         // setUp QRScanner FrameStyle
-        scannerView.setFrameColor(getResources().getColor(R.color.orange));
         scannerView.setFrameCornersSize(60);
         scannerView.setFrameCornersRadius(20);
         scannerView.setFrameSize(0.65f);
@@ -129,6 +140,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                     Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
                     i.putExtra("result", scannedData);
                     i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.QR_CODE);
+                    i.putExtra(AppConstants.HISTORY_PAGE,false);
                     startActivity(i);
                     finish();
 
@@ -151,7 +163,18 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                 BarcodeFormat.UPC_E,
                 BarcodeFormat.UPC_EAN_EXTENSION};
         //setUp BarcodeScanner FrameStyle
-        scannerView.setFrameColor(getResources().getColor(R.color.yellow));
+
+        int yellowResourceId = R.color.yellow;
+        Resources.Theme theme = getTheme();
+        int color;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            color = getResources().getColor(yellowResourceId, theme);
+        } else {
+            // If your app targets versions earlier than Android 6.0, use the deprecated method
+            color = getResources().getColor(yellowResourceId);
+        }
+
+        scannerView.setFrameColor(color);
         scannerView.setFrameCornersSize(40);
         scannerView.setFrameCornersRadius(10);
         scannerView.setFrameSize(0.77f);

@@ -29,6 +29,7 @@
 
     <!-- QrScan Result Strings  -->
     <string name="QrScanTitle">QRScan Result</string>
+    <string name="code_type_string"> %1$s Scan Result</string>
 
     <!-- QrCode Buttons -->
     <string name="qrBtn">QRcode</string>
