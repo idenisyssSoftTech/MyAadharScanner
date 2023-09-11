@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +24,12 @@ import com.idenisyss.myaadharscanner.activities.QRScannerResult;
 import com.idenisyss.myaadharscanner.databases.dbtables.ScannedHistory;
 import com.idenisyss.myaadharscanner.databases.livedatamodel.ScannedLivedData;
 import com.idenisyss.myaadharscanner.utilities.AppConstants;
-
-import java.util.List;
+import com.idenisyss.myaadharscanner.utilities.CodeUtils;
 
 public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.MyHistoryView> {
     Context context;
     private ScannedLivedData scannedLivedData;
+    private Bitmap imageBitmap;
     private static final String TAG_NAME = HistoryAdapter.class.getName();
     public HistoryAdapter() {
         super(DIFF_CALLBACK);
@@ -61,21 +63,25 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
     public void onBindViewHolder(@NonNull HistoryAdapter.MyHistoryView holder, @SuppressLint("RecyclerView") int position) {
         String scannedData = getItem(position).data;
         String codetype =  getItem(position).codetype;
+        byte[] imageByteArray = getItem(position).image;
 
         holder.scanned_date_time.setText(getItem(position).timedate);
         holder.discription_tv.setText(scannedData);
         holder.code_type.setText(codetype);
-        if(codetype.equals(AppConstants.QR_CODE)) {
-            holder.imageView.setImageResource(R.drawable.qr_black);
+
+        if (imageByteArray != null) {
+            // Convert the byte array back to a Bitmap and set it in the ImageView
+            imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
+            holder.imageView.setImageBitmap(imageBitmap);
         }
-        else {
-            holder.imageView.setImageResource(R.drawable.barcode);
-        }
+        // Convert the Bitmap to a byte array
+        byte[] byteArray = CodeUtils.convertBitTobyte(imageBitmap);
         holder.next_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, QRScannerResult.class);
                 i.putExtra("result", scannedData);
+                i.putExtra("image",byteArray);
                 i.putExtra(AppConstants.GENERATE_CODE_TYPE,codetype);
                 i.putExtra(AppConstants.HISTORY_PAGE,true);
                 context.startActivity(i);
@@ -86,9 +92,8 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
             @Override
             public void onClick(View view) {
                 int itemId = getItem(position).getId();
-//                scannedLivedData.deleteById(itemId);
+                // scannedLivedData.deleteById(itemId);
                 showAlertDialog(itemId);
-
                 //update the fresh list of ArrayList data to recview
                 submitList(getCurrentList());
             }

@@ -20,6 +20,8 @@ public class ScannedHistory {
     @ColumnInfo(name = "data")
     public String data;
 
+    @ColumnInfo(name = "images")
+    public byte[] image;
     public int getId() {
         return id;
     }
@@ -52,4 +54,11 @@ public class ScannedHistory {
         this.data = data;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }

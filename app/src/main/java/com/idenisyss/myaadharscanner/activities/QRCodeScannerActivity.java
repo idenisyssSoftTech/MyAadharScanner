@@ -1,5 +1,6 @@
 package com.idenisyss.myaadharscanner.activities;
 
+import static com.idenisyss.myaadharscanner.utilities.CodeUtils.convertBitTobyte;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.Resources;
@@ -27,7 +28,6 @@ import com.idenisyss.myaadharscanner.R;
 import com.idenisyss.myaadharscanner.utilities.AppConstants;
 import com.idenisyss.myaadharscanner.utilities.CodeUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -155,8 +155,14 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                 runOnUiThread(() -> {
                     // Handle the scanned QR code data here
                     String scannedData = result.getText();
+                    Bitmap scannedImage = CodeUtils.ScanqrBarCodeString(getApplicationContext(),scannedData,AppConstants.QR_CODE);
+
+                    // Convert the Bitmap to a byte array
+                    byte[] byteArray =convertBitTobyte(scannedImage);
+
                     Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
                     i.putExtra(AppConstants.RESULT, scannedData);
+                    i.putExtra("image",byteArray);
                     i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.QR_CODE);
                     i.putExtra(AppConstants.HISTORY_PAGE,false);
                     startActivity(i);
@@ -198,9 +204,13 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                 runOnUiThread(() -> {
                     // Handle the scanned QR code data here
                     String scannedData = result.getText();
+                    Bitmap scannedImage = CodeUtils.ScanqrBarCodeString(getApplicationContext(),scannedData,AppConstants.BARCODE);
+                       //convert Bitmap to byte[]Array
+                        byte[] byteArray = convertBitTobyte(scannedImage);
 
                         Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
                         i.putExtra(AppConstants.RESULT, scannedData);
+                        i.putExtra("image",byteArray);
                         i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.BARCODE);
                         startActivity(i);
                         finish();
@@ -228,9 +238,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
                 // Convert the Bitmap to a byte array
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] byteArray = stream.toByteArray();
+                byte[] byteArray = convertBitTobyte(bitmap);
 
                 // Attempt to decode the QR code
                 String qrCodeData = CodeUtils.decodeQRCode(bitmap);

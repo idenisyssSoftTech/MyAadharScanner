@@ -41,6 +41,8 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
     private MaterialButton share_btn;
     private String result,code_type;
     private ImageView QRCodeImage;
+    Bitmap imageBitmap;
+    byte[] imageByteArray;
     private ScannedLivedData scannedLivedData;
     private  boolean is_history_page;
     LinearLayout linear;
@@ -91,21 +93,12 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         QRResult.setText(result);
-        if(code_type.equals(AppConstants.QR_CODE)) {
-           QRCodeImage.setImageResource(R.drawable.qr_black);
-           titleQRResult.setText(getString(R.string.code_type_string,code_type));
-        }
-        else {
-            QRCodeImage.setImageResource(R.drawable.barcode);
-            titleQRResult.setText(getString(R.string.code_type_string,code_type));
-        }
-
 
         // Retrieve the image byte array from the intent
-        byte[] imageByteArray =getIntent().getByteArrayExtra("image");
+        imageByteArray =getIntent().getByteArrayExtra("image");
         if (imageByteArray != null) {
             // Convert the byte array back to a Bitmap and set it in the ImageView
-            Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
+            imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
             QRCodeImage.setImageBitmap(imageBitmap);
         }
     }
@@ -120,22 +113,22 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.history_share_but:
-//                shareImage();
+                shareImage();
         }
     }
 
-//    private void shareImage() {
-//        Log.d("krish","krishnaStart");
-//        // Save the Bitmap to a temporary file
-//        File tempFile = Validation.saveBitmapToFile(this,QRCodeImage);
-//        // Get a content URI for the temporary file using FileProvider
-//        Uri contentUri = FileProvider.getUriForFile(this, "com.idenisyss.myaadharscanner", tempFile);
-//        Intent intent = new Intent(Intent.ACTION_SEND);
-//        intent.setType("image/*");
-//        intent.putExtra(Intent.EXTRA_STREAM, contentUri); // Attach the content URI
-////                intent.setPackage("com.whatsapp"); // Specify WhatsApp package to ensure it's opened in WhatsApp
-//        startActivity(Intent.createChooser(intent, "Share with"));
-//    }
+    private void shareImage() {
+        Log.d("krish","krishnaStart");
+        // Save the Bitmap to a temporary file
+        File tempFile = Validation.saveBitmapToFile(this,imageBitmap);
+        // Get a content URI for the temporary file using FileProvider
+        Uri contentUri = FileProvider.getUriForFile(this, "com.idenisyss.myaadharscanner", tempFile);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_STREAM, contentUri); // Attach the content URI
+//                intent.setPackage("com.whatsapp"); // Specify WhatsApp package to ensure it's opened in WhatsApp
+        startActivity(Intent.createChooser(intent, "Share with"));
+    }
 
     private void saveQRImage() {
         if (result != null) {
@@ -147,6 +140,7 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
             hm.codetype = code_type;
             hm.timedate = formattedDate;
             hm.data = QRResult.getText().toString();
+            hm.image = imageByteArray;
             scannedLivedData.insert(hm);
             QRResult.setText("");
             finish();

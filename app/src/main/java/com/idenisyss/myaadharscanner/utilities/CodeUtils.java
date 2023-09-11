@@ -22,6 +22,7 @@ import com.google.zxing.oned.Code128Writer;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.idenisyss.myaadharscanner.activities.GenerateQRorBarActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -74,6 +75,33 @@ public class CodeUtils {
         return bitMatrix;
     }
 
+    public static Bitmap ScanqrBarCodeString(Context context,String data_string, String codetype) {
+        Log.d(TAG_NAME, "method : qrBarcodeString");
+        Bitmap qrBitmap = null;
+        BitMatrix bitMatrix;
+        if (data_string != null && !data_string.isEmpty()) {
+            try {
+                if (codetype.equals(AppConstants.QR_CODE)) {
+                    bitMatrix = CodeUtils.generateQRCode(data_string, width, height);
+                } else {
+                    bitMatrix = CodeUtils.generateBarcode(data_string, width2, height2);
+                }
+                // Convert the BitMatrix to a Bitmap
+                qrBitmap = createBitmap(bitMatrix);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return qrBitmap;
+    }
+
+    public static byte[] convertBitTobyte(Bitmap scannedImage){
+        // Convert the Bitmap to a byte array
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        scannedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
 
     public static  void  qrBarcodeString(Context context,String data_string, String codetype){
         Log.d(TAG_NAME,"method : qrBarcodeString");
@@ -88,10 +116,11 @@ public class CodeUtils {
                 }
                 // Convert the BitMatrix to a Bitmap
                 Bitmap qrBitmap = createBitmap(bitMatrix);
+                byte[] bytesArray = convertBitTobyte(qrBitmap);
 
                 Intent l = new Intent(context, GenerateQRorBarActivity.class);
                 l.addFlags(FLAG_ACTIVITY_NEW_TASK);
-                l.putExtra(AppConstants.GENERATE,qrBitmap);
+                l.putExtra(AppConstants.GENERATE,bytesArray);
                 l.putExtra(AppConstants.GENERATE_CODE_TYPE,codetype);
                 l.putExtra(AppConstants.GENERATE_STRING,data_string);
                 context.startActivity(l);

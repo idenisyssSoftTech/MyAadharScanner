@@ -1,11 +1,14 @@
 package com.idenisyss.myaadharscanner.ui.history;
 
+import android.graphics.Bitmap;
+
 public class HistoryModel {
 
     private  String id;
     private  String code_type;
     private  String date_time;
     private  String data_content;
+    private Bitmap imageBitmap;
 
     public HistoryModel() {
     }
@@ -47,5 +50,13 @@ public class HistoryModel {
 
     public void setData_content(String data_content) {
         this.data_content = data_content;
+    }
+
+    public Bitmap getImageBitmap() {
+        return imageBitmap;
+    }
+
+    public void setImageBitmap(Bitmap imageBitmap) {
+        this.imageBitmap = imageBitmap;
     }
 }
