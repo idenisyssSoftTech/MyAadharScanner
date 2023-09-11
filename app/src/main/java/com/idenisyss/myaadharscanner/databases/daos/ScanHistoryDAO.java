@@ -23,7 +23,10 @@ public interface ScanHistoryDAO {
     @Delete
     void delete(ScannedHistory contact);
 
-    @Query("SELECT * FROM sanneddata")
+    @Query("SELECT * FROM scanneddata")
     LiveData<List<ScannedHistory>> getAllScannedHistory();
+
+    @Query("DELETE FROM scanneddata WHERE uid = :id")
+    void deleteById(int id);
 
 }

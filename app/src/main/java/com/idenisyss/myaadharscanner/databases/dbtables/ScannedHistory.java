@@ -4,10 +4,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "sanneddata")
+@Entity(tableName = "scanneddata")
 public class ScannedHistory {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "uid", index = true, defaultValue = "0")
     public int id;
 
     @ColumnInfo(name = "codetype")

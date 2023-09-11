@@ -9,7 +9,6 @@
 
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -58,6 +57,14 @@
                 android:textSize="@dimen/eleven_sp"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/delete_item"
+            android:layout_width="@dimen/thirty_dp"
+            android:layout_height="@dimen/thirty_dp"
+            android:layout_margin="@dimen/five_dp"
+            android:padding="@dimen/three_dp"
+            android:src="@drawable/delete"/>
 
         <!-- Right Arrow ImageView -->
         <ImageView

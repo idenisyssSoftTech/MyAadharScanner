@@ -12,7 +12,7 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_Delete_all">Delete All</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">History</string>
@@ -43,5 +43,13 @@
     <string name="phone_num">000000000</string>
     <string name="email">E-mail:</string>
     <string name="email_id">about_qr_bar_scan@gmail.com</string>
+
+    <!--  QrScanner View  -->
+    <string name="title">QR Scanner</string>
+    <string name="subTitle">Align QR code within the frame</string>
+
+    <!--    alertDialogBox Strings-->
+    <string name="alertTitle">Are You Sure ?</string>
+    <string name="OK">OK</string>
 
 </resources>

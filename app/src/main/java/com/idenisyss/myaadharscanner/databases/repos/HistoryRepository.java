@@ -42,5 +42,9 @@ public class HistoryRepository {
             scanHistoryDAO.delete(scanhistory);
         });
     }
-
+    public void deleteById(int id) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            scanHistoryDAO.deleteById(id);
+        });
+    }
 }

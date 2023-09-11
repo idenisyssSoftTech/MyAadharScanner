@@ -25,4 +25,8 @@ public class AppConstants {
     public static final String HISTORY_PAGE = "History page";
     public static final String SCANNER = " Scanner";
     public static String BARCODE = "Bar Code";
+    public static String QRScanner_TITLE = "QR Scanner";
+    public static String QRScanner_subTITLE = "Align QR code within the frame";
+    public static String BarCodeScanner_TITLE = "BarCode Scanner";
+    public static String BarCodeScanner_subTITLE = "Align BarCode within the frame";
 }

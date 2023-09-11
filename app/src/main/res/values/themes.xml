@@ -22,4 +22,9 @@
     <style name="Theme.MyAadharScanner.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyAadharScanner.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="customTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">#FFFFFF</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

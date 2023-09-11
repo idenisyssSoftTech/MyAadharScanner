@@ -1,6 +1,9 @@
 package com.idenisyss.myaadharscanner.adapters;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.idenisyss.myaadharscanner.R;
 import com.idenisyss.myaadharscanner.activities.QRScannerResult;
 import com.idenisyss.myaadharscanner.databases.dbtables.ScannedHistory;
+import com.idenisyss.myaadharscanner.databases.livedatamodel.ScannedLivedData;
 import com.idenisyss.myaadharscanner.utilities.AppConstants;
 
 import java.util.List;
 
 public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.MyHistoryView> {
     Context context;
+    private ScannedLivedData scannedLivedData;
     private static final String TAG_NAME = HistoryAdapter.class.getName();
     public HistoryAdapter() {
         super(DIFF_CALLBACK);
@@ -53,7 +58,7 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HistoryAdapter.MyHistoryView holder, int position) {
+    public void onBindViewHolder(@NonNull HistoryAdapter.MyHistoryView holder, @SuppressLint("RecyclerView") int position) {
         String scannedData = getItem(position).data;
         String codetype =  getItem(position).codetype;
 
@@ -76,6 +81,18 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
                 context.startActivity(i);
             }
         });
+        holder.delete_item.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onClick(View view) {
+                int itemId = getItem(position).getId();
+//                scannedLivedData.deleteById(itemId);
+                showAlertDialog(itemId);
+
+                //update the fresh list of ArrayList data to recview
+                submitList(getCurrentList());
+            }
+        });
 
     }
 
@@ -83,8 +100,32 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
         this.context = activity;
     }
 
+    public void setScannedLivedData(ScannedLivedData scannedLivedData) {
+        this.scannedLivedData = scannedLivedData;
+    }
+
+    private void showAlertDialog(int itemId){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Alert !");
+        builder.setMessage("Do you want to Delete ?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+            // When the user click yes button then app will close
+            scannedLivedData.deleteById(itemId);
+            dialog.dismiss();
+        });
+        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+            // If user click no then dialog box is canceled.
+            dialog.dismiss();
+            dialog.cancel();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     public static class MyHistoryView extends RecyclerView.ViewHolder {
-        ImageView imageView, next_arrow;
+        ImageView imageView, next_arrow, delete_item;
         TextView code_type, scanned_date_time, discription_tv;
 
         public MyHistoryView(@NonNull View itemView) {
@@ -95,6 +136,7 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
             imageView = itemView.findViewById(R.id.imageView);
             code_type = itemView.findViewById(R.id.code_type);
             scanned_date_time = itemView.findViewById(R.id.scanned_date_time);
+            delete_item = itemView.findViewById(R.id.delete_item);
 
         }
     }

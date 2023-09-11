@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.budiyev.android.codescanner.CodeScanner;
@@ -39,6 +40,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
     private CodeScanner mCodeScanner;
     private CodeScannerView scannerView;
     private ImageButton cancelBtn;
+    private TextView title, subTitle;
     private FloatingActionButton Barcode, QRCode, gallery;
     private LinearLayout QrLinear, BarcodeLinear, galleryLinear;
 
@@ -87,6 +89,9 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         cancelBtn = findViewById(R.id.cancelScanner);
         cancelBtn.setOnClickListener(this);
 
+        title = findViewById(R.id.Title);
+        subTitle = findViewById(R.id.subTitle);
+
 
         startScanning();
 
@@ -103,6 +108,8 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
             case R.id.barcodeBtn:
                 BarcodeLinear.setVisibility(View.GONE);
                 QrLinear.setVisibility(View.VISIBLE);
+                title.setText(AppConstants.BarCodeScanner_TITLE);
+                subTitle.setText(AppConstants.BarCodeScanner_subTITLE);
                 startBarcodeScanning();
                 break;
             case R.id.QRScannerBtn:
@@ -130,6 +137,8 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         BarcodeLinear.setVisibility(View.VISIBLE);
         QrLinear.setVisibility(View.GONE);
         galleryLinear.setVisibility(View.VISIBLE);
+        title.setText(AppConstants.QRScanner_TITLE);
+        subTitle.setText(AppConstants.QRScanner_subTITLE);
 
         // setUp QRScanner FrameStyle
         scannerView.setFrameCornersSize(60);

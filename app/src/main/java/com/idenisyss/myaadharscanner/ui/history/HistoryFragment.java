@@ -3,6 +3,8 @@ package com.idenisyss.myaadharscanner.ui.history;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,6 +38,10 @@ public class HistoryFragment extends Fragment {
 
         scannedLivedData = new ViewModelProvider(this).get(ScannedLivedData.class);
         historyAdapter = new HistoryAdapter();
+        historyAdapter.setScannedLivedData(scannedLivedData);
+
+        // Enable options menu in this fragment
+        setHasOptionsMenu(true);
     }
     @SuppressLint("MissingInflatedId")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -60,6 +66,11 @@ public class HistoryFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.home, menu); // Inflate your menu resource
     }
 
     @Override
