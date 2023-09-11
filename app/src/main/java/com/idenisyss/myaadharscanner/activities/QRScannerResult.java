@@ -93,7 +93,7 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         QRResult.setText(result);
-
+        titleQRResult.setText(code_type);
         // Retrieve the image byte array from the intent
         imageByteArray =getIntent().getByteArrayExtra("image");
         if (imageByteArray != null) {
