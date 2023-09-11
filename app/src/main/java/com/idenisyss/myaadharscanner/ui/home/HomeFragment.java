@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,12 +23,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.idenisyss.myaadharscanner.BuildConfig;
 import com.idenisyss.myaadharscanner.R;
 import com.idenisyss.myaadharscanner.activities.QRCodeScannerActivity;
+import com.idenisyss.myaadharscanner.adapters.CardSliderAdapter;
 import com.idenisyss.myaadharscanner.adapters.HomeviewsAdapter;
+import com.idenisyss.myaadharscanner.ui.home.homemodels.CardImagesModel;
 import com.idenisyss.myaadharscanner.utilities.PermissionUtils;
 
 import java.util.ArrayList;
@@ -39,22 +44,34 @@ public class HomeFragment extends Fragment {
     GridLayoutManager gridLayoutManager;
     HomeviewsAdapter homeviewsAdapter;
     List<HomeModel> list;
+    List<CardImagesModel> cardImagesModelList;
+    private ViewPager viewPager2;
+    private CardSliderAdapter cardSliderAdapter;
+    private int currentPage = 0;
+    private static final long AUTO_SLIDE_DELAY = 3000; // Auto slide delay in milliseconds
+    private final Handler autoSlideHandler = new Handler(Looper.getMainLooper());
+
+    private final Runnable autoSlideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (cardSliderAdapter != null) {
+                if (currentPage == cardSliderAdapter.getCount() - 1) {
+                    currentPage = 0;
+                } else {
+                    currentPage++;
+                }
+                viewPager2.setCurrentItem(currentPage, true);
+                autoSlideHandler.postDelayed(this, AUTO_SLIDE_DELAY);
+            }
+        }
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root  = inflater.inflate(R.layout.fragment_home, container, false);
-
         //Check Camera Permissions
         checkPermissionMethod();
-
-        ExtendedFloatingActionButton fab = root.findViewById(R.id.fab);
-              fab.setOnClickListener(view -> {
-                  if(checkPermissionMethod()){
-                      Intent i = new Intent(requireContext(), QRCodeScannerActivity.class);
-                      startActivity(i);
-                  }
-              });
 
         list = new ArrayList<>();
         HomeModel hm1 = new HomeModel("1","Clip Board",R.drawable.baseline_copy_all_24,R.drawable.checklist);
@@ -76,14 +93,42 @@ public class HomeFragment extends Fragment {
         list.add(hm8);
         list.add(hm9);
 
+        cardImagesModelList = new ArrayList<>();
+        CardImagesModel c1 = new CardImagesModel(R.drawable.slide0);
+        CardImagesModel c2 = new CardImagesModel(R.drawable.slide1);
+        CardImagesModel c3 = new CardImagesModel(R.drawable.slide2);
+        CardImagesModel c4 = new CardImagesModel(R.drawable.slide3);
+        CardImagesModel c5 = new CardImagesModel(R.drawable.slide4);
+        CardImagesModel c6 = new CardImagesModel(R.drawable.slide5);
+        cardImagesModelList.add(c1);
+        cardImagesModelList.add(c2);
+        cardImagesModelList.add(c3);
+        cardImagesModelList.add(c4);
+        cardImagesModelList.add(c5);
+        cardImagesModelList.add(c6);
+
 
         home_recycler_view = root.findViewById(R.id.home_recycler_view);
+        ExtendedFloatingActionButton fab = root.findViewById(R.id.fab);
+        viewPager2 = root.findViewById(R.id.viewPager2);
+        cardSliderAdapter = new CardSliderAdapter(getActivity(),cardImagesModelList);
+        viewPager2.setAdapter(cardSliderAdapter);
+
+        // Start auto-sliding when the fragment is created
+        autoSlideHandler.postDelayed(autoSlideRunnable, AUTO_SLIDE_DELAY);
 
         gridLayoutManager = new GridLayoutManager(getActivity(),3, RecyclerView.VERTICAL,false);
         homeviewsAdapter = new HomeviewsAdapter(getActivity(),list);
 
         home_recycler_view.setLayoutManager(gridLayoutManager);
         home_recycler_view.setAdapter(homeviewsAdapter);
+
+        fab.setOnClickListener(view -> {
+            if(checkPermissionMethod()){
+                Intent i = new Intent(requireContext(), QRCodeScannerActivity.class);
+                startActivity(i);
+            }
+        });
 
         return root;
     }
@@ -135,6 +180,7 @@ public class HomeFragment extends Fragment {
                 allGranted = allGranted && Boolean.TRUE.equals(result.get(key));
             }
             if (allGranted) {
+                Log.d(TAG_NAME,"ALL Permissions granted");
             } else {
                 showPermissionSettingsDialog();
             }
@@ -178,5 +224,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        autoSlideHandler.removeCallbacks(autoSlideRunnable);
     }
 }

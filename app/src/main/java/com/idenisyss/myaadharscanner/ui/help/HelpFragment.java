@@ -7,18 +7,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.idenisyss.myaadharscanner.R;
 import com.idenisyss.myaadharscanner.databinding.FragmentSlideshowBinding;
 
 public class HelpFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+
+    private  RecyclerView help_recycler_view;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        help_recycler_view = root.findViewById(R.id.help_recycler_view);
 
         return root;
     }
@@ -26,6 +29,5 @@ public class HelpFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 }
