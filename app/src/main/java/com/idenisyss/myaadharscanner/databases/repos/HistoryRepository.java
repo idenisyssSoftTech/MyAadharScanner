@@ -47,4 +47,12 @@ public class HistoryRepository {
             scanHistoryDAO.deleteById(id);
         });
     }
+    public void deleteAll() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                scanHistoryDAO.deleteAll();
+            }
+        }).start();
+    }
 }

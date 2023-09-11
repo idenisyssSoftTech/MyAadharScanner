@@ -29,4 +29,7 @@ public interface ScanHistoryDAO {
     @Query("DELETE FROM scanneddata WHERE uid = :id")
     void deleteById(int id);
 
+    @Query("DELETE FROM scanneddata")
+    void deleteAll();
+
 }

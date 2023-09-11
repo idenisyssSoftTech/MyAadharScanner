@@ -36,7 +36,12 @@ public class ScannedLivedData extends AndroidViewModel {
     public LiveData<List<ScannedHistory>> getAllScannedHistory() {
         return allhistory;
     }
+
     public void deleteById(int id) {
         repository.deleteById(id);
+    }
+
+    public void deleteAll() {
+        repository.deleteAll();
     }
 }

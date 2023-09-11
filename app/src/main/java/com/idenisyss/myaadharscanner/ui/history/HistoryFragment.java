@@ -1,10 +1,13 @@
 package com.idenisyss.myaadharscanner.ui.history;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -66,6 +69,39 @@ public class HistoryFragment extends Fragment {
         });
 
         return root;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_deleteAll) {
+            // Handle the "Delete All" menu item click here
+            confirmDeleteAllData();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void confirmDeleteAllData() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Confirm Deletion!...");
+        builder.setMessage("Are you sure you want to delete all data?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Call the deleteAll method in your ViewModel to delete all data
+                scannedLivedData.deleteAll();
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     @Override
