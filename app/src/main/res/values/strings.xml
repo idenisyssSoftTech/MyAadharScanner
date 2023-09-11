@@ -23,6 +23,7 @@
     <string name="menu_message">Message</string>
 
     <string name="save">Save</string>
+    <string name="share">Share</string>
     <string name="cancel">Cancel</string>
     <string name="gallery">Upload from gallery</string>
     <string name="todo">TODO</string>

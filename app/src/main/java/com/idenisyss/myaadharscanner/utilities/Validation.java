@@ -1,13 +1,22 @@
 package com.idenisyss.myaadharscanner.utilities;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Patterns;
+import android.widget.ImageView;
+
+import com.idenisyss.myaadharscanner.activities.QRScannerResult;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -41,6 +50,19 @@ public class Validation {
         }
     }
 
+    public static File saveBitmapToFile(Context context, Bitmap bitmap) {
+        File tempFile = null;
+        try {
+            tempFile = File.createTempFile("temp_image", ".jpg",context.getCacheDir());
+            FileOutputStream outStream = new FileOutputStream(tempFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tempFile;
+    }
     //validate PhoneNumber
     public static boolean isValidPhoneNumber(String phoneNumber) {
         return Patterns.PHONE.matcher(phoneNumber).matches();

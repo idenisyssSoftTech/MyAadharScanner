@@ -68,6 +68,21 @@
 
         </androidx.cardview.widget.CardView>
 
+    <!-- Share Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/history_share_but"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/twenty_dp"
+        android:text="@string/share"
+        app:cornerRadius="@dimen/twenty_dp"
+        app:icon="@drawable/share_white"
+        app:iconGravity="textStart"
+        android:visibility="gone"
+        android:background="@drawable/gradient"
+        />
+
+
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="match_parent"
