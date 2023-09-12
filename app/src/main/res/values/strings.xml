@@ -9,8 +9,8 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Idenisyss Software Solutions</string>
+    <string name="nav_header_subtitle">Idenisyss Software Solutions Pvt Ltd.</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_Delete_all">Delete All</string>
 
@@ -21,6 +21,7 @@
     <string name="menu_about_us">About Us</string>
     <string name="menu_terms_condition">Terms &amp; Conditions</string>
     <string name="menu_message">Message</string>
+    <string name="app_version">App Version 1.0v</string>
 
     <string name="save">Save</string>
     <string name="share">Share</string>

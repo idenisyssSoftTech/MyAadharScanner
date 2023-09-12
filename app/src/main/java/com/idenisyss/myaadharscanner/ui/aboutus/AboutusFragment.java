@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.idenisyss.myaadharscanner.R;
 
@@ -21,6 +22,8 @@ public class AboutusFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_aboutus, container, false);
         // Inflate the layout for this fragment
+        TextView version = root.findViewById(R.id.Abtversions);
+        version.setText(getResources().getString(R.string.app_version));
         return root;
     }
 }

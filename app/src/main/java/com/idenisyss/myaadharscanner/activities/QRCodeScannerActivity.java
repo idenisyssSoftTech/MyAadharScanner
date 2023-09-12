@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.WindowManager;
@@ -41,6 +42,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
     private CodeScannerView scannerView;
     private ImageButton cancelBtn;
     private TextView title, subTitle;
+    private Vibrator vibrator;
     private FloatingActionButton Barcode, QRCode, gallery;
     private LinearLayout QrLinear, BarcodeLinear, galleryLinear;
 
@@ -67,6 +69,7 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setScanMode(ScanMode.SINGLE);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         QrLinear = findViewById(R.id.QRcodeLinear);
         QrLinear.setVisibility(View.GONE);
@@ -155,6 +158,8 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                 runOnUiThread(() -> {
                     // Handle the scanned QR code data here
                     String scannedData = result.getText();
+                    // Vibrate when scan is completed
+                    vibrator.vibrate(100);
                     Bitmap scannedImage = CodeUtils.ScanqrBarCodeString(getApplicationContext(),scannedData,AppConstants.QR_CODE);
 
                     // Convert the Bitmap to a byte array
@@ -204,6 +209,8 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                 runOnUiThread(() -> {
                     // Handle the scanned QR code data here
                     String scannedData = result.getText();
+                    // Vibrate when scan is completed
+                    vibrator.vibrate(100);
                     Bitmap scannedImage = CodeUtils.ScanqrBarCodeString(getApplicationContext(),scannedData,AppConstants.BARCODE);
                        //convert Bitmap to byte[]Array
                         byte[] byteArray = convertBitTobyte(scannedImage);
@@ -252,8 +259,12 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
                     i.putExtra("image", byteArray);
                     i.putExtra(AppConstants.GENERATE_CODE_TYPE, AppConstants.QR_CODE);
                     startActivity(i);
+                    // Vibrate when scan is completed
+                    vibrator.vibrate(100);
                     finish();
                 } else if (barcodeData != null) {
+                    // Vibrate when scan is completed
+                    vibrator.vibrate(100);
                     // Handle barcode data
                     Intent i = new Intent(QRCodeScannerActivity.this, QRScannerResult.class);
                     i.putExtra(AppConstants.RESULT, barcodeData);

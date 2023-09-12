@@ -1,5 +1,6 @@
 package com.idenisyss.myaadharscanner;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -18,6 +19,7 @@ public class HomeActivity extends AppCompatActivity {
     private static final String TAG_NAME = HomeActivity.class.getName();
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
+    TextView version;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class HomeActivity extends AppCompatActivity {
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+        version = findViewById(R.id.versions);
+        version.setText(getResources().getString(R.string.app_version));
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
