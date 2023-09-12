@@ -28,6 +28,7 @@
 
     <!-- margin sizes  -->
     <dimen name="margin_dp">10dp</dimen>
+    <dimen name="ten_sp">10sp</dimen>
 
 
 </resources>

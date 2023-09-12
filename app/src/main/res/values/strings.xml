@@ -55,5 +55,7 @@
     <string name="OK">OK</string>
     <string name="image">Image</string>
     <string name="accept">Accept</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="i_agree_to">"I agree to the "</string>
 
 </resources>

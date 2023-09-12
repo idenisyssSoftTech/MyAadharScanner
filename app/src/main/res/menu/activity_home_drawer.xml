@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
@@ -27,6 +26,7 @@
             android:title="@string/menu_terms_condition" />
         <item
             android:id="@+id/nav_slideshow"
+            android:visible="false"
             android:icon="@drawable/help_icon"
             android:title="@string/menu_slideshow" />
     </group>
