@@ -1,7 +1,6 @@
 package com.idenisyss.qrbarscanner.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.idenisyss.qrbarscanner.R;
-import com.idenisyss.qrbarscanner.activities.EnterDetailsactivity;
+import com.idenisyss.qrbarscanner.controller.HomeViewsControler;
 import com.idenisyss.qrbarscanner.ui.home.HomeModel;
-import com.idenisyss.qrbarscanner.utilities.AppConstants;
 
 import java.util.List;
 
@@ -23,6 +21,7 @@ public class HomeviewsAdapter extends RecyclerView.Adapter<HomeviewsAdapter.MyVi
 
     Context context;
     List<HomeModel> list;
+    private HomeViewsControler homeViewsControler;
 
     public HomeviewsAdapter(Context context, List<HomeModel> list) {
 
@@ -44,18 +43,7 @@ public class HomeviewsAdapter extends RecyclerView.Adapter<HomeviewsAdapter.MyVi
         int drawableResourceId  = list.get(position).getNext_page_image();
         holder.list_tv1.setText(home_selected_title);
         holder.list_home_im.setImageResource(list.get(position).getImage_resurce_path());
-        holder.list_cardView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent j = new Intent(context, EnterDetailsactivity.class);
-                j.putExtra(AppConstants.INTENT_KEY_HOME_TITLE,home_selected_title);
-                j.putExtra(AppConstants.INTENT_KEY_HOME_IMAGE,drawableResourceId );
-                context.startActivity(j);
-
-            }
-        });
+        homeViewsControler = new HomeViewsControler(context,holder.list_cardView,home_selected_title,drawableResourceId);
 
     }
 

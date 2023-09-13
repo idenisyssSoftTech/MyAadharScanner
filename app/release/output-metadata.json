@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.idenisyss.myaadharscanner",
+  "applicationId": "com.idenisyss.qrbarscanner",
   "variantName": "release",
   "elements": [
     {

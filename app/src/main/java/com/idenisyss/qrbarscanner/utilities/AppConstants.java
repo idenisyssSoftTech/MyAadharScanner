@@ -35,4 +35,17 @@ public class AppConstants {
     public static String QRScanner_subTITLE = "Align QR code within the frame";
     public static String BarCodeScanner_TITLE = "BarCode Scanner";
     public static String BarCodeScanner_subTITLE = "Align BarCode within the frame";
+
+    //Home views
+
+    public static final String CLIPBOARD = "Clip Board";
+    public static final String CALL = "Call";
+    public static final String FACEBOOK = "Facebook";
+    public static final String MESSAGE = "Message";
+    public static final String MYCARD = "Mycard";
+    public static final String EMAIL = "Email";
+    public static final String WHATSAPP = "Whatsapp";
+    public static final String URL = "URL";
+    public static final String MYLOCATION = "My Location";
+
 }

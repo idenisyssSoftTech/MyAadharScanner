@@ -32,6 +32,7 @@ import com.idenisyss.qrbarscanner.activities.QRCodeScannerActivity;
 import com.idenisyss.qrbarscanner.adapters.CardSliderAdapter;
 import com.idenisyss.qrbarscanner.adapters.HomeviewsAdapter;
 import com.idenisyss.qrbarscanner.ui.home.homemodels.CardImagesModel;
+import com.idenisyss.qrbarscanner.utilities.AppConstants;
 import com.idenisyss.qrbarscanner.utilities.PermissionUtils;
 
 import java.util.ArrayList;
@@ -74,15 +75,15 @@ public class HomeFragment extends Fragment {
         checkPermissionMethod();
 
         list = new ArrayList<>();
-        HomeModel hm1 = new HomeModel("1","Clip Board",R.drawable.baseline_copy_all_24,R.drawable.checklist);
-        HomeModel hm2 = new HomeModel("2","Call",R.drawable.baseline_phone_enabled_24,R.drawable.telephone);
-        HomeModel hm3 = new HomeModel("3","Facebook",R.drawable.facebook_black,R.drawable.facebook);
-        HomeModel hm4 = new HomeModel("4","Message",R.drawable.baseline_chat_24,R.drawable.comments);
-        HomeModel hm5 = new HomeModel("5","Mycard",R.drawable.id_card_black,R.drawable.id_card);
-        HomeModel hm6 = new HomeModel("6","Email",R.drawable.baseline_mail_24,R.drawable.gmail);
-        HomeModel hm7 = new HomeModel("7","Whatsapp",R.drawable.phone,R.drawable.whatsapp);
-        HomeModel hm8 = new HomeModel("8","URL",R.drawable.link_black,R.drawable.link);
-        HomeModel hm9 = new HomeModel("9","My Location",R.drawable.baseline_my_location_24,R.drawable.map);
+        HomeModel hm1 = new HomeModel("1", AppConstants.CLIPBOARD,R.drawable.baseline_copy_all_24,R.drawable.checklist);
+        HomeModel hm2 = new HomeModel("2",AppConstants.CALL,R.drawable.baseline_phone_enabled_24,R.drawable.telephone);
+        HomeModel hm3 = new HomeModel("3",AppConstants.FACEBOOK,R.drawable.facebook_black,R.drawable.facebook);
+        HomeModel hm4 = new HomeModel("4",AppConstants.MESSAGE,R.drawable.baseline_chat_24,R.drawable.comments);
+        HomeModel hm5 = new HomeModel("5",AppConstants.MYCARD,R.drawable.id_card_black,R.drawable.id_card);
+        HomeModel hm6 = new HomeModel("6",AppConstants.EMAIL,R.drawable.baseline_mail_24,R.drawable.gmail);
+        HomeModel hm7 = new HomeModel("7",AppConstants.WHATSAPP,R.drawable.phone,R.drawable.whatsapp);
+        HomeModel hm8 = new HomeModel("8",AppConstants.URL,R.drawable.link_black,R.drawable.link);
+        HomeModel hm9 = new HomeModel("9",AppConstants.MYLOCATION,R.drawable.baseline_my_location_24,R.drawable.map);
         list.add(hm1);
         list.add(hm2);
         list.add(hm3);

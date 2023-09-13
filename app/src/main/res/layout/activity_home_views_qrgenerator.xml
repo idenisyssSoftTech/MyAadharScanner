@@ -11,7 +11,6 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/four_dp"
-        android:text="Generate"
         android:textAlignment="center"
         android:textStyle="bold"
         android:textColor="@color/purple_500"
@@ -33,19 +32,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="centerInside" />
-
-    <EditText
-        android:id="@+id/data_content_tv"
+    <ScrollView
+        android:id="@+id/my_card_linear"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:padding="@dimen/four_dp"
-        android:layout_margin="@dimen/fab_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_imageView"
-        app:layout_constraintBottom_toTopOf="@id/buttonLayout">
+        app:layout_constraintBottom_toTopOf="@id/buttonLayout"
+        android:layout_height="wrap_content">
+        <LinearLayout
 
-    </EditText>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/data_content_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fifty_dp"
+                android:padding="@dimen/four_dp"
+                android:layout_margin="@dimen/fab_margin">
+            </EditText>
+
+            <EditText
+                android:id="@+id/my_card_phone_no_tv"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="@dimen/fifty_dp"
+                android:padding="@dimen/four_dp"
+                android:maxLength="10"
+                android:inputType="number"
+                android:hint="Phone no"
+                android:layout_margin="@dimen/fab_margin">
+            </EditText>
+            <EditText
+                android:id="@+id/my_card_email_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fifty_dp"
+                android:padding="@dimen/four_dp"
+                android:visibility="gone"
+                android:hint="@string/email"
+                android:inputType="text"
+                android:layout_margin="@dimen/fab_margin">
+            </EditText>
+            <EditText
+                android:id="@+id/my_card_address_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fifty_dp"
+                android:padding="@dimen/four_dp"
+                android:visibility="gone"
+                android:inputType="text"
+                android:hint="@string/address"
+                android:layout_margin="@dimen/fab_margin">
+            </EditText>
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
 
     <!-- Button Layout -->
     <LinearLayout
@@ -54,7 +99,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/fab_margin"
-        app:layout_constraintTop_toBottomOf="@+id/data_content_tv"
+        app:layout_constraintTop_toBottomOf="@+id/my_card_linear"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -67,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/four_dp"
             android:layout_weight="1"
-            android:text="QR code" />
+            android:text="@string/qr_code" />
 
         <!-- Second Button -->
         <Button
@@ -78,7 +123,7 @@
             android:layout_margin="@dimen/four_dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text=" Bar code" />
+            android:text="@string/barcodeBtn" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
