@@ -1,8 +1,11 @@
 package com.idenisyss.qrbarscanner.ui.home;
 
+import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
+
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +23,8 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +56,7 @@ public class HomeFragment extends Fragment {
     private int currentPage = 0;
     private static final long AUTO_SLIDE_DELAY = 3000; // Auto slide delay in milliseconds
     private final Handler autoSlideHandler = new Handler(Looper.getMainLooper());
+    private boolean isClicked = false;
 
     private final Runnable autoSlideRunnable = new Runnable() {
         @Override
@@ -125,6 +131,7 @@ public class HomeFragment extends Fragment {
         home_recycler_view.setAdapter(homeviewsAdapter);
 
         fab.setOnClickListener(view -> {
+            isClicked = true;
             if(checkPermissionMethod()){
                 Intent i = new Intent(requireContext(), QRCodeScannerActivity.class);
                 startActivity(i);
@@ -137,22 +144,41 @@ public class HomeFragment extends Fragment {
     private boolean checkPermissionMethod() {
         boolean isGranted = false;
         if(PermissionUtils.hasCameraPermission(getContext())){
-            // If you have access to the external storage, do whatever you need
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    // If you don't have access, launch a new activity to show the user the system's dialog
-                    // to allow access to the external storage
-                    isGranted = true;
+            Log.d(TAG_NAME,"checkPermissionMethod");
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+
+                // Check if the Android version is below Android 10 (API level 29)
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                        || ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            REQUEST_CODE); // Replace REQUEST_CODE with an appropriate request code
                 } else {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    Uri uri = Uri.fromParts("package", requireContext().getPackageName(), null);
-                    intent.setData(uri);
-                    startActivity(intent);
+                    // Permissions are already granted, you can proceed with file access
+                    if (isClicked){
+                        Intent i = new Intent(requireContext(), QRCodeScannerActivity.class);
+                        startActivity(i);
+                    }
+                }
+            } else {
+                // Android 10 and above, file access permissions are handled differently
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    if (Environment.isExternalStorageManager()) {
+                        // If you don't have access, launch a new activity to show the user the system's dialog
+                        // to allow access to the external storage
+                        isGranted = true;
+                    } else {
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                        Uri uri = Uri.fromParts("package", requireContext().getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                    }
                 }
             }
 
         }else {
+            Log.d(TAG_NAME,"checkPermissionMethod");
             if(shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) ||
                 shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
                 shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) ||
@@ -184,6 +210,7 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG_NAME,"ALL Permissions granted");
             } else {
                 showPermissionSettingsDialog();
+                Log.d(TAG_NAME,"showPermissionSettingsDialog();\n");
             }
 
         }
