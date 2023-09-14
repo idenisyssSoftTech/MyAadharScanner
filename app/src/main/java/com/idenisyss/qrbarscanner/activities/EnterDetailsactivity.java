@@ -36,8 +36,6 @@ import com.idenisyss.qrbarscanner.utilities.AppConstants;
 import com.idenisyss.qrbarscanner.utilities.PermissionUtils;
 import com.idenisyss.qrbarscanner.utilities.Validation;
 
-import java.util.Map;
-
 public class EnterDetailsactivity extends AppCompatActivity {
     private static final String TAG_NAME = EnterDetailsactivity.class.getName();
     private ImageView home_imageView;
@@ -51,7 +49,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
     private final BroadcastReceiver addressReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() != null && intent.getAction().equals(ACTION_ADDRESS)) {
+            if (intent.getAction() != null && intent.getAction().equals(AppConstants.ACTION_ADDRESS)) {
                 fullAddress = intent.getStringExtra(AppConstants.MYLOCATION);
                 updateUIWithAddress(fullAddress);
             }
@@ -393,12 +391,13 @@ public class EnterDetailsactivity extends AppCompatActivity {
         data_content_tv.requestFocus();
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     protected void onStart() {
         super.onStart();
         if (homeTitle.equals(AppConstants.MYLOCATION)) {
             registerReceiver(gpsReceivers, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
             // Register the broadcast receiver
-            registerReceiver(addressReceiver,new IntentFilter(ACTION_ADDRESS));
+            registerReceiver(addressReceiver,new IntentFilter(AppConstants.ACTION_ADDRESS));
             startService(serviceIntent);
         }
     }
@@ -428,7 +427,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private void startLocationServiceAndSetAddress() {
         startService(serviceIntent);
-        registerReceiver(addressReceiver,new IntentFilter(ACTION_ADDRESS));
+        registerReceiver(addressReceiver,new IntentFilter(AppConstants.ACTION_ADDRESS));
         if (fullAddress != null) {
             if (homeTitle.equals(AppConstants.MYLOCATION)) {
                 data_content_tv.setText(fullAddress);
