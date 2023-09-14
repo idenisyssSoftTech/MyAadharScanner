@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -20,6 +21,7 @@ import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,11 +36,11 @@ import com.idenisyss.qrbarscanner.utilities.AppConstants;
 import com.idenisyss.qrbarscanner.utilities.PermissionUtils;
 import com.idenisyss.qrbarscanner.utilities.Validation;
 
+import java.util.Map;
 
 public class EnterDetailsactivity extends AppCompatActivity {
     private static final String TAG_NAME = EnterDetailsactivity.class.getName();
     private ImageView home_imageView;
-    private static final String ACTION_ADDRESS = "com.idenisyss.qrbarscanner.services.ACTION_ADDRESS";
     EditText data_content_tv, my_card_phone_no_tv, my_card_email_tv, my_card_address_tv;
     private Button create_qr_but, create_bar_code_but;
     private GPSReceiver gpsReceivers;
@@ -70,15 +72,15 @@ public class EnterDetailsactivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_views_qrgenerator);
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         gpsReceivers = new GPSReceiver();
         registerReceiver(gpsReceivers, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
         // Register the broadcast receiver
-        registerReceiver(addressReceiver,new IntentFilter(ACTION_ADDRESS));
+        registerReceiver(addressReceiver,new IntentFilter(AppConstants.ACTION_ADDRESS));
         // Start the LocationService
         serviceIntent = new Intent(EnterDetailsactivity.this, LocationServices.class);
 
-        homeTitle = getIntent().getStringExtra(AppConstants.INTENT_KEY_HOME_TITLE);
+         homeTitle = getIntent().getStringExtra(AppConstants.INTENT_KEY_HOME_TITLE);
 
         int drawableResourceId = getIntent().getIntExtra(AppConstants.INTENT_KEY_HOME_IMAGE, 0);
         if (getSupportActionBar() != null) {
@@ -240,7 +242,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
                             break;
                         default:
                             //mylocation
-                            qrBarcodeString(getApplicationContext(),data,AppConstants.QR_CODE);
+                            qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
                             stopService(serviceIntent);
                             break;
                     }
@@ -370,6 +372,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
                     showToast(getString(R.string.GPS_OFF));
                 }
             }
+
             }else {
             startLocationServiceAndSetAddress();
             }
@@ -390,8 +393,6 @@ public class EnterDetailsactivity extends AppCompatActivity {
         data_content_tv.requestFocus();
     }
 
-
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     protected void onStart() {
         super.onStart();
         if (homeTitle.equals(AppConstants.MYLOCATION)) {
