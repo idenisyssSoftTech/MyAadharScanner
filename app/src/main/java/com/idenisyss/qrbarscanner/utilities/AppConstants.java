@@ -28,7 +28,6 @@ public class AppConstants {
     public static final String HISTORY_PAGE = "History page";
     public static final String SCANNER = " Scanner";
     public static final String ISCHECKED_STATE = "checkbox_state";
-    public static final String PACKAGE_NAME = "com.idenisyss.myaadharscanner";
     public static final String DATETIME_PATTERN = "dd-MM-yyyy HH:mm:ss";
     public static String BARCODE = "Bar Code";
     public static String QRScanner_TITLE = "QR Scanner";
@@ -47,5 +46,9 @@ public class AppConstants {
     public static final String WHATSAPP = "Whatsapp";
     public static final String URL = "URL";
     public static final String MYLOCATION = "My Location";
+
+    public static final String ACTION_ADDRESS = "com.idenisyss.qrbarscanner.services.ACTION_ADDRESS";
+
+    public static final int REQUEST_CHECK_SETTING = 1001;
 
 }

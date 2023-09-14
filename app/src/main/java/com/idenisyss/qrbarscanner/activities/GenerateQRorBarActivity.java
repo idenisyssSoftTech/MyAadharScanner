@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
-import com.idenisyss.qrbarscanner.HomeActivity;
+import com.idenisyss.qrbarscanner.BuildConfig;
 import com.idenisyss.qrbarscanner.R;
 import com.idenisyss.qrbarscanner.databases.dbtables.ScannedHistory;
 import com.idenisyss.qrbarscanner.databases.livedatamodel.ScannedLivedData;
@@ -93,7 +93,7 @@ public class GenerateQRorBarActivity extends AppCompatActivity implements View.O
                 // Save the Bitmap to a temporary file
                 File tempFile = Validation.saveBitmapToFile(this,received_bitmap);
                 // Get a content URI for the temporary file using FileProvider
-                Uri contentUri = FileProvider.getUriForFile(this, AppConstants.PACKAGE_NAME, tempFile);
+                Uri contentUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, tempFile);
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_STREAM, contentUri); // Attach the content URI

@@ -54,10 +54,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/phone"
-                    android:drawableRight="@drawable/baseline_phone_enabled_24"
                     android:textSize="@dimen/font_sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    app:drawableEndCompat="@drawable/baseline_phone_enabled_24" />
 
                 <TextView
                     android:id="@+id/contactus_num_tv"
@@ -71,11 +71,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/email"
-                    android:drawableRight="@android:drawable/ic_dialog_email"
                     android:textSize="@dimen/font_sp"
-                    android:drawableTint="@color/black"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    app:drawableEndCompat="@android:drawable/ic_dialog_email"
+                    app:drawableTint="@color/black" />
 
                 <TextView
                     android:id="@+id/contactus_email_tv"
@@ -91,17 +91,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/Cntversions"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="@dimen/twentyfive_sp"
-                android:textColor="@color/black"
-                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/forty_dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent">
+                <TextView
+                    android:id="@+id/versions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_version"
+                    android:textSize="@dimen/sixteen_sp"
+
+                    />
+                <TextView
+                    android:id="@+id/Cntversions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/purple_500"
+                    android:layout_marginStart="@dimen/four_dp"
+                    android:textSize="@dimen/sixteen_sp"
+                    />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

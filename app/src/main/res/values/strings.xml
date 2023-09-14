@@ -21,7 +21,7 @@
     <string name="menu_about_us">About Us</string>
     <string name="menu_terms_condition">Terms &amp; Conditions</string>
     <string name="menu_message">Message</string>
-    <string name="app_version">App Version 1.0v</string>
+    <string name="app_version">App Version </string>
 
     <string name="save">Save</string>
     <string name="share">Share</string>
@@ -59,5 +59,26 @@
     <string name="i_agree_to">"I agree to the "</string>
     <string name="address">Address</string>
     <string name="qr_code">Qr Code</string>
+
+    <!--  EnterDetailsActivity -->
+    <string name="enter_clipboard_text">Enter Text</string>
+    <string name="enter_phoneNumber">Enter Phone number</string>
+    <string name="enter_facebookUrl">FaceBook URL</string>
+    <string name="enter_message">Enter message</string>
+    <string name="id_name">Enter Name</string>
+    <string name="id_email">Enter E-mail</string>
+    <string name="id_address">Enter Full Address</string>
+    <string name="enter_whatsappNo">Whatsapp number</string>
+    <string name="enter_URL">URL</string>
+    <!-- setErrorStrings -->
+    <string name="enter_value">please Enter a value!…</string>
+    <string name="enter_validEmail">Enter valid email@gmail.com</string>
+    <string name="enter_validPhoneNo">Enter valid Phone no :</string>
+    <string name="empty_value">Empty</string>
+    <string name="enter_validURL">Enter valid URL https://www.google.com</string>
+
+    <!-- showToast Messages  -->
+    <string name="GPS_OFF">GPS OFF</string>
+    <string name="address_not_found">OnActivityResult no found address!..</string>
 
 </resources>

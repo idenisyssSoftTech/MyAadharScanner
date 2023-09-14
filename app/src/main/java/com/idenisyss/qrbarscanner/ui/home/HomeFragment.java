@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
 
         View root  = inflater.inflate(R.layout.fragment_home, container, false);
         //Check Camera Permissions
-        checkPermissionMethod();
+//        checkPermissionMethod();
 
         list = new ArrayList<>();
         HomeModel hm1 = new HomeModel("1", AppConstants.CLIPBOARD,R.drawable.baseline_copy_all_24,R.drawable.checklist);
@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
 
     private boolean checkPermissionMethod() {
         boolean isGranted = false;
-        if(PermissionUtils.hasCameraPermission(getContext())){
+        if(PermissionUtils.checkCameraPermission(getContext())){
             Log.d(TAG_NAME,"checkPermissionMethod");
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
 
@@ -200,8 +200,6 @@ public class HomeFragment extends Fragment {
             new ActivityResultCallback<Map<String, Boolean>>() {
         @Override
         public void onActivityResult(Map<String, Boolean> result) {
-            Log.d("vfdcs", "vfc" + result);
-
             boolean allGranted = true;
             for (String key : result.keySet()) {
                 allGranted = allGranted && Boolean.TRUE.equals(result.get(key));
@@ -217,37 +215,30 @@ public class HomeFragment extends Fragment {
     });
 
 
-
     private void showPermissionRationaleDialog() {
         PermissionUtils.showCustomDialog(getContext(), "Camera & File and media Permission",
                 "This app needs the camera & File and media permission. Please allow the permission.",
-                "OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                getString(R.string.OK), (dialog, which) -> {
 //                        requestPermissionLauncher.launch(Manifest.permission.CAMERA);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                            multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES});
-                        }else {
-                            multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.READ_EXTERNAL_STORAGE});
-                        }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES});
+                    }else {
+                        multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE});
                     }
-                }, "Cancel",null);
+                }, getString(R.string.cancel),null);
     }
 
 
     private void showPermissionSettingsDialog() {
         PermissionUtils.showCustomDialog(getContext(), "Camera & File media Permission!..",
                 "The app needs camera permission to function. Please allow this permission in the app settings. ",
-                "Go To Settings", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                Uri.parse("package:"+ BuildConfig.APPLICATION_ID));
-                        startActivity(intent);
-                    }
+                "Go To Settings", (dialogInterface, i) -> {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.parse("package:"+ BuildConfig.APPLICATION_ID));
+                    startActivity(intent);
                 },
-                "Cancel",null);
+                getString(R.string.cancel),null);
     }
     @Override
     public void onDestroyView() {

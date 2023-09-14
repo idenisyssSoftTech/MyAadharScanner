@@ -74,17 +74,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/Abtversions"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="@dimen/twentyfive_sp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/forty_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+            <TextView
+                android:id="@+id/versions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_version"
+                android:textSize="@dimen/sixteen_sp"
+
+                />
+            <TextView
+                android:id="@+id/Abtversions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/purple_500"
+                android:layout_marginStart="@dimen/four_dp"
+                android:textSize="@dimen/sixteen_sp"
+                />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
 

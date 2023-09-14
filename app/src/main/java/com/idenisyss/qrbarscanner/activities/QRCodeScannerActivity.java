@@ -8,6 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -43,6 +45,8 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
     private ImageButton cancelBtn;
     private TextView title, subTitle;
     private Vibrator vibrator;
+    private boolean isCameraAvailable;
+    private CameraManager cameraManager;
     private FloatingActionButton Barcode, QRCode, gallery;
     private LinearLayout QrLinear, BarcodeLinear, galleryLinear;
 
@@ -60,15 +64,24 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_qrcode_scanner);
 
         initViews();
-
+        // Initialize the camera manager
+        cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
+        isCameraAvailable = checkCameraAvailability();
+        if (isCameraAvailable) {
+            // Camera is available, you can proceed with scanning
             startScanning();
-
+            Toast.makeText(this, "camera available !...", Toast.LENGTH_SHORT).show();
+        } else {
+            // No camera available on this device
+            Toast.makeText(this, "No camera available on this device!...", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initViews() {
         scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setScanMode(ScanMode.SINGLE);
+        mCodeScanner.setCamera(CodeScanner.CAMERA_BACK);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         QrLinear = findViewById(R.id.QRcodeLinear);
@@ -95,9 +108,18 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         title = findViewById(R.id.Title);
         subTitle = findViewById(R.id.subTitle);
 
+    }
 
-        startScanning();
-
+    private boolean checkCameraAvailability() {
+        try {
+            String[] cameraIds = cameraManager.getCameraIdList();
+            return cameraIds != null && cameraIds.length > 0;
+        } catch (CameraAccessException e) {
+            // An error occurred while accessing the camera
+            e.printStackTrace();
+            // Handle this error
+            return false;
+        }
     }
 
 

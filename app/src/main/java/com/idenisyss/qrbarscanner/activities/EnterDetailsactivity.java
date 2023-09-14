@@ -2,31 +2,66 @@ package com.idenisyss.qrbarscanner.activities;
 
 
 import static com.idenisyss.qrbarscanner.utilities.CodeUtils.qrBarcodeString;
-
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.Toast;
 
+import com.idenisyss.qrbarscanner.BuildConfig;
 import com.idenisyss.qrbarscanner.R;
+import com.idenisyss.qrbarscanner.receivers.GPSReceiver;
+import com.idenisyss.qrbarscanner.services.LocationServices;
 import com.idenisyss.qrbarscanner.utilities.AppConstants;
+import com.idenisyss.qrbarscanner.utilities.PermissionUtils;
 import com.idenisyss.qrbarscanner.utilities.Validation;
+
+import java.util.Map;
 
 public class EnterDetailsactivity extends AppCompatActivity {
     private static final String TAG_NAME = EnterDetailsactivity.class.getName();
     private ImageView home_imageView;
     EditText data_content_tv, my_card_phone_no_tv, my_card_email_tv, my_card_address_tv;
     private Button create_qr_but, create_bar_code_but;
+    private GPSReceiver gpsReceivers;
+    private Intent serviceIntent;
+    private String fullAddress, homeTitle;
+    boolean isGPSEnabled = false;
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_views_qrgenerator);
-        String homeTitle = getIntent().getStringExtra(AppConstants.INTENT_KEY_HOME_TITLE);
+
+        gpsReceivers = new GPSReceiver();
+        registerReceiver(gpsReceivers, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
+        // Register the broadcast receiver
+        registerReceiver(addressReceiver,new IntentFilter(AppConstants.ACTION_ADDRESS));
+        // Start the LocationService
+        serviceIntent = new Intent(EnterDetailsactivity.this, LocationServices.class);
+
+        homeTitle = getIntent().getStringExtra(AppConstants.INTENT_KEY_HOME_TITLE);
+
         int drawableResourceId = getIntent().getIntExtra(AppConstants.INTENT_KEY_HOME_IMAGE, 0);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(homeTitle);
@@ -46,48 +81,60 @@ public class EnterDetailsactivity extends AppCompatActivity {
         switch (homeTitle) {
 
             case AppConstants.CLIPBOARD:
-                data_content_tv.setHint("Enter copied Text");
+                data_content_tv.setHint(getString(R.string.enter_clipboard_text));
                 break;
             case AppConstants.CALL:
-                data_content_tv.setHint("Phone number");
+                data_content_tv.setHint(getString(R.string.enter_phoneNumber));
                 data_content_tv.setMaxLines(1);
                 data_content_tv.setInputType(InputType.TYPE_CLASS_NUMBER);
                 break;
             case AppConstants.FACEBOOK:
-                data_content_tv.setHint("FaceBook URL");
+                data_content_tv.setHint(getString(R.string.enter_facebookUrl));
                 data_content_tv.setMaxLines(5);
 
                 break;
             case AppConstants.MESSAGE:
-                data_content_tv.setHint("Enter message");
+                data_content_tv.setHint(getString(R.string.enter_message));
                 data_content_tv.setMaxLines(100);
 
                 break;
             case AppConstants.MYCARD:
-                data_content_tv.setHint("Name");
+                data_content_tv.setHint(getString(R.string.id_name));
                 my_card_phone_no_tv.setVisibility(View.VISIBLE);
+                my_card_phone_no_tv.setHint(getString(R.string.enter_phoneNumber));
+
                 my_card_email_tv.setVisibility(View.VISIBLE);
+                my_card_email_tv.setHint(getString(R.string.id_email));
+
                 my_card_address_tv.setVisibility(View.VISIBLE);
+                my_card_address_tv.setHint(getString(R.string.id_address));
                 create_bar_code_but.setVisibility(View.GONE);
 
                 break;
             case AppConstants.EMAIL:
-                data_content_tv.setHint("E-mail");
+                data_content_tv.setHint(getString(R.string.id_email));
                 data_content_tv.setMaxLines(1);
 
                 break;
             case AppConstants.WHATSAPP:
-                data_content_tv.setHint("Whatsapp number");
+                data_content_tv.setHint(getString(R.string.enter_whatsappNo));
                 data_content_tv.setMaxLines(5);
 
                 break;
             case AppConstants.URL:
-                data_content_tv.setHint("Url");
+                data_content_tv.setHint(getString(R.string.enter_URL));
 
                 break;
-            default:
+            case AppConstants.MYLOCATION:
                 //myloc
-                data_content_tv.setHint("Current Location");
+                if(checkLocationPermissions1()) {
+                    startService(serviceIntent);
+                    data_content_tv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+                    data_content_tv.setText(fullAddress);
+                    Log.d(TAG_NAME, "full address main calss: " + fullAddress);
+                    create_bar_code_but.setVisibility(View.GONE);
+                }
+
                 break;
         }
 
@@ -96,13 +143,11 @@ public class EnterDetailsactivity extends AppCompatActivity {
             public void onClick(View v) {
                 String data = data_content_tv.getText().toString();
                 if (data.isEmpty()) {
-                    data_content_tv.setError("please Enter a value!...");
+                    data_content_tv.setError(getString(R.string.enter_value));
                     data_content_tv.requestFocus();
-
                 } else {
 
                     switch (homeTitle) {
-
                         case AppConstants.CLIPBOARD:
                             qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
                             break;
@@ -110,7 +155,6 @@ public class EnterDetailsactivity extends AppCompatActivity {
                             if (Validation.isValidPhoneNumber(data)) {
                                 qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
                             }
-
                             break;
                         case AppConstants.FACEBOOK:
                             qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
@@ -129,28 +173,36 @@ public class EnterDetailsactivity extends AppCompatActivity {
                                     qrBarcodeString(getApplicationContext(), mycarddata, AppConstants.QR_CODE);
                                 } else {
                                     if (!Validation.isValidEmail(myemail)) {
-                                        my_card_email_tv.setError("Enter valid Email");
+                                        my_card_email_tv.setError(getString(R.string.enter_validEmail));
+                                        my_card_email_tv.requestFocus();
                                     }
                                     if (!Validation.isValidPhoneNumber(myphoneno)) {
-                                        my_card_phone_no_tv.setError("Enter valid Phone no :");
+                                        my_card_phone_no_tv.setError(getString(R.string.enter_validPhoneNo));
+                                        my_card_phone_no_tv.requestFocus();
                                     }
                                 }
 
                             } else {
                                 if (myphoneno.isEmpty()) {
-                                    my_card_phone_no_tv.setError("Empty");
+                                    my_card_phone_no_tv.setError(getString(R.string.empty_value));
+                                    my_card_phone_no_tv.requestFocus();
                                 }
                                 if (myemail.isEmpty()) {
-                                    my_card_email_tv.setError("Empty");
+                                    my_card_email_tv.setError(getString(R.string.empty_value));
+                                    my_card_email_tv.requestFocus();
                                 }
                                 if (myadd.isEmpty()) {
-                                    my_card_address_tv.setError("Empty");
+                                    my_card_address_tv.setError(getString(R.string.empty_value));
+                                    my_card_address_tv.requestFocus();
                                 }
                             }
                             break;
                         case AppConstants.EMAIL:
                             if (Validation.isValidEmail(data)) {
                                 qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
+                            }else {
+                                data_content_tv.setError(getString(R.string.enter_validEmail));
+                                data_content_tv.requestFocus();
                             }
 
                             break;
@@ -161,9 +213,15 @@ public class EnterDetailsactivity extends AppCompatActivity {
                             if (Validation.isValidURL(data)) {
                                 qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
                             }
+                            else {
+                                data_content_tv.setError(getString(R.string.enter_validURL));
+                                data_content_tv.requestFocus();
+                            }
                             break;
                         default:
                             //mylocation
+                            qrBarcodeString(getApplicationContext(),data,AppConstants.QR_CODE);
+                            stopService(serviceIntent);
                             break;
                     }
                 }
@@ -199,6 +257,10 @@ public class EnterDetailsactivity extends AppCompatActivity {
                             if (Validation.isValidEmail(data)) {
                                 qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
                             }
+                            else{
+                                data_content_tv.setError(getString(R.string.enter_validEmail));
+                                data_content_tv.requestFocus();
+                            }
 
                             break;
                         case AppConstants.WHATSAPP:
@@ -207,6 +269,9 @@ public class EnterDetailsactivity extends AppCompatActivity {
                         case AppConstants.URL:
                             if (Validation.isValidURL(data)) {
                                 qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
+                            }  else {
+                                data_content_tv.setError(getString(R.string.enter_validURL));
+                                data_content_tv.requestFocus();
                             }
                             break;
 
@@ -216,22 +281,138 @@ public class EnterDetailsactivity extends AppCompatActivity {
                     }
 
                 } else {
-                    data_content_tv.setError("please Enter a value!...");
+                    data_content_tv.setError(getString(R.string.enter_value));
                     data_content_tv.requestFocus();
                 }
             }
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        data_content_tv.setText("");
+    private boolean checkLocationPermissions1() {
+        boolean is = false;
+        if (PermissionUtils.hasLocationPermission(EnterDetailsactivity.this)) {
+            PermissionUtils.checkGPSEnabled(EnterDetailsactivity.this);
+            is = true;
+        } else {
+            if (shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) ||
+                    shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                showPermissionRationaleDialog();
+            } else {
+                multiPermissionLancher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
+            }
+        }
+        return is;
     }
+
+    private final ActivityResultLauncher<String[]> multiPermissionLancher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+        boolean allGranted = true;
+        for (String key : result.keySet()) {
+            allGranted = allGranted && Boolean.TRUE.equals(result.get(key));
+        }
+        if (allGranted) {
+            PermissionUtils.checkGPSEnabled(EnterDetailsactivity.this);
+        } else {
+            showPermissionSettingsDialog();
+        }
+
+
+    });
+
+    private void showPermissionRationaleDialog() {
+        PermissionUtils.showCustomDialog(EnterDetailsactivity.this, "Location Permission",
+                "This app needs the location permission. Please allow the permission.",
+                getString(R.string.OK), (dialog, which) -> multiPermissionLancher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}), getString(R.string.cancel), null);
+    }
+
+    private void showPermissionSettingsDialog() {
+        PermissionUtils.showCustomDialog(EnterDetailsactivity.this, "Location Permissions!",
+                "The app needs location permissions to function. Please allow this permission in the app settings.",
+                "Go To Settings", (dialog, which) -> {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.parse("package:" + BuildConfig.APPLICATION_ID));
+                    startActivity(intent);
+                }, getString(R.string.cancel), null);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstants.REQUEST_CHECK_SETTING) {
+            isGPSEnabled = resultCode == Activity.RESULT_OK;
+            if (!isGPSEnabled) {
+                if (homeTitle.equals(AppConstants.MYLOCATION)) {
+                    data_content_tv.setText("");
+                    showToast(getString(R.string.GPS_OFF));
+                }
+            }
+
+            }else {
+                if(fullAddress != null) {
+                    if(homeTitle.equals(AppConstants.MYLOCATION)) {
+                        data_content_tv.setText(fullAddress);
+                    }
+                }else {
+                    showToast(getString(R.string.address_not_found));
+                }
+            }
+        }
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+
+    private final BroadcastReceiver addressReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() != null && intent.getAction().equals(AppConstants.ACTION_ADDRESS)) {
+                fullAddress = intent.getStringExtra(AppConstants.MYLOCATION);
+                updateUIWithAddress(fullAddress);
+            }
+        }
+    };
+
+    private void updateUIWithAddress(String fullAddress) {
+        if(fullAddress != null) {
+            if(homeTitle.equals(AppConstants.MYLOCATION)) {
+                data_content_tv.setText(fullAddress);
+            }
+        }else {
+            Toast.makeText(this, " broadcast not found address!...", Toast.LENGTH_SHORT).show();
+        }
+    }
+    protected void onStart() {
+        super.onStart();
+        if (homeTitle.equals(AppConstants.MYLOCATION)) {
+            registerReceiver(gpsReceivers, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (homeTitle.equals(AppConstants.MYLOCATION)) {
+            registerReceiver(gpsReceivers, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceivers();
+        stopService(serviceIntent);
+    }
+
+    private void unregisterReceivers() {
+        if (gpsReceivers != null) {
+            unregisterReceiver(gpsReceivers);
+            unregisterReceiver(addressReceiver);
+        }
     }
 }

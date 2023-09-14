@@ -5,6 +5,9 @@ import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,12 +18,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.idenisyss.qrbarscanner.BuildConfig;
 import com.idenisyss.qrbarscanner.R;
 import com.idenisyss.qrbarscanner.databases.dbtables.ScannedHistory;
 import com.idenisyss.qrbarscanner.databases.livedatamodel.ScannedLivedData;
@@ -38,6 +43,7 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
 
     private TextView QRResult,titleQRResult;
     private Button BtnSave, BtnCancel;
+    private ImageButton copyBtn;
     private MaterialButton share_btn;
     private String result,code_type;
     private ImageView QRCodeImage;
@@ -76,6 +82,9 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
         share_btn = findViewById(R.id.history_share_but);
         share_btn.setOnClickListener(this);
 
+        copyBtn = findViewById(R.id.copyBtn);
+        copyBtn.setOnClickListener(this);
+        
         QRCodeImage = findViewById(R.id.QRCodeImg);
         linear = findViewById(R.id.linear);
         scannedLivedData = new ViewModelProvider(this).get(ScannedLivedData.class);
@@ -114,6 +123,22 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.history_share_but:
                 shareImage();
+                break;
+            case R.id.copyBtn:
+                if(!QRResult.getText().toString().equals("")){
+                    copyData(QRResult.getText().toString());
+                }
+                break;
+        }
+    }
+
+    // copy Result value to ClipBoard...
+    private void copyData(String textToCopy) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("Copied Text", textToCopy);
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(this, "Text copied to clipboard", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -122,7 +147,7 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
         // Save the Bitmap to a temporary file
         File tempFile = Validation.saveBitmapToFile(this,imageBitmap);
         // Get a content URI for the temporary file using FileProvider
-        Uri contentUri = FileProvider.getUriForFile(this, AppConstants.PACKAGE_NAME, tempFile);
+        Uri contentUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, tempFile);
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_STREAM, contentUri); // Attach the content URI

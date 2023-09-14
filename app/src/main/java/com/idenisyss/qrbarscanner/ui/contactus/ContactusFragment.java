@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.idenisyss.qrbarscanner.BuildConfig;
 import com.idenisyss.qrbarscanner.R;
 
 /**
@@ -24,7 +25,7 @@ public class ContactusFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_contactus, container, false);
         // Inflate the layout for this fragment
         TextView version = root.findViewById(R.id.Cntversions);
-        version.setText(getResources().getString(R.string.app_version));
+        version.setText(BuildConfig.VERSION_NAME);
         return root;
     }
 }

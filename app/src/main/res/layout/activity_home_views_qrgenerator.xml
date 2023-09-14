@@ -31,7 +31,8 @@
         app:layout_constraintTop_toBottomOf="@+id/generate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="centerInside" />
+        android:scaleType="centerInside"
+        android:contentDescription="@string/todo" />
     <ScrollView
         android:id="@+id/my_card_linear"
         android:layout_width="match_parent"
@@ -51,8 +52,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty_dp"
                 android:padding="@dimen/four_dp"
-                android:layout_margin="@dimen/fab_margin">
-            </EditText>
+                android:layout_margin="@dimen/fab_margin"
+                android:autofillHints="" />
+
 
             <EditText
                 android:id="@+id/my_card_phone_no_tv"
@@ -61,9 +63,9 @@
                 android:layout_height="@dimen/fifty_dp"
                 android:padding="@dimen/four_dp"
                 android:maxLength="10"
-                android:inputType="number"
-                android:hint="Phone no"
-                android:layout_margin="@dimen/fab_margin">
+                android:inputType="phone"
+                android:layout_margin="@dimen/fab_margin"
+                android:importantForAutofill="no">
             </EditText>
             <EditText
                 android:id="@+id/my_card_email_tv"
@@ -72,18 +74,24 @@
                 android:padding="@dimen/four_dp"
                 android:visibility="gone"
                 android:hint="@string/email"
-                android:inputType="text"
-                android:layout_margin="@dimen/fab_margin">
+                android:inputType="textEmailAddress"
+                android:layout_margin="@dimen/fab_margin"
+                android:importantForAutofill="no">
             </EditText>
             <EditText
                 android:id="@+id/my_card_address_tv"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/fifty_dp"
+                android:layout_height="wrap_content"
                 android:padding="@dimen/four_dp"
                 android:visibility="gone"
-                android:inputType="text"
+                android:inputType="textMultiLine"
+                android:overScrollMode="always"
+                android:scrollbarStyle="insideInset"
+                android:maxLines="5"
+                android:minLines="4"
                 android:hint="@string/address"
-                android:layout_margin="@dimen/fab_margin">
+                android:layout_margin="@dimen/fab_margin"
+                android:importantForAutofill="no">
             </EditText>
 
         </LinearLayout>
@@ -112,7 +120,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/four_dp"
             android:layout_weight="1"
-            android:text="@string/qr_code" />
+            android:text="@string/qr_code"
+            tools:ignore="ButtonStyle" />
 
         <!-- Second Button -->
         <Button
@@ -123,7 +132,8 @@
             android:layout_margin="@dimen/four_dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/barcodeBtn" />
+            android:text="@string/barcodeBtn"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
