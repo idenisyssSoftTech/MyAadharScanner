@@ -2,11 +2,13 @@ package com.idenisyss.qrbarscanner.activities;
 
 
 import static com.idenisyss.qrbarscanner.utilities.CodeUtils.qrBarcodeString;
+
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,6 +23,7 @@ import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,15 +55,15 @@ public class EnterDetailsactivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_views_qrgenerator);
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         gpsReceivers = new GPSReceiver();
         registerReceiver(gpsReceivers, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
         // Register the broadcast receiver
-        registerReceiver(addressReceiver,new IntentFilter(AppConstants.ACTION_ADDRESS));
+        registerReceiver(addressReceiver, new IntentFilter(AppConstants.ACTION_ADDRESS));
         // Start the LocationService
         serviceIntent = new Intent(EnterDetailsactivity.this, LocationServices.class);
 
-        homeTitle = getIntent().getStringExtra(AppConstants.INTENT_KEY_HOME_TITLE);
+         homeTitle = getIntent().getStringExtra(AppConstants.INTENT_KEY_HOME_TITLE);
 
         int drawableResourceId = getIntent().getIntExtra(AppConstants.INTENT_KEY_HOME_IMAGE, 0);
         if (getSupportActionBar() != null) {
@@ -127,7 +130,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
                 break;
             case AppConstants.MYLOCATION:
                 //myloc
-                if(checkLocationPermissions1()) {
+                if (checkLocationPermissions1()) {
                     startService(serviceIntent);
                     data_content_tv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
                     data_content_tv.setText(fullAddress);
@@ -200,7 +203,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
                         case AppConstants.EMAIL:
                             if (Validation.isValidEmail(data)) {
                                 qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
-                            }else {
+                            } else {
                                 data_content_tv.setError(getString(R.string.enter_validEmail));
                                 data_content_tv.requestFocus();
                             }
@@ -212,15 +215,14 @@ public class EnterDetailsactivity extends AppCompatActivity {
                         case AppConstants.URL:
                             if (Validation.isValidURL(data)) {
                                 qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
-                            }
-                            else {
+                            } else {
                                 data_content_tv.setError(getString(R.string.enter_validURL));
                                 data_content_tv.requestFocus();
                             }
                             break;
                         default:
                             //mylocation
-                            qrBarcodeString(getApplicationContext(),data,AppConstants.QR_CODE);
+                            qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
                             stopService(serviceIntent);
                             break;
                     }
@@ -256,8 +258,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
                         case AppConstants.EMAIL:
                             if (Validation.isValidEmail(data)) {
                                 qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
-                            }
-                            else{
+                            } else {
                                 data_content_tv.setError(getString(R.string.enter_validEmail));
                                 data_content_tv.requestFocus();
                             }
@@ -269,7 +270,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
                         case AppConstants.URL:
                             if (Validation.isValidURL(data)) {
                                 qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
-                            }  else {
+                            } else {
                                 data_content_tv.setError(getString(R.string.enter_validURL));
                                 data_content_tv.requestFocus();
                             }
@@ -346,16 +347,16 @@ public class EnterDetailsactivity extends AppCompatActivity {
                 }
             }
 
-            }else {
-                if(fullAddress != null) {
-                    if(homeTitle.equals(AppConstants.MYLOCATION)) {
-                        data_content_tv.setText(fullAddress);
-                    }
-                }else {
-                    showToast(getString(R.string.address_not_found));
+        } else {
+            if (fullAddress != null) {
+                if (homeTitle.equals(AppConstants.MYLOCATION)) {
+                    data_content_tv.setText(fullAddress);
                 }
+            } else {
+                showToast(getString(R.string.address_not_found));
             }
         }
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -379,14 +380,15 @@ public class EnterDetailsactivity extends AppCompatActivity {
     };
 
     private void updateUIWithAddress(String fullAddress) {
-        if(fullAddress != null) {
-            if(homeTitle.equals(AppConstants.MYLOCATION)) {
+        if (fullAddress != null) {
+            if (homeTitle.equals(AppConstants.MYLOCATION)) {
                 data_content_tv.setText(fullAddress);
             }
-        }else {
+        } else {
             Toast.makeText(this, " broadcast not found address!...", Toast.LENGTH_SHORT).show();
         }
     }
+
     protected void onStart() {
         super.onStart();
         if (homeTitle.equals(AppConstants.MYLOCATION)) {
