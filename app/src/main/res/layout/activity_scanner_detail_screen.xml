@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.QRScannerResult">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
 
         <TextView
             android:id="@+id/titleQRResult"
@@ -21,69 +26,74 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/QRCodeImg"
-                android:layout_width="250dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:contentDescription="@string/todo" />
+    <ImageView
+        android:id="@+id/QRCodeImg"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/slide1"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleQRResult" />
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="20dp"
+        android:layout_marginTop="45dp"
+        android:backgroundTint="@color/light_grey"
+        android:elevation="4dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/QRCodeImg"
+        tools:layout_editor_absoluteX="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="20dp"
-            android:layout_marginTop="45dp"
-            android:elevation="4dp"
-            android:backgroundTint="@color/light_grey"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/titleQRResult">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/copyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/transparent"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/copy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageButton
-                    android:id="@+id/copyBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/copy"
-                    android:backgroundTint="@color/transparent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/todo" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resultTitle"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/resultTitle"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/QrResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:text="@string/app_version"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sixteen_sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/QrResult"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="5"
-                    android:text="@string/app_version"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sixteen_sp"
-                    android:layout_marginTop="@dimen/fab_margin"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
     <!-- Share Button -->
     <com.google.android.material.button.MaterialButton
@@ -91,48 +101,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/twenty_dp"
+        android:background="@drawable/gradient"
         android:text="@string/share"
+        android:visibility="gone"
         app:cornerRadius="@dimen/twenty_dp"
         app:icon="@drawable/share_white"
         app:iconGravity="textStart"
-        android:visibility="gone"
-        android:background="@drawable/gradient"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 
-        <LinearLayout
-            android:id="@+id/linear"
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <Button
+            android:id="@+id/SaveBtn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/margin_dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="@dimen/margin_dp"
-            android:layout_marginStart="@dimen/margin_dp">
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_dp"
+            android:backgroundTint="@color/purple_500"
+            android:text="@string/save"
+            android:textSize="@dimen/font_sp"
+            app:cornerRadius="20dp" />
 
-            <Button
-                android:id="@+id/SaveBtn"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                app:cornerRadius="20dp"
-                android:text="@string/save"
-                android:layout_marginTop="@dimen/margin_dp"
-                android:backgroundTint="@color/purple_500"
-                android:textSize="@dimen/font_sp" />
-
-            <Button
-                android:id="@+id/cancelBtn"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                app:cornerRadius="20dp"
-                android:layout_marginTop="@dimen/margin_dp"
-                android:text="@string/cancel"
-                android:backgroundTint="@color/orange"
-                android:textSize="@dimen/font_sp" />
-        </LinearLayout>
-
-
-</LinearLayout>
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_dp"
+            android:backgroundTint="@color/orange"
+            android:text="@string/cancel"
+            android:textSize="@dimen/font_sp"
+            app:cornerRadius="20dp" />
+    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -70,7 +70,6 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         if (isCameraAvailable) {
             // Camera is available, you can proceed with scanning
             startScanning();
-            Toast.makeText(this, "camera available !...", Toast.LENGTH_SHORT).show();
         } else {
             // No camera available on this device
             Toast.makeText(this, "No camera available on this device!...", Toast.LENGTH_LONG).show();
@@ -310,7 +309,6 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
         if (mCodeScanner != null) {
             mCodeScanner.releaseResources();
         }
-//        scannerView.stopCamera();
     }
 
     @Override

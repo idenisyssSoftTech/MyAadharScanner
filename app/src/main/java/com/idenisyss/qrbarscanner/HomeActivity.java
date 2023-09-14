@@ -1,7 +1,6 @@
 package com.idenisyss.qrbarscanner;
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
@@ -12,11 +11,8 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -32,7 +28,6 @@ import com.idenisyss.qrbarscanner.receivers.GPSReceiver;
 import com.idenisyss.qrbarscanner.utilities.AppConstants;
 import com.idenisyss.qrbarscanner.utilities.PermissionUtils;
 
-import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -164,7 +159,7 @@ public class HomeActivity extends AppCompatActivity {
         if (requestCode == AppConstants.REQUEST_CHECK_SETTING) {
             isGPSEnabled = resultCode == Activity.RESULT_OK;
             if (!isGPSEnabled) {
-                Toast.makeText(this, "Please Enable GPS!..", Toast.LENGTH_SHORT).show();
+                Log.d(TAG_NAME,"GPS OnActivityResult "+"Please Enable GPS!..");
             }
         }
     }
