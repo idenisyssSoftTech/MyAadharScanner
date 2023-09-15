@@ -121,6 +121,7 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
                 saveQRImage();
                 break;
             case R.id.cancelBtn:
+                startActivity(new Intent(getApplicationContext(),QRCodeScannerActivity.class));
                 finish();
                 break;
             case R.id.history_share_but:

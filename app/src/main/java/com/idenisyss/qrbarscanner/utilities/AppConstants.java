@@ -3,8 +3,8 @@ package com.idenisyss.qrbarscanner.utilities;
 public class AppConstants {
 
     //Links
-    public static final String TERMS_CONDITIONS_LINK = "https://idenisysssoftwarepvtltd.blogspot.com/2023/09/terms-conditions-qrbarscanner.html";
-    public static final String PRIVACY_POLICY_LINK = "https://idenisysssoftwarepvtltd.blogspot.com/2023/09/httpsidenisyss.comPrivatePolicy.html";
+    public static final String TERMS_CONDITIONS_LINK = "https://qrbarscanner2.blogspot.com/2023/09/terms-conditions-qrbarscanner.html";
+    public static final String PRIVACY_POLICY_LINK = "https://qrbarscanner2.blogspot.com/2023/09/privacy-policy-qrbarscanner.html";
 
     public static final String ON_START = "On start";
     public static final String START = "Start";

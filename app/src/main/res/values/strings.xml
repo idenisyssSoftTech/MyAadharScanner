@@ -40,11 +40,11 @@
     <string name="galleryBtn">Gallery</string>
     <string name="scan_below_code">Scan below Code</string>
     <string name="description">Description</string>
-    <string name="aboutus_des"><![CDATA[QR & Barcode Scanner can scan and read all QR codes / barcode types including text, url, ISBN, product, contact, calendar, email, location, Wi-Fi and many more formats.\nThis can Generate QR and Bar codes for Text , links and for the current location.]]></string>
+
     <string name="phone">Phone no:</string>
-    <string name="phone_num">000000000</string>
+    <string name="phone_num">8978389829</string>
     <string name="email">E-mail:</string>
-    <string name="email_id">about_qr_bar_scan@gmail.com</string>
+    <string name="email_id">abhiram.playstoree@gmail.com</string>
 
     <!--  QrScanner View  -->
     <string name="title">QR Scanner</string>
@@ -80,5 +80,6 @@
     <!-- showToast Messages  -->
     <string name="GPS_OFF">GPS OFF</string>
     <string name="address_not_found">OnActivityResult no found address!..</string>
+    <string name="aboutus_des"><![CDATA[Scanning Capabilities: The core function of the app is to scan QR & Barcode accurately and quickly. Users typically point their device\'s camera at the QR code, and the app automatically recognizes and decodes it.\n\nCode Interpretation: Once a QR code is scanned, the app may provide options to interpret the information contained within it. For example, if user scans any code then it will display the data and that data can be copied to clipboard.\n\nHistory: Many QR code scanner apps keep a history of previously scanned codes, allowing users to revisit or reuse the information without rescanning.\n\nContact Information: It has \"My Card\" option to generate QR code of the user \nLocation: It also generate QR code for the current Location automatically.(For this User should On the GPS).\n\nFlashlight Support: Many apps include a flashlight feature to assist with scanning codes in low-light conditions.\nOffline Capability: Some apps can decode QR codes even when you\'re not connected to the internet.]]></string>
 
 </resources>
