@@ -191,7 +191,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
                             if (!myphoneno.isEmpty() && !myemail.isEmpty() && !myadd.isEmpty()) {
                                 //checkPhonenumber & email is valid or not.
                                 if (Validation.isValidPhoneNumber(myphoneno) && Validation.isValidEmail(myemail)) {
-                                    String mycarddata = "Name : " + data + "\n Phone no : " + myphoneno + "\n Email : " + myemail + "\n Address : " + myadd;
+                                    String mycarddata = "Name : " + data + "\nPhone no : " + myphoneno + "\nEmail : " + myemail + "\nAddress : " + myadd;
                                     qrBarcodeString(getApplicationContext(), mycarddata, AppConstants.QR_CODE);
                                 } else {
                                     if (!Validation.isValidEmail(myemail)) {

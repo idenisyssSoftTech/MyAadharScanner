@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -63,6 +64,7 @@ public class GenerateQRorBarActivity extends AppCompatActivity implements View.O
         scannedLivedData = new ViewModelProvider(this).get(ScannedLivedData.class);
 
         data_content_tv2.setText(received_string);
+        data_content_tv2.setMovementMethod(new ScrollingMovementMethod());
         save_but.setOnClickListener(this);
         share_but.setOnClickListener(this);
 

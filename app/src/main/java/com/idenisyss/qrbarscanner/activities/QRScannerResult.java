@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,6 +103,7 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         QRResult.setText(result);
+        QRResult.setMovementMethod(new ScrollingMovementMethod());
         titleQRResult.setText(code_type);
         // Retrieve the image byte array from the intent
         imageByteArray =getIntent().getByteArrayExtra("image");
