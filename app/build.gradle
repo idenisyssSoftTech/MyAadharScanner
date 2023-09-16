@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.idenisyss.qrbarscanner'
+    namespace 'com.abhiram.qrbarscanner'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.idenisyss.qrbarscanner"
+        applicationId "com.abhiram.qrbarscanner"
         minSdk 24
         targetSdk 34
         versionCode 1
