@@ -61,19 +61,20 @@
 
         <ImageView
             android:id="@+id/delete_item"
-            android:layout_width="@dimen/thirty_dp"
-            android:layout_height="@dimen/thirty_dp"
+            android:layout_width="@dimen/forty_eight_dp"
+            android:layout_height="@dimen/forty_eight_dp"
             android:layout_margin="@dimen/five_dp"
-            android:padding="@dimen/three_dp"
+            android:scaleType="center"
             android:src="@drawable/delete"
             android:contentDescription="@string/todo" />
 
         <!-- Right Arrow ImageView -->
         <ImageView
             android:id="@+id/next_arrow"
-            android:layout_width="@dimen/twenty_four_dp"
-            android:layout_height="@dimen/twenty_four_dp"
-            android:layout_margin="@dimen/fab_margin"
+            android:layout_width="@dimen/forty_eight_dp"
+            android:layout_height="@dimen/forty_eight_dp"
+            android:layout_margin="@dimen/nav_header_vertical_spacing"
+            android:scaleType="center"
             android:src="@drawable/arrow_forward"
             android:contentDescription="@string/todo" />
 
