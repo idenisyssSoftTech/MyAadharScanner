@@ -13,10 +13,9 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.android.material.button.MaterialButton;
 import com.abhiram.qrbarscanner.BuildConfig;
 import com.abhiram.qrbarscanner.R;
 import com.abhiram.qrbarscanner.databases.dbtables.ScannedHistory;
@@ -34,7 +33,7 @@ public class GenerateQRorBarActivity extends AppCompatActivity implements View.O
     private TextView data_content_tv2;
     private Bitmap received_bitmap;
    private byte[] imageByteArray;
-    private MaterialButton save_but, share_but;
+    private Button save_but, share_but;
     private String received_bitmap_type, received_string;
     private ScannedLivedData scannedLivedData;
 

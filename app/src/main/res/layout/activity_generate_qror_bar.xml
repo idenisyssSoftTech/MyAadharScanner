@@ -66,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <!-- First Button -->
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/save_but"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,10 +77,10 @@
             app:icon="@drawable/save"
             app:iconGravity="textStart"
             android:background="@drawable/gradient"
-            />
+            tools:ignore="ButtonStyle" />
 
         <!-- Second Button -->
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/share_but"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             app:icon="@drawable/share_white"
             app:iconGravity="textStart"
             android:background="@drawable/gradient"
-            />
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
