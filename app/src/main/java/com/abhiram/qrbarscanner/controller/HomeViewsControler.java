@@ -30,7 +30,6 @@ public class HomeViewsControler {
             @Override
             public void onClick(View v) {
                 // You can perform actions or call methods
-
                 Intent j = new Intent(context, EnterDetailsactivity.class);
                 j.putExtra(AppConstants.INTENT_KEY_HOME_TITLE,home_selected_title);
                 j.putExtra(AppConstants.INTENT_KEY_HOME_IMAGE,drawableResourceId );

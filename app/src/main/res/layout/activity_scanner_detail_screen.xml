@@ -59,8 +59,8 @@
 
             <ImageButton
                 android:id="@+id/copyBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/fifty_dp"
+                android:layout_height="@dimen/fifty_dp"
                 android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/copy"
@@ -88,7 +88,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/sixteen_sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/copyBtn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

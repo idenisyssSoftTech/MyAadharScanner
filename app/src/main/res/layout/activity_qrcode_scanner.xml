@@ -16,11 +16,11 @@
             android:id="@+id/scanner_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:autoFocusButtonPaddingHorizontal="80dp"
-            app:autoFocusButtonPaddingVertical="30dp"
+            app:autoFocusButtonPaddingHorizontal="@dimen/eighty_dp"
+            app:autoFocusButtonPaddingVertical="@dimen/thirty_dp"
             app:autoFocusButtonPosition="topEnd"
-            app:flashButtonPaddingHorizontal="30dp"
-            app:flashButtonPaddingVertical="30dp"
+            app:flashButtonPaddingHorizontal="@dimen/thirty_dp"
+            app:flashButtonPaddingVertical="@dimen/thirty_dp"
             app:frameCornersCapRounded="true"
             app:frameSize="0.65"
             app:frameVerticalBias="0.3"
@@ -32,8 +32,8 @@
                 android:text="@string/subTitle"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_marginTop="30dp"
+                android:textSize="@dimen/eighteen_sp"
+                android:layout_marginTop="@dimen/thirty_dp"
                 />
 
         </com.budiyev.android.codescanner.CodeScannerView>
@@ -46,15 +46,15 @@
             android:text="@string/title"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="30sp"
-            android:layout_marginBottom="50dp"
+            android:textSize="@dimen/thirty_sp"
+            android:layout_marginBottom="@dimen/fifty_dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"/>
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="@dimen/sixty_dp"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="2"

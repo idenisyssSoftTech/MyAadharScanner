@@ -76,8 +76,6 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root  = inflater.inflate(R.layout.fragment_home, container, false);
-        //Check Camera Permissions
-//        checkPermissionMethod();
 
         list = new ArrayList<>();
         HomeModel hm1 = new HomeModel("1", AppConstants.CLIPBOARD,R.drawable.baseline_copy_all_24,R.drawable.checklist);

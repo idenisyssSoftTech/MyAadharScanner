@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="100dp"
     android:layout_height="100dp"
     android:gravity="center"
     android:orientation="vertical">
 
-   <!-- <FrameLayout
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/circular_border">-->
 
-        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView
             android:id="@+id/list_cardView"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -28,12 +22,12 @@
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/qr_black">
+                android:src="@drawable/qr_black"
+                android:contentDescription="@string/todo">
 
             </ImageView>
         </androidx.cardview.widget.CardView>
 
-<!--    </FrameLayout>-->
 
     <TextView
         android:id="@+id/list_tv1"

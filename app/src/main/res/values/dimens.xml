@@ -22,6 +22,7 @@
     <!-- font sizes  -->
     <dimen name="font_sp">20sp</dimen>
     <dimen name="twentyfive_sp">20sp</dimen>
+    <dimen name="thirty_sp">30sp</dimen>
     <dimen name="eleven_sp">11sp</dimen>
     <dimen name="foruteen_sp">14sp</dimen>
     <dimen name="sixteen_sp">16sp</dimen>
@@ -30,6 +31,7 @@
     <!-- margin sizes  -->
     <dimen name="margin_dp">10dp</dimen>
     <dimen name="ten_sp">10sp</dimen>
+    <dimen name="sixty_dp">60dp</dimen>
 
 
 </resources>
