@@ -12,11 +12,12 @@
         android:layout_height="wrap_content"
         android:text="@string/title"
         android:textSize="@dimen/foruteen_sp"
+        android:textColor="@color/black"
         android:textStyle="bold"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="4dp" />
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:paddingBottom="@dimen/four_dp" />
 
     <TextView
         android:id="@+id/terms_desc"
@@ -24,9 +25,9 @@
         android:layout_height="wrap_content"
         android:text="@string/title_activity_home"
         android:textSize="@dimen/ten_sp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="8dp" />
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/four_dp"
+        android:paddingBottom="@dimen/nav_header_vertical_spacing" />
 
 </LinearLayout>

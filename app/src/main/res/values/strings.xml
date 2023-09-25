@@ -9,8 +9,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Idenisyss Software Solutions</string>
-    <string name="nav_header_subtitle">Idenisyss Software Solutions Pvt Ltd.</string>
+    <string name="nav_header_subtitle">Support for only Android devices.</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_Delete_all">Delete All</string>
 

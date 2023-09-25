@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="@dimen/four_dp"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:layout_margin="@dimen/nav_header_vertical_spacing">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/two_hundred_dp">

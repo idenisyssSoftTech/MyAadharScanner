@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
+    android:layout_width="@dimen/hundred_dp"
+    android:layout_height="@dimen/hundred_dp"
     android:gravity="center"
     android:orientation="vertical">
 
 
         <androidx.cardview.widget.CardView
             android:id="@+id/list_cardView"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/sixty_dp"
+            android:layout_height="@dimen/sixty_dp"
             android:layout_gravity="center"
-            app:cardCornerRadius="30dp"
+            app:cardCornerRadius="@dimen/thirty_dp"
             app:cardElevation="@dimen/four_dp">
 
             <ImageView
                 android:id="@+id/list_home_im"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp"
+                android:layout_margin="@dimen/margin_dp"
+                android:padding="@dimen/margin_dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/qr_black"
                 android:contentDescription="@string/todo">
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textColor="@color/dark_grey"
+        android:textColor="@color/black"
         android:textSize="@dimen/eleven_sp" />
 
 </LinearLayout>

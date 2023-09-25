@@ -69,6 +69,7 @@
                 android:maxLength="10"
                 android:windowSoftInputMode="adjustResize"
                 android:inputType="phone"
+                android:textColor="@color/black"
                 android:layout_margin="@dimen/fab_margin"
                 android:importantForAutofill="no"
                 tools:ignore="LabelFor"/>
@@ -79,6 +80,7 @@
                 android:layout_height="@dimen/fifty_dp"
                 android:padding="@dimen/four_dp"
                 android:visibility="gone"
+                android:textColor="@color/black"
                 android:nextFocusDown="@id/my_card_address_tv"
                 android:windowSoftInputMode="adjustResize"
                 android:hint="@string/email"
@@ -92,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/four_dp"
                 android:visibility="gone"
+                android:textColor="@color/black"
                 android:windowSoftInputMode="adjustResize"
                 android:inputType="textMultiLine"
                 android:fitsSystemWindows="true"

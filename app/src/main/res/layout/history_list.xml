@@ -45,7 +45,7 @@
             <!-- Description TextView -->
             <TextView
                 android:id="@+id/discription_tv"
-                android:layout_width="@dimen/two_hundred_dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
