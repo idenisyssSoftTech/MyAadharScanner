@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import com.abhiram.qrbarscanner.adapters.HistoryAdapter;
 import com.abhiram.qrbarscanner.databases.dbtables.ScannedHistory;
 import com.abhiram.qrbarscanner.databases.livedatamodel.ScannedLivedData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryFragment extends Fragment {
@@ -33,6 +35,7 @@ public class HistoryFragment extends Fragment {
     HistoryAdapter historyAdapter;
     RecyclerView recyclerView;
     ScannedLivedData scannedLivedData;
+    List<ScannedHistory> contactsList;
 
 
     @Override
@@ -42,6 +45,7 @@ public class HistoryFragment extends Fragment {
         scannedLivedData = new ViewModelProvider(this).get(ScannedLivedData.class);
         historyAdapter = new HistoryAdapter();
         historyAdapter.setScannedLivedData(scannedLivedData);
+        contactsList = new ArrayList<>();
 
         // Enable options menu in this fragment
         setHasOptionsMenu(true);
@@ -63,6 +67,7 @@ public class HistoryFragment extends Fragment {
         scannedLivedData.getAllScannedHistory().observe(getViewLifecycleOwner(), new Observer<List<ScannedHistory>>() {
             @Override
             public void onChanged(List<ScannedHistory> contacts) {
+                contactsList = contacts;
                 historyAdapter.submitList(contacts);
                 historyAdapter.getAppContext(getActivity());
             }
@@ -76,7 +81,13 @@ public class HistoryFragment extends Fragment {
 
         if (id == R.id.action_deleteAll) {
             // Handle the "Delete All" menu item click here
-            confirmDeleteAllData();
+            if(contactsList.size() >0){
+                confirmDeleteAllData();
+            }
+            else {
+                Toast.makeText(getActivity(), "No data found", Toast.LENGTH_SHORT).show();
+            }
+
             return true;
         }
 

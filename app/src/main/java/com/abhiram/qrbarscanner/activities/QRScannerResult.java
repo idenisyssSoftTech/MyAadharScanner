@@ -154,7 +154,6 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_STREAM, contentUri); // Attach the content URI
-//                intent.setPackage("com.whatsapp"); // Specify WhatsApp package to ensure it's opened in WhatsApp
         startActivity(Intent.createChooser(intent, "Share with"));
     }
 
