@@ -81,5 +81,6 @@
     <string name="GPS_OFF">GPS OFF</string>
     <string name="address_not_found">OnActivityResult no found address!..</string>
     <string name="aboutus_des"><![CDATA[Scanning Capabilities: The core function of the app is to scan QR & Barcode accurately and quickly. Users typically point their device\'s camera at the QR code, and the app automatically recognizes and decodes it.\n\nCode Interpretation: Once a QR code is scanned, the app may provide options to interpret the information contained within it. For example, if user scans any code then it will display the data and that data can be copied to clipboard.\n\nHistory: Many QR code scanner apps keep a history of previously scanned codes, allowing users to revisit or reuse the information without rescanning.\n\nContact Information: It has \"My Card\" option to generate QR code of the user \nLocation: It also generate QR code for the current Location automatically.(For this User should On the GPS).\n\nFlashlight Support: Many apps include a flashlight feature to assist with scanning codes in low-light conditions.\nOffline Capability: Some apps can decode QR codes even when you\'re not connected to the internet.]]></string>
+    <string name="main_content">Main Content</string>
 
 </resources>
