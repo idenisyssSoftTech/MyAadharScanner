@@ -79,13 +79,13 @@
                     android:contentDescription="@string/todo"
                     android:src="@drawable/barcode_"
                     app:backgroundTint="@color/cardview_dark_background"
-                    app:maxImageSize="30dp"
+                    app:maxImageSize="@dimen/thirty_dp"
                     app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/five_dp"
                     android:text="@string/barcodeBtn"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -106,14 +106,14 @@
                     android:contentDescription="@string/todo"
                     android:src="@drawable/qr"
                     app:backgroundTint="@color/cardview_dark_background"
-                    app:maxImageSize="30dp"
+                    app:maxImageSize="@dimen/thirty_dp"
                     app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="@dimen/five_dp"
+                    android:layout_marginEnd="@dimen/five_dp"
                     android:text="@string/qrBtn"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -134,13 +134,13 @@
                     android:contentDescription="@string/todo"
                     android:src="@drawable/gallery"
                     app:backgroundTint="@color/cardview_dark_background"
-                    app:maxImageSize="30dp"
+                    app:maxImageSize="@dimen/thirty_dp"
                     app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/five_dp"
                     android:text="@string/galleryBtn"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -149,9 +149,9 @@
 
         <ImageButton
             android:id="@+id/cancelScanner"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="@dimen/forty_eight_dp"
+            android:layout_height="@dimen/forty_eight_dp"
+            android:layout_marginTop="@dimen/twenty_dp"
             android:backgroundTint="@android:color/transparent"
             android:contentDescription="@string/todo"
             android:src="@drawable/cancel"

@@ -32,6 +32,7 @@
     <dimen name="margin_dp">10dp</dimen>
     <dimen name="ten_sp">10sp</dimen>
     <dimen name="sixty_dp">60dp</dimen>
+    <dimen name="forty_eight_dp">48dp</dimen>
 
 
 </resources>

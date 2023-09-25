@@ -27,8 +27,8 @@
     <!-- ImageView -->
     <ImageView
         android:id="@+id/home_imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/hundred_dp"
+        android:layout_height="@dimen/hundred_dp"
         android:src="@drawable/map"
         android:layout_marginTop="@dimen/fab_margin"
         app:layout_constraintTop_toBottomOf="@+id/generate"
@@ -51,9 +51,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty_dp"
                 android:windowSoftInputMode="adjustResize"
+                android:textColor="@color/black"
                 android:padding="@dimen/four_dp"
+                android:hint=""
                 android:layout_margin="@dimen/fab_margin"
-                android:autofillHints="" />
+                android:autofillHints=""
+                tools:ignore="LabelFor" />
 
 
             <EditText
@@ -67,8 +70,9 @@
                 android:windowSoftInputMode="adjustResize"
                 android:inputType="phone"
                 android:layout_margin="@dimen/fab_margin"
-                android:importantForAutofill="no">
-            </EditText>
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor"/>
+
             <EditText
                 android:id="@+id/my_card_email_tv"
                 android:layout_width="match_parent"
