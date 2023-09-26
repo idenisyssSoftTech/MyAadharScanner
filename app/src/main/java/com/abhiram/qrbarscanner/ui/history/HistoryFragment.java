@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,9 +33,11 @@ import java.util.List;
 
 public class HistoryFragment extends Fragment {
 
+    private static final String TAG_NAME = HistoryFragment.class.getName();
 
     HistoryAdapter historyAdapter;
     RecyclerView recyclerView;
+    LinearLayout linear_history_no_data;
     ScannedLivedData scannedLivedData;
     List<ScannedHistory> contactsList;
 
@@ -58,6 +62,7 @@ public class HistoryFragment extends Fragment {
         View root  = inflater.inflate(R.layout.fragment_gallery, container, false);
 
         recyclerView = root.findViewById(R.id.history_recyelerview);
+        linear_history_no_data = root.findViewById(R.id.linear_history_no_data);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
@@ -70,6 +75,16 @@ public class HistoryFragment extends Fragment {
                 contactsList = contacts;
                 historyAdapter.submitList(contacts);
                 historyAdapter.getAppContext(getActivity());
+                Log.d(TAG_NAME,String.valueOf( historyAdapter.getListSize(getActivity())));
+
+                if(contacts.size() >0){
+                    recyclerView.setVisibility(View.VISIBLE);
+                    linear_history_no_data.setVisibility(View.GONE);
+                }
+                else {
+                    recyclerView.setVisibility(View.GONE);
+                    linear_history_no_data.setVisibility(View.VISIBLE);
+                }
             }
         });
 

@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
 import com.abhiram.qrbarscanner.BuildConfig;
 import com.abhiram.qrbarscanner.R;
 import com.abhiram.qrbarscanner.databases.dbtables.ScannedHistory;
@@ -43,9 +42,8 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
     private static final String TAG_NAME = QRScannerResult.class.getName();
 
     private TextView QRResult,titleQRResult;
-    private Button BtnSave, BtnCancel;
+    private Button BtnSave, BtnCancel,share_btn;
     private ImageButton copyBtn;
-    private MaterialButton share_btn;
     private String result,code_type;
     private ImageView QRCodeImage;
     Bitmap imageBitmap;

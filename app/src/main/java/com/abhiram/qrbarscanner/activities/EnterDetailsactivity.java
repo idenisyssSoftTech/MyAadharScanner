@@ -20,7 +20,9 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +33,7 @@ import android.widget.Toast;
 import com.abhiram.qrbarscanner.BuildConfig;
 import com.abhiram.qrbarscanner.R;
 import com.abhiram.qrbarscanner.receivers.GPSReceiver;
-import com.abhiram.qrbarscanner.services.LocationServices;
+import com.abhiram.qrbarscanner.services.CurrentLocationServices;
 import com.abhiram.qrbarscanner.utilities.AppConstants;
 import com.abhiram.qrbarscanner.utilities.PermissionUtils;
 import com.abhiram.qrbarscanner.utilities.Validation;
@@ -76,7 +78,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
         // Register the broadcast receiver
         registerReceiver(addressReceiver,new IntentFilter(AppConstants.ACTION_ADDRESS));
         // Start the LocationService
-        serviceIntent = new Intent(EnterDetailsactivity.this, LocationServices.class);
+        serviceIntent = new Intent(EnterDetailsactivity.this, CurrentLocationServices.class);
 
          homeTitle = getIntent().getStringExtra(AppConstants.INTENT_KEY_HOME_TITLE);
 
@@ -146,11 +148,26 @@ public class EnterDetailsactivity extends AppCompatActivity {
             case AppConstants.MYLOCATION:
                 //myloc
                 if(checkLocationPermissions()) {
-                    startService(serviceIntent);
-                    data_content_tv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+                    //startService(serviceIntent);
+                    int newWidth = LayoutParams.MATCH_PARENT;
+                    int space = 32;
+                    int newHeight = LayoutParams.WRAP_CONTENT;
+                    ViewGroup.LayoutParams layoutParams = data_content_tv.getLayoutParams();
+                    layoutParams.width = newWidth;
+                    layoutParams.height = newHeight;
+                    data_content_tv.setLayoutParams(layoutParams);
+                    data_content_tv.setPadding(space, space, space, space);
+                    data_content_tv.setGravity(Gravity.CENTER);
+
+                    ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) data_content_tv.getLayoutParams();
+                    marginLayoutParams.leftMargin = space; // Replace with your desired left margin in pixels
+                    marginLayoutParams.topMargin = space+space; // Replace with your desired top margin in pixels
+                    marginLayoutParams.rightMargin = space;
+                    marginLayoutParams.bottomMargin = space;
                     data_content_tv.setText(fullAddress);
                     Log.d(TAG_NAME, "full address main calss: " + fullAddress);
                     create_bar_code_but.setVisibility(View.GONE);
+                    stopService(serviceIntent);
                 }
                 else{
                     Log.d(TAG_NAME,"Please check permissions");
@@ -407,7 +424,7 @@ public class EnterDetailsactivity extends AppCompatActivity {
         super.onResume();
         if (homeTitle.equals(AppConstants.MYLOCATION)) {
             registerReceiver(gpsReceivers, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
-            startService(serviceIntent);
+           // startService(serviceIntent);
         }
     }
 

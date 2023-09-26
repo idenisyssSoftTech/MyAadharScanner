@@ -93,7 +93,7 @@
             tools:replace="screenOrientation" />
 
         <service
-            android:name=".services.LocationServices"
+            android:name=".services.CurrentLocationServices"
             android:enabled="true"
             android:exported="false" />
 

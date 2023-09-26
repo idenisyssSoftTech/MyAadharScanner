@@ -25,8 +25,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class LocationServices extends Service {
-    private String TAG_NAME = "LocationService";
+public class CurrentLocationServices extends Service {
+    private final String TAG_NAME = CurrentLocationServices.class.getName();
     private FusedLocationProviderClient fusedLocationProviderClient;
     private Geocoder geocoder;
     public Context context;
@@ -74,7 +74,7 @@ public class LocationServices extends Service {
                 Exception exception = task.getException();
                 if (exception != null) {
                     Log.e("Location Error", "Error: " + exception.getMessage());
-                    Toast.makeText(LocationServices.this.context, "location retrieval exception"+exception.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CurrentLocationServices.this.context, "location retrieval exception"+exception.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e("Location Error", "Unknown error occurred");
                 }
@@ -85,9 +85,9 @@ public class LocationServices extends Service {
         });
     }
 
-    private LocationCallback locationCallback = new LocationCallback() {
+    private final LocationCallback locationCallback = new LocationCallback() {
         @Override
-        public void onLocationResult(LocationResult locationResult) {
+        public void onLocationResult(@Nullable LocationResult locationResult) {
             if (locationResult != null) {
                 Location location = locationResult.getLastLocation();
                 if (location != null) {
@@ -117,6 +117,8 @@ public class LocationServices extends Service {
 //                Toast.makeText(LocationService.this, "Address : " + fullAddress, Toast.LENGTH_LONG).show();
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        }catch (NullPointerException e) {
             e.printStackTrace();
         }
     }

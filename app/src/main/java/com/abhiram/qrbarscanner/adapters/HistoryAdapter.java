@@ -104,6 +104,10 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
     public void getAppContext(FragmentActivity activity) {
         this.context = activity;
     }
+    public int  getListSize(FragmentActivity activity) {
+        this.context = activity;
+        return getCurrentList().size();
+    }
 
     public void setScannedLivedData(ScannedLivedData scannedLivedData) {
         this.scannedLivedData = scannedLivedData;

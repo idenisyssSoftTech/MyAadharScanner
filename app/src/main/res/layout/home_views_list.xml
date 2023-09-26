@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/eleven_sp" />
+        android:padding="@dimen/four_dp"
+        android:textSize="@dimen/foruteen_sp" />
 
 </LinearLayout>

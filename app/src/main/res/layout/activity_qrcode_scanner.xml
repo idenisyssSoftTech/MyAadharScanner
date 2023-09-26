@@ -16,6 +16,7 @@
             android:id="@+id/scanner_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/todo"
             app:autoFocusButtonPaddingHorizontal="@dimen/eighty_dp"
             app:autoFocusButtonPaddingVertical="@dimen/thirty_dp"
             app:autoFocusButtonPosition="topEnd"
@@ -24,31 +25,32 @@
             app:frameCornersCapRounded="true"
             app:frameSize="0.65"
             app:frameVerticalBias="0.3"
-            app:maskColor="#77000000">
+            app:maskColor="#77000000"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
+
             <TextView
                 android:id="@+id/subTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/thirty_dp"
                 android:text="@string/subTitle"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/eighteen_sp"
-                android:layout_marginTop="@dimen/thirty_dp"
-                />
+                android:textSize="@dimen/eighteen_sp" />
 
         </com.budiyev.android.codescanner.CodeScannerView>
-
 
         <TextView
             android:id="@+id/Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fifty_dp"
             android:text="@string/title"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/thirty_sp"
-            android:layout_marginBottom="@dimen/fifty_dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"/>
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -77,6 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/todo"
+                    android:padding="@dimen/four_dp"
                     android:src="@drawable/barcode_"
                     app:backgroundTint="@color/cardview_dark_background"
                     app:maxImageSize="@dimen/thirty_dp"
@@ -86,6 +89,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/five_dp"
+                    android:paddingLeft="@dimen/four_dp"
+                    android:paddingTop="@dimen/nav_header_vertical_spacing"
+                    android:paddingRight="@dimen/four_dp"
+                    android:paddingBottom="@dimen/nav_header_vertical_spacing"
                     android:text="@string/barcodeBtn"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -114,6 +121,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/five_dp"
                     android:layout_marginEnd="@dimen/five_dp"
+                    android:paddingLeft="@dimen/four_dp"
+                    android:paddingTop="@dimen/nav_header_vertical_spacing"
+                    android:paddingRight="@dimen/four_dp"
+                    android:paddingBottom="@dimen/nav_header_vertical_spacing"
                     android:text="@string/qrBtn"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -141,6 +152,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/five_dp"
+                    android:paddingLeft="@dimen/four_dp"
+                    android:paddingTop="@dimen/nav_header_vertical_spacing"
+                    android:paddingRight="@dimen/four_dp"
+                    android:paddingBottom="@dimen/nav_header_vertical_spacing"
                     android:text="@string/galleryBtn"
                     android:textColor="@color/white" />
             </LinearLayout>

@@ -3,15 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.history.HistoryFragment">
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/history_recyelerview"
-        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+
+    <LinearLayout
+        android:id="@+id/linear_history_no_data"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_connection"
+            android:layout_width="match_parent"
+            android:scaleType="center"
+            android:visibility="gone"
+            android:contentDescription="@string/todo" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sixteen_sp"
+            android:padding="@dimen/four_dp"
+            android:text="@string/nodata_found"
+            android:textAlignment="center" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -9,141 +9,143 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/generate"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/four_dp"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textColor="@color/purple_500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/home_imageView">
 
-    </TextView>
-    <!-- ImageView -->
-    <ImageView
-        android:id="@+id/home_imageView"
-        android:layout_width="@dimen/hundred_dp"
-        android:layout_height="@dimen/hundred_dp"
-        android:src="@drawable/map"
-        android:layout_marginTop="@dimen/fab_margin"
-        app:layout_constraintTop_toBottomOf="@+id/generate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="centerInside"
-        android:contentDescription="@string/todo" />
+        <TextView
+            android:id="@+id/generate"
+            android:layout_width="@dimen/one_fifty_dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:padding="@dimen/four_dp"
+            android:textAlignment="center"
+            android:textColor="@color/purple_500"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/home_imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+        <!-- ImageView -->
+        <ImageView
+            android:id="@+id/home_imageView"
+            android:layout_width="@dimen/hundred_dp"
+            android:layout_height="@dimen/hundred_dp"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerInside"
+            android:src="@drawable/map"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/generate" />
+
         <LinearLayout
             android:id="@+id/my_card_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_imageView"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/buttonLayout"
-            android:orientation="vertical">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_imageView">
 
             <EditText
                 android:id="@+id/data_content_tv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty_dp"
-                android:windowSoftInputMode="adjustResize"
-                android:textColor="@color/black"
-                android:padding="@dimen/four_dp"
-                android:hint=""
                 android:layout_margin="@dimen/fab_margin"
                 android:autofillHints=""
+                android:hint=""
+                android:inputType="text"
+                android:padding="@dimen/four_dp"
+                android:textColor="@color/black"
+                android:windowSoftInputMode="adjustResize"
                 tools:ignore="LabelFor" />
 
 
             <EditText
                 android:id="@+id/my_card_phone_no_tv"
                 android:layout_width="match_parent"
-                android:visibility="gone"
                 android:layout_height="@dimen/fifty_dp"
-                android:padding="@dimen/four_dp"
-                android:nextFocusDown="@id/my_card_email_tv"
-                android:maxLength="10"
-                android:windowSoftInputMode="adjustResize"
-                android:inputType="phone"
-                android:textColor="@color/black"
                 android:layout_margin="@dimen/fab_margin"
                 android:importantForAutofill="no"
-                tools:ignore="LabelFor"/>
+                android:inputType="phone"
+                android:maxLength="10"
+                android:nextFocusDown="@id/my_card_email_tv"
+                android:padding="@dimen/four_dp"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:windowSoftInputMode="adjustResize"
+                tools:ignore="LabelFor" />
 
             <EditText
                 android:id="@+id/my_card_email_tv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty_dp"
-                android:padding="@dimen/four_dp"
-                android:visibility="gone"
-                android:textColor="@color/black"
-                android:nextFocusDown="@id/my_card_address_tv"
-                android:windowSoftInputMode="adjustResize"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
                 android:layout_margin="@dimen/fab_margin"
-                android:importantForAutofill="no">
-            </EditText>
+                android:hint="@string/email"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:nextFocusDown="@id/my_card_address_tv"
+                android:padding="@dimen/four_dp"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:windowSoftInputMode="adjustResize" />
+
             <EditText
                 android:id="@+id/my_card_address_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/four_dp"
-                android:visibility="gone"
-                android:textColor="@color/black"
-                android:windowSoftInputMode="adjustResize"
-                android:inputType="textMultiLine"
+                android:layout_margin="@dimen/fab_margin"
                 android:fitsSystemWindows="true"
-                android:overScrollMode="always"
-                android:scrollbarStyle="insideInset"
+                android:hint="@string/address"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
                 android:maxLines="5"
                 android:minLines="4"
-                android:hint="@string/address"
-                android:layout_margin="@dimen/fab_margin"
-                android:importantForAutofill="no">
-            </EditText>
+                android:overScrollMode="always"
+                android:padding="@dimen/four_dp"
+                android:scrollbarStyle="insideInset"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:windowSoftInputMode="adjustResize" />
 
         </LinearLayout>
 
-    <!-- Button Layout -->
-    <LinearLayout
-        android:id="@+id/buttonLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/fab_margin"
-        app:layout_constraintTop_toBottomOf="@+id/my_card_linear"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- First Button -->
-        <Button
-            android:id="@+id/create_qr_but"
-            android:layout_width="0dp"
-            android:textAllCaps="false"
-            android:background="@drawable/gradient"
+        <!-- Button Layout -->
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/four_dp"
-            android:layout_weight="1"
-            android:text="@string/qr_code"
-            tools:ignore="ButtonStyle" />
+            android:layout_marginTop="@dimen/fab_margin"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_card_linear">
 
-        <!-- Second Button -->
-        <Button
-            android:id="@+id/create_bar_code_but"
-            android:layout_width="0dp"
-            android:background="@drawable/gradient"
-            android:textAllCaps="false"
-            android:layout_margin="@dimen/four_dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/barcodeBtn"
-            tools:ignore="ButtonStyle" />
-    </LinearLayout>
+            <!-- First Button -->
+            <Button
+                android:id="@+id/create_qr_but"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/four_dp"
+                android:layout_weight="1"
+                android:background="@drawable/gradient"
+                android:text="@string/qr_code"
+                android:textAllCaps="false"
+                tools:ignore="ButtonStyle" />
+
+            <!-- Second Button -->
+            <Button
+                android:id="@+id/create_bar_code_but"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/four_dp"
+                android:layout_weight="1"
+                android:background="@drawable/gradient"
+                android:text="@string/barcodeBtn"
+                android:textAllCaps="false"
+                tools:ignore="ButtonStyle" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -21,7 +21,7 @@
 
     <!-- font sizes  -->
     <dimen name="font_sp">20sp</dimen>
-    <dimen name="twentyfive_sp">20sp</dimen>
+
     <dimen name="twenty_five_sp">25sp</dimen>
     <dimen name="thirty_sp">30sp</dimen>
     <dimen name="eleven_sp">11sp</dimen>
@@ -34,6 +34,10 @@
     <dimen name="ten_sp">10sp</dimen>
     <dimen name="sixty_dp">60dp</dimen>
     <dimen name="forty_eight_dp">48dp</dimen>
+    <dimen name="one_fifty_dp">150dp</dimen>
+    <dimen name="ten_dp">10dp</dimen>
+    <dimen name="fourty_five_dp">45dp</dimen>
+    <dimen name="fifteen_dp">15dp</dimen>
 
 
 </resources>
