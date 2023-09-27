@@ -58,25 +58,21 @@ public class CurrentLocationServices extends Service {
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
 
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(task -> {
-            Log.d(TAG_NAME,"krishna enter");
             if (task.isSuccessful() && task.getResult() != null) {
                 Location location = task.getResult();
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
-
-                Log.d("getLocat Values is  :", latitude + longitude + "");
-
+                Log.d(TAG_NAME,"getLocation Values is  :"+ latitude + longitude + "");
                 // Get address using Geocoder
                 getFullAddress(location);
             } else {
-
                 // Handle the case where location retrieval was unsuccessful
                 Exception exception = task.getException();
                 if (exception != null) {
-                    Log.e("Location Error", "Error: " + exception.getMessage());
+                    Log.e(TAG_NAME, "Location Error: " + exception.getMessage());
                     Toast.makeText(CurrentLocationServices.this.context, "location retrieval exception"+exception.getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.e("Location Error", "Unknown error occurred");
+                    Log.e(TAG_NAME, "Unknown error occurred");
                 }
 
                 Toast.makeText(context, "location retrieval exception", Toast.LENGTH_SHORT).show();
@@ -108,7 +104,7 @@ public class CurrentLocationServices extends Service {
             if (!addresses.isEmpty()) {
                 Address address = addresses.get(0);
                 String fullAddress = address.getAddressLine(0);
-                Log.d("LocationService", "full address service calss:" + fullAddress);
+                Log.d(TAG_NAME, "LocationService full address service calss:" + fullAddress);
 
                 // Send broadcast to MainActivity with the full address
                 Intent intent = new Intent(AppConstants.ACTION_ADDRESS);

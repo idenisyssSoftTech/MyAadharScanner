@@ -113,7 +113,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private final ActivityResultLauncher<String[]> multiPermissionLancher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
             result -> {
-                Log.d("vfdcs", "vfc" + result);
 
                 boolean allGranted = true;
                 for (String key : result.keySet()) {

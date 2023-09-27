@@ -61,6 +61,8 @@ public class EnterDetailsactivity extends AppCompatActivity {
         if(fullAddress != null) {
             if(homeTitle.equals(AppConstants.MYLOCATION)) {
                 data_content_tv.setText(fullAddress);
+                // Stop the service after receiving and processing the address
+                stopService(serviceIntent);
             }
         }else {
             showToast("broadcast not found address!...");
