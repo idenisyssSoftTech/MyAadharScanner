@@ -91,11 +91,17 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
-                int itemId = getItem(position).getId();
-                // scannedLivedData.deleteById(itemId);
-                showAlertDialog(itemId);
-                //update the fresh list of ArrayList data to recview
-                submitList(getCurrentList());
+//                int itemId = getItem(position).getId();
+//                // scannedLivedData.deleteById(itemId);
+//                showAlertDialog(itemId);
+//                //update the fresh list of ArrayList data to recview
+//                submitList(getCurrentList());
+                int positionToDelete = holder.getAdapterPosition();
+                if (positionToDelete != RecyclerView.NO_POSITION) {
+                    int itemId = getItem(positionToDelete).getId();
+                    // Call deleteById method to delete a specific item by its ID
+                    showAlertDialog(itemId);
+                }
             }
         });
 
@@ -121,6 +127,8 @@ public class HistoryAdapter extends ListAdapter<ScannedHistory, HistoryAdapter.M
         builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
             // When the user click yes button then app will close
             scannedLivedData.deleteById(itemId);
+            // The following line is important to automatically update the adapter
+            notifyItemRemoved(itemId);
             dialog.dismiss();
         });
         builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
