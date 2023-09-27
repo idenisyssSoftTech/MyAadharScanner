@@ -44,7 +44,7 @@ public class AppConstants {
     public static final String MYCARD = "Mycard";
     public static final String EMAIL = "Email";
     public static final String WHATSAPP = "Whatsapp";
-    public static final String URL = "URL";
+    public static final String URL = "Url";
     public static final String MYLOCATION = "My Location";
 
     public static final String ACTION_ADDRESS = "com.idenisyss.qrbarscanner.services.ACTION_ADDRESS";

@@ -11,6 +11,7 @@
             android:id="@+id/list_cardView"
             android:layout_width="@dimen/sixty_dp"
             android:layout_height="@dimen/sixty_dp"
+            android:contentDescription="@string/card_view"
             android:layout_gravity="center"
             app:cardCornerRadius="@dimen/thirty_dp"
             app:cardElevation="@dimen/four_dp">
@@ -33,9 +34,10 @@
     <TextView
         android:id="@+id/list_tv1"
         android:layout_marginTop="@dimen/four_dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:minHeight="@dimen/forty_eight_dp"
         android:textColor="@color/black"
         android:padding="@dimen/four_dp"
         android:textSize="@dimen/foruteen_sp" />

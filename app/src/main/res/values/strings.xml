@@ -90,5 +90,7 @@
     <string name="choose_qr">choose qr</string>
     <string name="qr_btn">qr btn</string>
     <string name="bar_btn">bar btn</string>
+    <string name="card_view">cardview</string>
+    <string name="passed_data">passed data</string>
 
 </resources>

@@ -15,10 +15,20 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+        signingConfigs {
+            release {
+                storeFile file('D:\\AndroidkeypathandFlutterinstallation\\androidkeystore\\myqrscan\\keystores\\update-keystore.jks')
+                storePassword 'soumya@16'
+                keyAlias 'Soumya'
+                keyPassword 'soumya@16'
+            }
+        }
+
 
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

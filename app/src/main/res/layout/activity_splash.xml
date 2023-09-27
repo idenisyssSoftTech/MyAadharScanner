@@ -39,7 +39,7 @@
         <CheckBox
             android:id="@+id/termsCheckbox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/forty_eight_dp"
             android:paddingTop="@dimen/four_dp"
             android:paddingBottom="@dimen/four_dp"
             android:layout_alignParentStart="true"
@@ -49,10 +49,11 @@
         <TextView
             android:id="@+id/termstextview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/forty_eight_dp"
             android:layout_toEndOf="@id/termsCheckbox"
             android:padding="@dimen/four_dp"
             android:layout_centerVertical="true"
+            android:gravity="center"
             android:text="@string/menu_terms_condition"
             android:textStyle="bold"
             android:focusable="true"

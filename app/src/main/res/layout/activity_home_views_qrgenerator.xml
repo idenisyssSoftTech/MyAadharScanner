@@ -55,6 +55,7 @@
                 android:layout_margin="@dimen/fab_margin"
                 android:autofillHints=""
                 android:hint=""
+                android:contentDescription="@string/passed_data"
                 android:inputType="text"
                 android:padding="@dimen/four_dp"
                 android:textColor="@color/black"

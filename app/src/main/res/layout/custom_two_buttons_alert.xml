@@ -17,7 +17,7 @@
         <TextView
             android:id="@+id/AlertTitle_Two"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fourty_five_dp"
+            android:layout_height="@dimen/forty_five_dp"
             android:layout_marginTop="@dimen/ten_dp"
             android:background="#B71F37"
             android:gravity="center"
