@@ -9,6 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:contentDescription="@string/todo"
         android:layout_height="wrap_content">
 
 
@@ -16,7 +17,7 @@
             android:id="@+id/scanner_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/todo"
+            android:contentDescription="@string/code_scan_view"
             app:autoFocusButtonPaddingHorizontal="@dimen/eighty_dp"
             app:autoFocusButtonPaddingVertical="@dimen/thirty_dp"
             app:autoFocusButtonPosition="topEnd"
@@ -78,7 +79,7 @@
                     android:id="@+id/barcodeBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/todo"
+                    android:contentDescription="@string/bar_btn"
                     android:padding="@dimen/four_dp"
                     android:src="@drawable/barcode_"
                     app:backgroundTint="@color/cardview_dark_background"
@@ -110,7 +111,7 @@
                     android:id="@+id/QRScannerBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/todo"
+                    android:contentDescription="@string/qr_btn"
                     android:src="@drawable/qr"
                     app:backgroundTint="@color/cardview_dark_background"
                     app:maxImageSize="@dimen/thirty_dp"
@@ -142,7 +143,7 @@
                     android:id="@+id/BtnchooseQR"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/todo"
+                    android:contentDescription="@string/choose_qr"
                     android:src="@drawable/gallery"
                     app:backgroundTint="@color/cardview_dark_background"
                     app:maxImageSize="@dimen/thirty_dp"
@@ -168,7 +169,7 @@
             android:layout_height="@dimen/forty_eight_dp"
             android:layout_marginTop="@dimen/twenty_dp"
             android:backgroundTint="@android:color/transparent"
-            android:contentDescription="@string/todo"
+            android:contentDescription="@string/cancel_scaner"
             android:src="@drawable/cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.044"

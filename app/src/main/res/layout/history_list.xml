@@ -64,7 +64,7 @@
             android:layout_width="@dimen/forty_eight_dp"
             android:layout_height="@dimen/forty_eight_dp"
             android:layout_margin="@dimen/five_dp"
-            android:contentDescription="@string/todo"
+            android:contentDescription="@string/delete_item"
             android:scaleType="center"
             android:src="@drawable/delete" />
 
@@ -74,7 +74,7 @@
             android:layout_width="@dimen/forty_eight_dp"
             android:layout_height="@dimen/forty_eight_dp"
             android:layout_margin="@dimen/nav_header_vertical_spacing"
-            android:contentDescription="@string/todo"
+            android:contentDescription="@string/arrow_item"
             android:scaleType="center"
             android:src="@drawable/arrow_forward" />
 

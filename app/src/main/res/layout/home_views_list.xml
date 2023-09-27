@@ -21,6 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_dp"
                 android:padding="@dimen/margin_dp"
+                android:importantForAccessibility="no"
                 android:scaleType="centerInside"
                 android:src="@drawable/qr_black"
                 android:contentDescription="@string/todo">

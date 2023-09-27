@@ -62,7 +62,7 @@
                 android:layout_width="@dimen/fifty_dp"
                 android:layout_height="@dimen/fifty_dp"
                 android:backgroundTint="@color/transparent"
-                android:contentDescription="@string/todo"
+                android:contentDescription="@string/copy_but"
                 android:src="@drawable/copy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
