@@ -56,11 +56,11 @@
                 android:autofillHints=""
                 android:hint=""
                 android:contentDescription="@string/passed_data"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:padding="@dimen/four_dp"
                 android:textColor="@color/black"
                 android:windowSoftInputMode="adjustResize"
-                tools:ignore="LabelFor" />
+                tools:ignore="ContentDescription,LabelFor" />
 
 
             <EditText

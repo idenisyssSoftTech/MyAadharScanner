@@ -15,6 +15,7 @@ public class AppConstants {
     public static final String ON_DESTROY = "On Destroy";
     public static final String QR_CODE = "QR Code";
     public static final String RESULT = "result";
+    public static final String IMAGE = "image";
     public static final String NO_DATA_FROM = "No Data from ";
     public static final String PLEASE_ENTER_TEXT = "Please Enter any text ";
 
@@ -48,6 +49,14 @@ public class AppConstants {
     public static final String MYLOCATION = "My Location";
 
     public static final String ACTION_ADDRESS = "com.idenisyss.qrbarscanner.services.ACTION_ADDRESS";
+    public static final String no_data_found = "No data found";
+    public static final String showDeleteTitle = "Confirm Deletion!...";
+    public static final String showDeleteMessage = "Are you sure you want to delete all data?";
+    public static final String showAlertTitle = "Alert !";
+    public static final String showAlertMessage = "Do you want to Delete ?";
+    public static final String showDialog_yes = "Yes";
+    public static final String showDialog_no = "No";
+    public static final String copy_Text = "Copied Text";
 
     public static final int REQUEST_CHECK_SETTING = 1001;
 

@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -159,13 +158,13 @@ public class EnterDetailsactivity extends AppCompatActivity {
                     layoutParams.height = newHeight;
                     data_content_tv.setLayoutParams(layoutParams);
                     data_content_tv.setPadding(space, space, space, space);
-                    data_content_tv.setGravity(Gravity.CENTER);
 
                     ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) data_content_tv.getLayoutParams();
                     marginLayoutParams.leftMargin = space; // Replace with your desired left margin in pixels
                     marginLayoutParams.topMargin = space+space; // Replace with your desired top margin in pixels
                     marginLayoutParams.rightMargin = space;
                     marginLayoutParams.bottomMargin = space;
+                    data_content_tv.setHint(getString(R.string.enter_location));
                     data_content_tv.setText(fullAddress);
                     Log.d(TAG_NAME, "full address main calss: " + fullAddress);
                     create_bar_code_but.setVisibility(View.GONE);
@@ -178,149 +177,143 @@ public class EnterDetailsactivity extends AppCompatActivity {
                 break;
         }
 
-        create_qr_but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String data = data_content_tv.getText().toString();
-                if (data.isEmpty()) {
-                    showError(getString(R.string.enter_value));
-                } else {
+        create_qr_but.setOnClickListener(v -> {
+            String data = data_content_tv.getText().toString();
+            if (data.isEmpty()) {
+                showError(getString(R.string.enter_value));
+            } else {
 
-                    switch (homeTitle) {
-                        case AppConstants.CLIPBOARD:
+                switch (homeTitle) {
+                    case AppConstants.CLIPBOARD:
+                        qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
+                        break;
+                    case AppConstants.CALL:
+                        if (Validation.isValidPhoneNumber(data)) {
                             qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
-                            break;
-                        case AppConstants.CALL:
-                            if (Validation.isValidPhoneNumber(data)) {
-                                qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
-                            }else {
-                                showError(getString(R.string.enter_validPhoneNo));
-                            }
-                            break;
-                        case AppConstants.FACEBOOK:
-                            qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
-                            break;
-                        case AppConstants.MESSAGE:
-                            qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
-                            break;
-                        case AppConstants.MYCARD:
-                            String myphoneno = my_card_phone_no_tv.getText().toString();
-                            String myemail = my_card_email_tv.getText().toString();
-                            String myadd = my_card_address_tv.getText().toString();
-                            if (!myphoneno.isEmpty() && !myemail.isEmpty() && !myadd.isEmpty()) {
-                                //checkPhonenumber & email is valid or not.
-                                if (Validation.isValidPhoneNumber(myphoneno) && Validation.isValidEmail(myemail)) {
-                                    String mycarddata = "Name : " + data + "\nPhone no : " + myphoneno + "\nEmail : " + myemail + "\nAddress : " + myadd;
-                                    qrBarcodeString(getApplicationContext(), mycarddata, AppConstants.QR_CODE);
-                                } else {
-                                    if (!Validation.isValidEmail(myemail)) {
-                                        my_card_email_tv.setError(getString(R.string.enter_validEmail));
-                                        my_card_email_tv.requestFocus();
-                                    }
-                                    if (!Validation.isValidPhoneNumber(myphoneno)) {
-                                        my_card_phone_no_tv.setError(getString(R.string.enter_validPhoneNo));
-                                        my_card_phone_no_tv.requestFocus();
-                                    }
-                                }
-
+                        }else {
+                            showError(getString(R.string.enter_validPhoneNo));
+                        }
+                        break;
+                    case AppConstants.FACEBOOK:
+                        qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
+                        break;
+                    case AppConstants.MESSAGE:
+                        qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
+                        break;
+                    case AppConstants.MYCARD:
+                        String myphoneno = my_card_phone_no_tv.getText().toString();
+                        String myemail = my_card_email_tv.getText().toString();
+                        String myadd = my_card_address_tv.getText().toString();
+                        if (!myphoneno.isEmpty() && !myemail.isEmpty() && !myadd.isEmpty()) {
+                            //checkPhonenumber & email is valid or not.
+                            if (Validation.isValidPhoneNumber(myphoneno) && Validation.isValidEmail(myemail)) {
+                                String mycarddata = "Name : " + data + "\nPhone no : " + myphoneno + "\nEmail : " + myemail + "\nAddress : " + myadd;
+                                qrBarcodeString(getApplicationContext(), mycarddata, AppConstants.QR_CODE);
                             } else {
-                                if (myphoneno.isEmpty()) {
-                                    my_card_phone_no_tv.setError(getString(R.string.empty_value));
-                                    my_card_phone_no_tv.requestFocus();
-                                }
-                                if (myemail.isEmpty()) {
-                                    my_card_email_tv.setError(getString(R.string.empty_value));
+                                if (!Validation.isValidEmail(myemail)) {
+                                    my_card_email_tv.setError(getString(R.string.enter_validEmail));
                                     my_card_email_tv.requestFocus();
                                 }
-                                if (myadd.isEmpty()) {
-                                    my_card_address_tv.setError(getString(R.string.empty_value));
-                                    my_card_address_tv.requestFocus();
+                                if (!Validation.isValidPhoneNumber(myphoneno)) {
+                                    my_card_phone_no_tv.setError(getString(R.string.enter_validPhoneNo));
+                                    my_card_phone_no_tv.requestFocus();
                                 }
                             }
-                            break;
-                        case AppConstants.EMAIL:
-                            if (Validation.isValidEmail(data)) {
-                                qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
-                            }else {
-                                showError(getString(R.string.enter_validEmail));
-                            }
 
-                            break;
-                        case AppConstants.WHATSAPP:
-                            qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
-                            break;
-                        case AppConstants.URL:
-                            if (Validation.isValidURL(data)) {
-                                qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
+                        } else {
+                            if (myphoneno.isEmpty()) {
+                                my_card_phone_no_tv.setError(getString(R.string.empty_value));
+                                my_card_phone_no_tv.requestFocus();
                             }
-                            else {
-                                showError(getString(R.string.enter_validURL));
+                            if (myemail.isEmpty()) {
+                                my_card_email_tv.setError(getString(R.string.empty_value));
+                                my_card_email_tv.requestFocus();
                             }
-                            break;
-                        default:
-                            //mylocation
+                            if (myadd.isEmpty()) {
+                                my_card_address_tv.setError(getString(R.string.empty_value));
+                                my_card_address_tv.requestFocus();
+                            }
+                        }
+                        break;
+                    case AppConstants.EMAIL:
+                        if (Validation.isValidEmail(data)) {
                             qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
-                            stopService(serviceIntent);
-                            break;
-                    }
+                        }else {
+                            showError(getString(R.string.enter_validEmail));
+                        }
+
+                        break;
+                    case AppConstants.WHATSAPP:
+                        qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
+                        break;
+                    case AppConstants.URL:
+                        if (Validation.isValidURL(data)) {
+                            qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
+                        }
+                        else {
+                            showError(getString(R.string.enter_validURL));
+                        }
+                        break;
+                    default:
+                        //mylocation
+                        qrBarcodeString(getApplicationContext(), data, AppConstants.QR_CODE);
+                        stopService(serviceIntent);
+                        break;
                 }
             }
         });
 
-        create_bar_code_but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String data = data_content_tv.getText().toString();
-                if (!data.isEmpty()) {
-                    switch (homeTitle) {
+        create_bar_code_but.setOnClickListener(v -> {
+            String data = data_content_tv.getText().toString();
+            if (!data.isEmpty()) {
+                switch (homeTitle) {
 
-                        case AppConstants.CLIPBOARD:
+                    case AppConstants.CLIPBOARD:
+                        qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
+                        break;
+                    case AppConstants.CALL:
+                        if (Validation.isValidPhoneNumber(data)) {
                             qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
-                            break;
-                        case AppConstants.CALL:
-                            if (Validation.isValidPhoneNumber(data)) {
-                                qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
-                            }
+                        }
 
-                            break;
-                        case AppConstants.FACEBOOK:
+                        break;
+                    case AppConstants.FACEBOOK:
+                        qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
+                        break;
+                    case AppConstants.MESSAGE:
+                        qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
+                        break;
+                    case AppConstants.MYCARD:
+
+                        break;
+                    case AppConstants.EMAIL:
+                        if (Validation.isValidEmail(data)) {
                             qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
-                            break;
-                        case AppConstants.MESSAGE:
+                        }
+                        else{
+                            showError(getString(R.string.enter_validEmail));
+                        }
+
+                        break;
+                    case AppConstants.WHATSAPP:
+                        qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
+                        break;
+                    case AppConstants.URL:
+                        if (Validation.isValidURL(data)) {
                             qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
-                            break;
-                        case AppConstants.MYCARD:
+                        }  else {
+                            showError(getString(R.string.enter_validURL));
+                        }
+                        break;
 
-                            break;
-                        case AppConstants.EMAIL:
-                            if (Validation.isValidEmail(data)) {
-                                qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
-                            }
-                            else{
-                                showError(getString(R.string.enter_validEmail));
-                            }
-
-                            break;
-                        case AppConstants.WHATSAPP:
-                            qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
-                            break;
-                        case AppConstants.URL:
-                            if (Validation.isValidURL(data)) {
-                                qrBarcodeString(getApplicationContext(), data, AppConstants.BARCODE);
-                            }  else {
-                                showError(getString(R.string.enter_validURL));
-                            }
-                            break;
-
-                        default:
-                            //mylocation
-                            break;
-                    }
-
-                } else {
-                    showError(getString(R.string.enter_value));
-
+                    default:
+                        //mylocation
+                        break;
                 }
+
+            } else {
+                showError(getString(R.string.enter_value));
+
             }
         });
     }
@@ -388,6 +381,8 @@ public class EnterDetailsactivity extends AppCompatActivity {
                     data_content_tv.setText("");
                     showToast(getString(R.string.GPS_OFF));
                 }
+            }else {
+                startLocationServiceAndSetAddress();
             }
 
             }else {

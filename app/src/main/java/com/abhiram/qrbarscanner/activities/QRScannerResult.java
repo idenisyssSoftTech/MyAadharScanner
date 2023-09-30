@@ -104,7 +104,7 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
         QRResult.setMovementMethod(new ScrollingMovementMethod());
         titleQRResult.setText(code_type);
         // Retrieve the image byte array from the intent
-        imageByteArray =getIntent().getByteArrayExtra("image");
+        imageByteArray =getIntent().getByteArrayExtra(AppConstants.IMAGE);
         if (imageByteArray != null) {
             // Convert the byte array back to a Bitmap and set it in the ImageView
             imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
@@ -112,6 +112,7 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -136,7 +137,7 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
     // copy Result value to ClipBoard...
     private void copyData(String textToCopy) {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("Copied Text", textToCopy);
+        ClipData clip = ClipData.newPlainText(AppConstants.copy_Text, textToCopy);
         if (clipboard != null) {
             clipboard.setPrimaryClip(clip);
             Toast.makeText(this, "Text copied to clipboard", Toast.LENGTH_SHORT).show();
@@ -144,10 +145,8 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
     }
 
     private void shareImage() {
-        Log.d(TAG_NAME,"krishnaStart");
         // Save the Bitmap to a temporary file
         File tempFile = Validation.saveBitmapToFile(this,imageBitmap);
-        // Get a content URI for the temporary file using FileProvider
         Uri contentUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, tempFile);
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
@@ -158,7 +157,7 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
     private void saveQRImage() {
         if (result != null) {
             Date currentDate = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+            SimpleDateFormat dateFormat = new SimpleDateFormat(AppConstants.DATETIME_PATTERN, Locale.getDefault());
             // Format the current date and time as a string
             String formattedDate = dateFormat.format(currentDate);
             ScannedHistory hm = new ScannedHistory();
@@ -173,7 +172,6 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(QRScannerResult.this, AppConstants.NO_DATA_FROM+AppConstants.QR_CODE, Toast.LENGTH_SHORT).show();
         }
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -185,5 +183,4 @@ public class QRScannerResult extends AppCompatActivity implements View.OnClickLi
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

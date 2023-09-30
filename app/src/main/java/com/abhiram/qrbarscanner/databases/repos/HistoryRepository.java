@@ -1,6 +1,7 @@
 package com.abhiram.qrbarscanner.databases.repos;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -43,9 +44,23 @@ public class HistoryRepository {
         });
     }
     public void deleteById(int id) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            scanHistoryDAO.deleteById(id);
-        });
+//        AppDatabase.databaseWriteExecutor.execute(() -> {
+//            scanHistoryDAO.deleteById(id);
+//        });
+        new DeleteAsyncTask(scanHistoryDAO).execute(id);
+    }
+    private static class DeleteAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private final ScanHistoryDAO yourDao;
+
+        private DeleteAsyncTask(ScanHistoryDAO yourDao) {
+            this.yourDao = yourDao;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... ids) {
+            yourDao.deleteById(ids[0]);
+            return null;
+        }
     }
     public void deleteAll() {
         new Thread(new Runnable() {
