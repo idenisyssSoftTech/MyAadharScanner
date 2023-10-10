@@ -8,7 +8,7 @@ android {
     signingConfigs {
         config {
             keyAlias 'Soumya'
-            storeFile file('D:/Idenisyss_Application/QrBarScanner_app/keystore/qrbarscanner/qrbarscanner.jks')
+            storeFile file('D:/Idenisyss_Application/QrBarScanner1/keystore/qrbarscanner/qrbarscanner.jks')
             keyPassword 'soumya@16'
             storePassword 'soumya@16'
         }

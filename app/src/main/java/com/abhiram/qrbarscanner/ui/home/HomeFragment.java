@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
@@ -160,20 +159,7 @@ public class HomeFragment extends Fragment {
                     }
                 }
             } else {
-                // Android 10 and above, file access permissions are handled differently
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    if (Environment.isExternalStorageManager()) {
-                        // If you don't have access, launch a new activity to show the user the system's dialog
-                        // to allow access to the external storage
-                        isGranted = true;
-                    } else {
-                        Intent intent = new Intent();
-                        intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                        Uri uri = Uri.fromParts("package", requireContext().getPackageName(), null);
-                        intent.setData(uri);
-                        startActivity(intent);
-                    }
-                }
+                isGranted = true;
             }
 
         }else {
@@ -196,22 +182,19 @@ public class HomeFragment extends Fragment {
     }
 
     private final ActivityResultLauncher<String[]> multiPermissionLancher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
-            new ActivityResultCallback<Map<String, Boolean>>() {
-        @Override
-        public void onActivityResult(Map<String, Boolean> result) {
-            boolean allGranted = true;
-            for (String key : result.keySet()) {
-                allGranted = allGranted && Boolean.TRUE.equals(result.get(key));
-            }
-            if (allGranted) {
-                Log.d(TAG_NAME,"ALL Permissions granted");
-            } else {
-                showPermissionSettingsDialog();
-                Log.d(TAG_NAME,"showPermissionSettingsDialog();\n");
-            }
+            result -> {
+                boolean allGranted = true;
+                for (String key : result.keySet()) {
+                    allGranted = allGranted && Boolean.TRUE.equals(result.get(key));
+                }
+                if (allGranted) {
+                    Log.d(TAG_NAME,"ALL Permissions granted");
+                } else {
+                    showPermissionSettingsDialog();
+                    Log.d(TAG_NAME,"showPermissionSettingsDialog();\n");
+                }
 
-        }
-    });
+            });
 
 
     private void showPermissionRationaleDialog() {

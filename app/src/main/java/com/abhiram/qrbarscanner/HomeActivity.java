@@ -7,7 +7,6 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
@@ -74,22 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         boolean isGranted = false;
         if(PermissionUtils.hasCameraPermission(this)){
             PermissionUtils.checkGPSEnabled(this);
-            // If you have access to the external storage, do whatever you need
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    // If you don't have access, launch a new activity to show the user the system's dialog
-                    // to allow access to the external storage
-
-                    isGranted = true;
-                } else {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    Uri uri = Uri.fromParts("package", this.getPackageName(), null);
-                    intent.setData(uri);
-                    startActivity(intent);
-                }
-            }
-
+            isGranted = true;
         }else {
             if(shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA) ||
                     shouldShowRequestPermissionRationale(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
