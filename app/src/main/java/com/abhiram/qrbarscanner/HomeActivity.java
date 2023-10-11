@@ -76,7 +76,6 @@ public class HomeActivity extends AppCompatActivity {
             isGranted = true;
         }else {
             if(shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA) ||
-                    shouldShowRequestPermissionRationale(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
                     shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) ||
                     shouldShowRequestPermissionRationale(android.Manifest.permission.READ_MEDIA_IMAGES) ||
                     shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) ||
@@ -87,8 +86,8 @@ public class HomeActivity extends AppCompatActivity {
                     multiPermissionLancher.launch(new String[] {android.Manifest.permission.CAMERA, android.Manifest.permission.READ_MEDIA_IMAGES,
                             android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION});
                 }else {
-                    multiPermissionLancher.launch(new String[] {android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
+                    multiPermissionLancher.launch(new String[] {android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                 }
             }
         }
@@ -119,8 +118,8 @@ public class HomeActivity extends AppCompatActivity {
                         multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES,
                                 Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                     }else {
-                        multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
+                        multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                     }
                 }, getString(R.string.cancel),null);
     }

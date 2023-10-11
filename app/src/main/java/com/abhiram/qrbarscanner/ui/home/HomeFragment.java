@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -40,7 +39,7 @@ import com.abhiram.qrbarscanner.utilities.PermissionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
     private static final String TAG_NAME = HomeFragment.class.getName();
@@ -146,10 +145,9 @@ public class HomeFragment extends Fragment {
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
 
                 // Check if the Android version is below Android 10 (API level 29)
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                        || ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(requireActivity(),
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             REQUEST_CODE); // Replace REQUEST_CODE with an appropriate request code
                 } else {
                     // Permissions are already granted, you can proceed with file access
@@ -165,7 +163,6 @@ public class HomeFragment extends Fragment {
         }else {
             Log.d(TAG_NAME,"checkPermissionMethod");
             if(shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) ||
-                shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
                 shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) ||
                 shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_IMAGES)){
                 showPermissionRationaleDialog();
@@ -173,8 +170,7 @@ public class HomeFragment extends Fragment {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES});
                 }else {
-                    multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE});
+                    multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE});
                 }
             }
         }
@@ -205,8 +201,7 @@ public class HomeFragment extends Fragment {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES});
                     }else {
-                        multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE});
+                        multiPermissionLancher.launch(new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE});
                     }
                 }, getString(R.string.cancel),null);
     }

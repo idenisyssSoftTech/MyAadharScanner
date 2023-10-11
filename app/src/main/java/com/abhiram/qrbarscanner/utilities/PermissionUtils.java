@@ -37,7 +37,6 @@ public class PermissionUtils {
         }
         else {
          return ((ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) &&
-                 (ContextCompat.checkSelfPermission(context,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
                  (ContextCompat.checkSelfPermission(context,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
                  (ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
                  (ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED));
@@ -56,7 +55,6 @@ public class PermissionUtils {
         }
         else {
             return ((ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) &&
-                    (ContextCompat.checkSelfPermission(context,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
                     (ContextCompat.checkSelfPermission(context,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED));
         }
     }
@@ -81,31 +79,28 @@ public class PermissionUtils {
 
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
-        builder.setAlwaysShow(true);;
+        builder.setAlwaysShow(true);
 
         Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(context)
                 .checkLocationSettings(builder.build());
-        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
-            @Override
-            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
-                try {
-                    LocationSettingsResponse response =task.getResult(ApiException.class);
+        result.addOnCompleteListener(task -> {
+            try {
+                LocationSettingsResponse response =task.getResult(ApiException.class);
 //                    Toast.makeText(context, "Gps in On", Toast.LENGTH_SHORT).show();
-                } catch (ApiException e) {
+            } catch (ApiException e) {
 
-                    switch (e.getStatusCode()){
-                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                            try {
-                                ResolvableApiException resolvableApiException =(ResolvableApiException) e;
-                                resolvableApiException.startResolutionForResult((Activity) context,PERMISSION_REQUEST_CODE);
+                switch (e.getStatusCode()){
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        try {
+                            ResolvableApiException resolvableApiException =(ResolvableApiException) e;
+                            resolvableApiException.startResolutionForResult((Activity) context,PERMISSION_REQUEST_CODE);
 
-                            }catch (IntentSender.SendIntentException ex){
-                                ex.printStackTrace();
-                            }
-                            break;
-                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                            break;
-                    }
+                        }catch (IntentSender.SendIntentException ex){
+                            ex.printStackTrace();
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        break;
                 }
             }
         });
