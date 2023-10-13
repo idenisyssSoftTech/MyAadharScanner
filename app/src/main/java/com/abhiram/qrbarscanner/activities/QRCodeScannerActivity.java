@@ -250,6 +250,10 @@ public class QRCodeScannerActivity extends AppCompatActivity implements View.OnC
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
+//        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//        intent.addCategory(Intent.CATEGORY_OPENABLE);
+//        intent.setType("image/*");
+//        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     @Override
